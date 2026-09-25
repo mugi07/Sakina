@@ -1,0 +1,345 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for French (`fr`).
+class AppLocalizationsFr extends AppLocalizations {
+  AppLocalizationsFr([String locale = 'fr']) : super(locale);
+
+  @override
+  String get appTitle => 'Sakina';
+
+  @override
+  String get navHome => 'Accueil';
+
+  @override
+  String get navQuran => 'Coran';
+
+  @override
+  String get navPrayer => 'Prière';
+
+  @override
+  String get navAdhkar => 'Adhkar';
+
+  @override
+  String get navMore => 'Plus';
+
+  @override
+  String get comingSoon => 'Bientôt';
+
+  @override
+  String get comingSoonBody => 'Cette section arrive dans une prochaine version, in cha Allah.';
+
+  @override
+  String get retry => 'Réessayer';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get automatic => 'Automatique';
+
+  @override
+  String get system => 'Système';
+
+  @override
+  String get loadError => 'Une erreur est survenue lors du chargement.';
+
+  @override
+  String get homeGreeting => 'As-salamu alaykum';
+
+  @override
+  String get continueReading => 'Continuer la lecture';
+
+  @override
+  String continueReadingSurah(String name) {
+    return 'Sourate $name';
+  }
+
+  @override
+  String get prayerFajr => 'Fajr';
+
+  @override
+  String get prayerSunrise => 'Lever du soleil';
+
+  @override
+  String get prayerDhuhr => 'Dhuhr';
+
+  @override
+  String get prayerAsr => 'Asr';
+
+  @override
+  String get prayerMaghrib => 'Maghrib';
+
+  @override
+  String get prayerIsha => 'Isha';
+
+  @override
+  String get prayerTimesTitle => 'Horaires de prière';
+
+  @override
+  String get nextPrayer => 'Prochaine prière';
+
+  @override
+  String timeRemaining(String duration) {
+    return 'dans $duration';
+  }
+
+  @override
+  String get today => 'Aujourd\'hui';
+
+  @override
+  String get previousDay => 'Jour précédent';
+
+  @override
+  String get nextDay => 'Jour suivant';
+
+  @override
+  String get chooseLocation => 'Choisir un lieu';
+
+  @override
+  String get changeLocation => 'Changer de lieu';
+
+  @override
+  String get noLocationTitle => 'Où êtes-vous ?';
+
+  @override
+  String get noLocationBody =>
+      'Choisissez votre ville pour calculer les horaires de prière et la direction de la Qibla.';
+
+  @override
+  String methodSummary(String method) {
+    return 'Méthode : $method';
+  }
+
+  @override
+  String asrSummary(String madhab) {
+    return 'Asr : $madhab';
+  }
+
+  @override
+  String get qiblaTitle => 'Direction de la Qibla';
+
+  @override
+  String qiblaBearing(String degrees) {
+    return '$degrees° depuis le nord';
+  }
+
+  @override
+  String qiblaDistance(String km) {
+    return '$km km jusqu\'à la Kaaba';
+  }
+
+  @override
+  String get qiblaHint =>
+      'Repérez le nord, puis tournez de cet angle dans le sens des aiguilles d\'une montre. La boussole en direct arrive bientôt.';
+
+  @override
+  String get locationTitle => 'Choisir un lieu';
+
+  @override
+  String get searchCityHint => 'Rechercher une ville…';
+
+  @override
+  String get useMyLocation => 'Utiliser ma position actuelle';
+
+  @override
+  String get locating => 'Localisation en cours…';
+
+  @override
+  String get locationServiceDisabled => 'La localisation est désactivée sur votre téléphone.';
+
+  @override
+  String get locationPermissionDenied =>
+      'L\'accès à la position a été refusé. Vous pouvez choisir une ville à la main.';
+
+  @override
+  String get locationError => 'Impossible d\'obtenir votre position.';
+
+  @override
+  String get myPosition => 'Ma position';
+
+  @override
+  String get noCityFound => 'Aucune ville trouvée.';
+
+  @override
+  String get searchCityPrompt => 'Tapez au moins 2 lettres.';
+
+  @override
+  String get quranTitle => 'Le Saint Coran';
+
+  @override
+  String get meccan => 'Mecquoise';
+
+  @override
+  String get medinan => 'Médinoise';
+
+  @override
+  String ayahCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count versets',
+      one: '1 verset',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get moreTitle => 'Plus';
+
+  @override
+  String get hadith => 'Hadiths';
+
+  @override
+  String get tasbih => 'Tasbih';
+
+  @override
+  String get asmaUlHusna => 'Les 99 noms d\'Allah';
+
+  @override
+  String get hijriCalendar => 'Calendrier hégirien';
+
+  @override
+  String get settingsTitle => 'Réglages';
+
+  @override
+  String get sourcesTitle => 'Sources et licences';
+
+  @override
+  String get softwareLicenses => 'Licences des logiciels';
+
+  @override
+  String get sectionGeneral => 'Général';
+
+  @override
+  String get language => 'Langue';
+
+  @override
+  String get theme => 'Thème';
+
+  @override
+  String get themeLight => 'Clair';
+
+  @override
+  String get themeDark => 'Sombre';
+
+  @override
+  String get sectionPrayer => 'Horaires de prière';
+
+  @override
+  String get calculationMethod => 'Méthode de calcul';
+
+  @override
+  String autoMethod(String method) {
+    return 'Automatique : $method';
+  }
+
+  @override
+  String get asrMethod => 'Calcul de l\'Asr';
+
+  @override
+  String get asrStandard => 'Standard (chaféite, malékite, hanbalite)';
+
+  @override
+  String get asrHanafi => 'Hanafite';
+
+  @override
+  String get highLatitudeRule => 'Hautes latitudes';
+
+  @override
+  String get hlrMiddleOfTheNight => 'Milieu de la nuit';
+
+  @override
+  String get hlrSeventhOfTheNight => 'Septième de la nuit';
+
+  @override
+  String get hlrTwilightAngle => 'Angle du crépuscule';
+
+  @override
+  String get hijriAdjustment => 'Ajustement du calendrier hégirien';
+
+  @override
+  String hijriAdjustmentValue(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days jours',
+      one: '1 jour',
+      zero: 'Aucun',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get sectionQuran => 'Coran';
+
+  @override
+  String get translation => 'Traduction';
+
+  @override
+  String get translationAuto => 'Selon la langue de l\'app';
+
+  @override
+  String get translationNone => 'Aucune';
+
+  @override
+  String get arabicFontSize => 'Taille du texte arabe';
+
+  @override
+  String anglesFajrIsha(String fajr, String isha) {
+    return 'Fajr $fajr° · Isha $isha°';
+  }
+
+  @override
+  String anglesFajrIshaInterval(String fajr, int minutes) {
+    return 'Fajr $fajr° · Isha $minutes min après le Maghrib';
+  }
+
+  @override
+  String calcMethodName(String method) {
+    String _temp0 = intl.Intl.selectLogic(method, {
+      'algerian': 'Algérie (ministère des Affaires religieuses)',
+      'dubai': 'Dubaï',
+      'egyptian': 'Égypte (Autorité générale d\'arpentage)',
+      'france': 'France (UOIF)',
+      'gulfRegion': 'Région du Golfe',
+      'indonesian': 'Indonésie (KEMENAG)',
+      'jafari': 'Ja\'fari (Qom)',
+      'jordan': 'Jordanie',
+      'karachi': 'Karachi (Université des sciences islamiques)',
+      'kuwait': 'Koweït',
+      'moonsightingCommittee': 'Moonsighting Committee',
+      'morocco': 'Maroc (ministère des Habous)',
+      'muslimWorldLeague': 'Ligue islamique mondiale',
+      'northAmerica': 'Amérique du Nord (ISNA)',
+      'portugal': 'Portugal (Communauté islamique de Lisbonne)',
+      'qatar': 'Qatar',
+      'russia': 'Russie',
+      'singapore': 'Singapour (MUIS)',
+      'tehran': 'Téhéran',
+      'tunisia': 'Tunisie',
+      'turkiye': 'Turquie (Diyanet)',
+      'ummAlQura': 'Umm al-Qura (La Mecque)',
+      'other': 'Personnalisée',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get sourcesIntro =>
+      'Le contenu de Sakina provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.';
+
+  @override
+  String get privacyNote =>
+      'Sakina fonctionne entièrement sur votre téléphone : aucune donnée n\'est collectée ni envoyée.';
+
+  @override
+  String get tanzilNoticeTitle => 'Avis de copyright Tanzil';
+
+  @override
+  String get fontsTitle => 'Polices';
+}

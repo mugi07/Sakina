@@ -1,0 +1,78 @@
+-- Schéma de content.sqlite (base de contenu en lecture seule).
+--
+-- Ce fichier est la source unique du schéma : Drift en génère le code Dart,
+-- et tool/content_pipeline l'exécute tel quel pour construire la base.
+-- Il ne doit donc contenir que du SQL SQLite standard (pas de syntaxe Drift).
+
+CREATE TABLE meta_entries (
+  "key" TEXT NOT NULL PRIMARY KEY,
+  value TEXT NOT NULL
+);
+
+CREATE TABLE surahs (
+  id INTEGER NOT NULL PRIMARY KEY,
+  name_ar TEXT NOT NULL,
+  name_translit TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  revelation_type TEXT NOT NULL,
+  revelation_order INTEGER NOT NULL,
+  ayah_count INTEGER NOT NULL,
+  first_ayah_id INTEGER NOT NULL
+);
+
+-- id : numéro global du verset (1..6236) dans l'ordre du mushaf.
+-- text_uthmani : texte Tanzil verbatim (ne jamais le modifier).
+-- text_search : texte Tanzil « simple-clean » normalisé, pour la recherche.
+-- hizb_quarter : 1..240 (60 hizb × 4 quarts) ; page : 1..604 (mushaf de Médine).
+CREATE TABLE ayahs (
+  id INTEGER NOT NULL PRIMARY KEY,
+  surah INTEGER NOT NULL REFERENCES surahs (id),
+  number INTEGER NOT NULL,
+  text_uthmani TEXT NOT NULL,
+  text_search TEXT NOT NULL,
+  juz INTEGER NOT NULL,
+  hizb_quarter INTEGER NOT NULL,
+  page INTEGER NOT NULL,
+  sajda TEXT
+);
+
+CREATE UNIQUE INDEX ayahs_surah_number ON ayahs (surah, number);
+CREATE INDEX ayahs_page ON ayahs (page);
+
+CREATE TABLE translation_editions (
+  id TEXT NOT NULL PRIMARY KEY,
+  language TEXT NOT NULL,
+  name TEXT NOT NULL,
+  translator TEXT NOT NULL
+);
+
+CREATE TABLE ayah_translations (
+  ayah_id INTEGER NOT NULL REFERENCES ayahs (id),
+  edition TEXT NOT NULL REFERENCES translation_editions (id),
+  content TEXT NOT NULL,
+  PRIMARY KEY (ayah_id, edition)
+) WITHOUT ROWID;
+
+CREATE TABLE countries (
+  code TEXT NOT NULL PRIMARY KEY,
+  name_en TEXT NOT NULL,
+  name_fr TEXT,
+  name_ar TEXT
+);
+
+-- search_key : noms (défaut, FR, AR) normalisés et concaténés, pour LIKE.
+CREATE TABLE cities (
+  id INTEGER NOT NULL PRIMARY KEY,
+  name TEXT NOT NULL,
+  name_fr TEXT,
+  name_ar TEXT,
+  country_code TEXT NOT NULL REFERENCES countries (code),
+  latitude REAL NOT NULL,
+  longitude REAL NOT NULL,
+  timezone TEXT NOT NULL,
+  population INTEGER NOT NULL,
+  search_key TEXT NOT NULL
+);
+
+CREATE INDEX cities_population ON cities (population DESC);
+CREATE INDEX cities_latitude ON cities (latitude);

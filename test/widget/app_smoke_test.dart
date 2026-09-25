@@ -1,0 +1,118 @@
+import 'dart:io';
+
+import 'package:drift/drift.dart' show driftRuntimeOptions;
+import 'package:drift/native.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:sakina/app/app.dart';
+import 'package:sakina/core/database/content_database.dart';
+import 'package:sakina/core/providers.dart';
+import 'package:sakina/core/settings/app_settings.dart';
+import 'package:sakina/features/prayer_times/presentation/prayer_times_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezone/data/latest_all.dart' as tzdata;
+
+/// Lance l'app complète avec la vraie base de contenu.
+Future<ContentDatabase> _pumpApp(WidgetTester tester, {String? settingsJson}) async {
+  SharedPreferences.setMockInitialValues({'settings.v1': ?settingsJson});
+  final prefs = await SharedPreferences.getInstance();
+  final db = ContentDatabase(
+    NativeDatabase(
+      File('assets/db/content.sqlite'),
+      setup: (raw) => raw.execute('PRAGMA query_only = ON'),
+    ),
+  );
+  await tester.pumpWidget(
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(prefs),
+        contentDatabaseProvider.overrideWithValue(db),
+      ],
+      child: const SakinaApp(),
+    ),
+  );
+  await _settle(tester);
+  return db;
+}
+
+/// L'horloge tique chaque seconde : pumpAndSettle ne se stabiliserait jamais.
+Future<void> _settle(WidgetTester tester) async {
+  for (var i = 0; i < 5; i++) {
+    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 20)));
+    await tester.pump(const Duration(milliseconds: 100));
+  }
+}
+
+Future<void> _unmount(WidgetTester tester, ContentDatabase db) async {
+  await tester.pumpWidget(const SizedBox());
+  await tester.runAsync(db.close);
+}
+
+const _casablanca =
+    '{"language":"fr","location":{"latitude":33.5883,"longitude":-7.6114,'
+    '"timezone":"Africa/Casablanca","countryCode":"MA","name":"Casablanca",'
+    '"nameAr":"الدار البيضاء","countryNameEn":"Morocco","countryNameFr":"Maroc",'
+    '"countryNameAr":"المغرب"}}';
+
+void main() {
+  setUpAll(() {
+    tzdata.initializeTimeZones();
+    driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
+  });
+
+  testWidgets('sans lieu : l\'app invite à choisir une ville', (tester) async {
+    final db = await _pumpApp(tester, settingsJson: '{"language":"fr"}');
+    expect(find.text('Accueil'), findsOneWidget);
+    expect(find.text('Où êtes-vous ?'), findsOneWidget);
+    await _unmount(tester, db);
+  });
+
+  testWidgets('avec Casablanca : horaires, méthode du Maroc et Qibla', (tester) async {
+    final db = await _pumpApp(tester, settingsJson: _casablanca);
+    expect(find.text('Prochaine prière'), findsOneWidget);
+
+    await tester.tap(find.text('Prière'));
+    await _settle(tester);
+    expect(find.text('Horaires de prière'), findsOneWidget);
+    expect(find.text('Lever du soleil'), findsOneWidget);
+    final list = find
+        .descendant(of: find.byType(PrayerTimesScreen), matching: find.byType(Scrollable))
+        .first;
+    await tester.scrollUntilVisible(
+      find.textContaining('Maroc (ministère des Habous)'),
+      200,
+      scrollable: list,
+    );
+    await tester.scrollUntilVisible(find.text('Direction de la Qibla'), 200, scrollable: list);
+    expect(find.textContaining('° depuis le nord'), findsOneWidget);
+    await _unmount(tester, db);
+  });
+
+  testWidgets('Coran : liste des sourates puis lecture d\'Al-Fatiha', (tester) async {
+    final db = await _pumpApp(tester, settingsJson: '{"language":"fr"}');
+    await tester.tap(find.text('Coran'));
+    await _settle(tester);
+    expect(find.text('Al-Faatiha'), findsOneWidget);
+
+    await tester.tap(find.text('Al-Faatiha'));
+    await _settle(tester);
+    // Traduction française affichée automatiquement.
+    expect(find.textContaining("1. Au nom d'Allah"), findsOneWidget);
+    await _unmount(tester, db);
+  });
+
+  testWidgets('en arabe, l\'interface passe de droite à gauche', (tester) async {
+    final db = await _pumpApp(tester, settingsJson: '{"language":"ar"}');
+    expect(find.text('الرئيسية'), findsOneWidget);
+    final context = tester.element(find.text('الرئيسية'));
+    expect(Directionality.of(context), TextDirection.rtl);
+    await _unmount(tester, db);
+  });
+
+  test('les réglages survivent à un aller-retour JSON', () {
+    const settings = AppSettings(language: AppLanguage.ar, hijriAdjustment: -1, lastReadSurah: 18);
+    final back = AppSettings.fromJson(settings.toJson());
+    expect((back.language, back.hijriAdjustment, back.lastReadSurah), (AppLanguage.ar, -1, 18));
+  });
+}

@@ -1,0 +1,32 @@
+import 'content_schema.drift';
+
+metaValue: SELECT value FROM meta_entries WHERE "key" = :key;
+
+-- Basmala telle qu'écrite dans Tanzil (verset 1:1), affichée en en-tête.
+basmala: SELECT text_uthmani FROM ayahs WHERE id = 1;
+
+allSurahs: SELECT * FROM surahs ORDER BY id;
+
+surahById: SELECT * FROM surahs WHERE id = :id;
+
+ayahsOfSurah:
+  SELECT a.**, t.content AS translation
+  FROM ayahs a
+  LEFT JOIN ayah_translations t ON t.ayah_id = a.id AND t.edition = :edition
+  WHERE a.surah = :surah
+  ORDER BY a.number;
+
+searchCities:
+  SELECT c.**, co.**
+  FROM cities c
+  INNER JOIN countries co ON co.code = c.country_code
+  WHERE c.search_key LIKE :pattern
+  ORDER BY c.population DESC
+  LIMIT :limit;
+
+citiesInBox:
+  SELECT c.**, co.**
+  FROM cities c
+  INNER JOIN countries co ON co.code = c.country_code
+  WHERE c.latitude BETWEEN :minLat AND :maxLat
+    AND c.longitude BETWEEN :minLng AND :maxLng;
