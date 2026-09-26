@@ -174,5 +174,11 @@
   "adhkarReminderBodyEvening": "خصّص دقائق لأذكار المساء.",
   "adhkarReminders": "تذكير بأذكار الصباح والمساء",
   "adhkarRemindersHint": "بعد الفجر وبعد العصر بـ 30 دقيقة",
-  "share": "مشاركة"
+  "share": "مشاركة",
+  "quranSearchHint": "ابحث في القرآن…",
+  "tabBookmarks": "العلامات",
+  "noBookmarks": "لا توجد علامات. المس آية في المصحف ثم أيقونة العلامة.",
+  "bookmarkAdd": "إضافة علامة",
+  "bookmarkRemove": "إزالة العلامة",
+  "searchResultsCount": "{count, plural, =0{لا توجد نتائج} =1{آية واحدة} =2{آيتان} few{{count} آيات} many{{count} آية} other{{count} آية}}"
 }

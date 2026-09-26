@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/database/hadith_database.dart';
+import '../../../core/text/search_normalizer.dart';
 import '../../../core/widgets/coming_soon.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../quran/presentation/quran_index_screen.dart';

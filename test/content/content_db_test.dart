@@ -78,9 +78,27 @@ void main() {
     }
   });
 
-  test('deux traductions complètes', () {
+  test('traductions et tafsir complets', () {
     final rows = db.select('SELECT edition, count(*) AS n FROM ayah_translations GROUP BY edition');
-    expect({for (final r in rows) r['edition']: r['n']}, {'fr.hamidullah': 6236, 'en.sahih': 6236});
+    expect(
+      {for (final r in rows) r['edition']: r['n']},
+      {'fr.hamidullah': 6236, 'en.sahih': 6236, 'ar.muyassar': 6236},
+    );
+  });
+
+  test('recherche dans le Coran : arabe sans voyelles, français sans accents, anglais', () {
+    List<int> search(String match) => [
+      for (final r in db.select(
+        'SELECT rowid FROM ayah_search WHERE ayah_search MATCH ? ORDER BY rowid',
+        [match],
+      ))
+        r['rowid'] as int,
+    ];
+    // Ayat al-Kursi (2:255 = id 262).
+    expect(search('"القيوم"*'), contains(262));
+    expect(search('"kursi"*'), contains(262));
+    // « miséricordieux » sans accent trouve Al-Fatiha 1:1.
+    expect(search('"misericordieux"*'), contains(1));
   });
 
   test('villes : fuseau horaire, pays connu, clé de recherche', () {

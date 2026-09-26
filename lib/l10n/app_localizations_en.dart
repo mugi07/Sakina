@@ -659,4 +659,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get share => 'Share';
+
+  @override
+  String get quranSearchHint => 'Search the Quran…';
+
+  @override
+  String get tabBookmarks => 'Bookmarks';
+
+  @override
+  String get noBookmarks => 'No bookmarks. Tap a verse in the mushaf, then the bookmark icon.';
+
+  @override
+  String get bookmarkAdd => 'Add bookmark';
+
+  @override
+  String get bookmarkRemove => 'Remove bookmark';
+
+  @override
+  String searchResultsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count verses',
+      one: '1 verse',
+      zero: 'No results',
+    );
+    return '$_temp0';
+  }
 }

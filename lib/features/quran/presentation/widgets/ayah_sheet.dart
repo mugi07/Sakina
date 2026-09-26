@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../app/theme/app_theme.dart';
 import '../../../../core/database/content_database.dart';
+import '../../../../core/share.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../application/bookmarks.dart';
 import '../../application/quran_providers.dart';
 import '../../domain/quran_text.dart';
 
@@ -40,6 +42,14 @@ class _AyahSheet extends ConsumerWidget {
       surah == null ? '${ayah.surah}' : (isArabicUi ? surah.nameAr : surah.nameTranslit),
       ayah.number,
     );
+    final bookmarked = ref.watch(bookmarksProvider).contains(ayah.id);
+    // Texte copié ou partagé : le verset et ses traductions (sans le tafsir).
+    final shareable = [
+      arabic,
+      for (final t in translations)
+        if (t.e.language != 'ar') t.content,
+      '— $reference (${ayah.surah}:${ayah.number})',
+    ].join('\n\n');
 
     return ListView(
       controller: controller,
@@ -54,15 +64,21 @@ class _AyahSheet extends ConsumerWidget {
               ),
             ),
             IconButton(
+              tooltip: bookmarked ? l.bookmarkRemove : l.bookmarkAdd,
+              icon: Icon(bookmarked ? Icons.bookmark : Icons.bookmark_border),
+              color: bookmarked ? scheme.tertiary : null,
+              onPressed: () => ref.read(bookmarksProvider.notifier).toggle(ayah.id),
+            ),
+            IconButton(
+              tooltip: l.share,
+              icon: const Icon(Icons.share_outlined),
+              onPressed: () => shareText(shareable),
+            ),
+            IconButton(
               tooltip: l.copy,
               icon: const Icon(Icons.copy_outlined),
               onPressed: () async {
-                final text = [
-                  arabic,
-                  for (final t in translations) t.content,
-                  '— $reference (${ayah.surah}:${ayah.number})',
-                ].join('\n\n');
-                await Clipboard.setData(ClipboardData(text: text));
+                await Clipboard.setData(ClipboardData(text: shareable));
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l.copied)));
                 }

@@ -20,6 +20,12 @@ const translationEditions = [
     name: 'Saheeh International',
     translator: 'Saheeh International',
   ),
+  (
+    id: 'ar.muyassar',
+    language: 'ar',
+    name: 'التفسير الميسر (Tafsir al-Muyassar)',
+    translator: 'مجمع الملك فهد لطباعة المصحف الشريف',
+  ),
 ];
 
 typedef _Verse = ({int surah, int ayah, String text});
@@ -87,17 +93,19 @@ Future<QuranBuildResult> buildQuran(SourceCache cache, Database db) async {
   // --- Versets --------------------------------------------------------------
   final insertAyah = db.prepare('INSERT INTO ayahs VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
   final hashInput = StringBuffer();
+  final searchArabic = <String>[];
   for (var i = 0; i < uthmani.verses.length; i++) {
     final v = uthmani.verses[i];
     final s = simple.verses[i];
     _check(v.surah == s.surah && v.ayah == s.ayah, 'désalignement au verset ${i + 1}');
     final key = (v.surah, v.ayah);
+    searchArabic.add(normalizeForSearch(s.text));
     insertAyah.execute([
       i + 1,
       v.surah,
       v.ayah,
       v.text,
-      normalizeForSearch(s.text),
+      searchArabic.last,
       juz.indexFor(key),
       quarters.indexFor(key),
       pages.indexFor(key),
@@ -110,6 +118,7 @@ Future<QuranBuildResult> buildQuran(SourceCache cache, Database db) async {
   // --- Traductions ----------------------------------------------------------
   final insertEdition = db.prepare('INSERT INTO translation_editions VALUES (?, ?, ?, ?)');
   final insertTranslation = db.prepare('INSERT INTO ayah_translations VALUES (?, ?, ?)');
+  final texts = <String, List<String>>{};
   for (final edition in translationEditions) {
     final file = await cache.fetch(
       'https://tanzil.net/trans/?transID=${edition.id}&type=txt-2',
@@ -121,9 +130,22 @@ Future<QuranBuildResult> buildQuran(SourceCache cache, Database db) async {
     for (var i = 0; i < verses.length; i++) {
       insertTranslation.execute([i + 1, edition.id, verses[i].text]);
     }
+    texts[edition.id] = [for (final v in verses) v.text];
   }
   insertEdition.close();
   insertTranslation.close();
+
+  // --- Index de recherche ---------------------------------------------------
+  final insertSearch = db.prepare('INSERT INTO ayah_search (rowid, ar, fr, en) VALUES (?, ?, ?, ?)');
+  for (var i = 0; i < 6236; i++) {
+    insertSearch.execute([
+      i + 1,
+      searchArabic[i],
+      texts['fr.hamidullah']![i],
+      texts['en.sahih']![i],
+    ]);
+  }
+  insertSearch.close();
 
   return QuranBuildResult(
     tanzilNotice: uthmani.notice,

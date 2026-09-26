@@ -15,6 +15,7 @@ import '../features/qibla/presentation/qibla_compass_screen.dart';
 import '../features/quran/domain/page_layout.dart';
 import '../features/quran/presentation/mushaf_screen.dart';
 import '../features/quran/presentation/quran_index_screen.dart';
+import '../features/quran/presentation/quran_search_screens.dart';
 import '../features/settings/presentation/settings_screen.dart';
 import '../features/sources/presentation/sources_screen.dart';
 import '../features/tasbih/presentation/tasbih_screen.dart';
@@ -49,6 +50,7 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
               path: '/quran',
               builder: (_, _) => const QuranIndexScreen(),
               routes: [
+                GoRoute(path: 'search', builder: (_, _) => const QuranSearchScreen()),
                 // Lecteur en plein écran (sans la barre d'onglets).
                 GoRoute(
                   path: 'page/:page',

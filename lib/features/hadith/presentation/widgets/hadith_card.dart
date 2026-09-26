@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/database/hadith_database.dart';
 import '../../../../core/providers.dart';
 import '../../../../core/settings/app_settings.dart';
+import '../../../../core/share.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../application/hadith_providers.dart';
 
@@ -92,6 +93,13 @@ class HadithCard extends ConsumerWidget {
                       style: TextStyle(color: scheme.primary, fontWeight: FontWeight.w700),
                     ),
                   ),
+                  if (text != null)
+                    IconButton(
+                      visualDensity: VisualDensity.compact,
+                      tooltip: l.share,
+                      icon: const Icon(Icons.share_outlined, size: 18),
+                      onPressed: () => shareText('$text\n\n— $title'),
+                    ),
                   if (text != null)
                     IconButton(
                       visualDensity: VisualDensity.compact,

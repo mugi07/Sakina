@@ -667,4 +667,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get share => 'مشاركة';
+
+  @override
+  String get quranSearchHint => 'ابحث في القرآن…';
+
+  @override
+  String get tabBookmarks => 'العلامات';
+
+  @override
+  String get noBookmarks => 'لا توجد علامات. المس آية في المصحف ثم أيقونة العلامة.';
+
+  @override
+  String get bookmarkAdd => 'إضافة علامة';
+
+  @override
+  String get bookmarkRemove => 'إزالة العلامة';
+
+  @override
+  String searchResultsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count آية',
+      many: '$count آية',
+      few: '$count آيات',
+      two: 'آيتان',
+      one: 'آية واحدة',
+      zero: 'لا توجد نتائج',
+    );
+    return '$_temp0';
+  }
 }

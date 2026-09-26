@@ -74,3 +74,22 @@ ayahByReference:
   FROM ayahs a
   LEFT JOIN ayah_translations t ON t.ayah_id = a.id AND t.edition = :edition
   WHERE a.surah = :surah AND a.number = :number;
+
+-- Recherche dans le Coran : :query est une expression FTS5 (mots normalisés,
+-- avec préfixe *). Renvoie les versets dans l'ordre du mushaf.
+searchAyahs:
+  SELECT a.**, t.content AS translation
+  FROM ayah_search s
+  INNER JOIN ayahs a ON a.id = s.rowid
+  LEFT JOIN ayah_translations t ON t.ayah_id = a.id AND t.edition = :edition
+  WHERE ayah_search MATCH :query
+  ORDER BY a.id
+  LIMIT :limit;
+
+-- Versets marqués d'un signet, dans l'ordre du mushaf.
+ayahsByIds:
+  SELECT a.**, t.content AS translation
+  FROM ayahs a
+  LEFT JOIN ayah_translations t ON t.ayah_id = a.id AND t.edition = :edition
+  WHERE a.id IN :ids
+  ORDER BY a.id;

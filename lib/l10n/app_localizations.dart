@@ -1143,6 +1143,42 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Partager'**
   String get share;
+
+  /// No description provided for @quranSearchHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher dans le Coran…'**
+  String get quranSearchHint;
+
+  /// No description provided for @tabBookmarks.
+  ///
+  /// In fr, this message translates to:
+  /// **'Signets'**
+  String get tabBookmarks;
+
+  /// No description provided for @noBookmarks.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun signet. Touchez un verset dans le mushaf, puis l\'icône signet.'**
+  String get noBookmarks;
+
+  /// No description provided for @bookmarkAdd.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter un signet'**
+  String get bookmarkAdd;
+
+  /// No description provided for @bookmarkRemove.
+  ///
+  /// In fr, this message translates to:
+  /// **'Retirer le signet'**
+  String get bookmarkRemove;
+
+  /// No description provided for @searchResultsCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =0{Aucun résultat} =1{1 verset} other{{count} versets}}'**
+  String searchResultsCount(int count);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

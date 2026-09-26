@@ -8,6 +8,7 @@ import '../../../core/widgets/coming_soon.dart';
 import '../../../l10n/app_localizations.dart';
 import '../application/quran_providers.dart';
 import '../domain/quran_text.dart';
+import 'quran_search_screens.dart';
 
 /// Ouvre le lecteur à une page du mushaf.
 void openMushafPage(BuildContext context, int page) => context.push('/quran/page/$page');
@@ -20,19 +21,27 @@ class QuranIndexScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: Text(l.quranTitle),
+          actions: [
+            IconButton(
+              tooltip: l.search,
+              icon: const Icon(Icons.search),
+              onPressed: () => context.go('/quran/search'),
+            ),
+          ],
           bottom: TabBar(
             tabs: [
               Tab(text: l.tabSurahs),
               Tab(text: l.tabJuz),
               Tab(text: l.tabHizb),
+              Tab(text: l.tabBookmarks),
             ],
           ),
         ),
-        body: const TabBarView(children: [_SurahList(), _JuzList(), _HizbList()]),
+        body: const TabBarView(children: [_SurahList(), _JuzList(), _HizbList(), BookmarksList()]),
       ),
     );
   }

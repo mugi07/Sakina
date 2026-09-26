@@ -109,3 +109,12 @@ const _latinFoldMap = <String, String>{
   '’': '',
   "'": '',
 };
+
+/// Expression FTS5 : chaque mot (normalisé comme l'index) doit apparaître,
+/// en acceptant les mots qui commencent par lui (« pri » → « prière »).
+/// Null si la requête ne contient aucun mot d'au moins 2 lettres.
+String? ftsQuery(String input) {
+  final words = normalizeForSearch(input).split(' ').where((w) => w.length >= 2).toList();
+  if (words.isEmpty) return null;
+  return words.map((w) => '"$w"*').join(' ');
+}

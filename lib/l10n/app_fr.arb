@@ -405,5 +405,18 @@
   "adhkarReminderBodyEvening": "Prenez quelques minutes pour les invocations du soir.",
   "adhkarReminders": "Rappel des adhkar du matin et du soir",
   "adhkarRemindersHint": "30 min après le Fajr et après le Asr",
-  "share": "Partager"
+  "share": "Partager",
+  "quranSearchHint": "Rechercher dans le Coran…",
+  "tabBookmarks": "Signets",
+  "noBookmarks": "Aucun signet. Touchez un verset dans le mushaf, puis l'icône signet.",
+  "bookmarkAdd": "Ajouter un signet",
+  "bookmarkRemove": "Retirer le signet",
+  "searchResultsCount": "{count, plural, =0{Aucun résultat} =1{1 verset} other{{count} versets}}",
+  "@searchResultsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

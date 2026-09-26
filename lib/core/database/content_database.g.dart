@@ -3349,6 +3349,239 @@ class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
   }
 }
 
+class AyahSearch extends Table
+    with TableInfo<AyahSearch, AyahSearchData>, VirtualTableInfo<AyahSearch, AyahSearchData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  AyahSearch(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _arMeta = const VerificationMeta('ar');
+  late final GeneratedColumn<String> ar = GeneratedColumn<String>(
+    'ar',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: '',
+  );
+  static const VerificationMeta _frMeta = const VerificationMeta('fr');
+  late final GeneratedColumn<String> fr = GeneratedColumn<String>(
+    'fr',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: '',
+  );
+  static const VerificationMeta _enMeta = const VerificationMeta('en');
+  late final GeneratedColumn<String> en = GeneratedColumn<String>(
+    'en',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: '',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [ar, fr, en];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ayah_search';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AyahSearchData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('ar')) {
+      context.handle(_arMeta, ar.isAcceptableOrUnknown(data['ar']!, _arMeta));
+    } else if (isInserting) {
+      context.missing(_arMeta);
+    }
+    if (data.containsKey('fr')) {
+      context.handle(_frMeta, fr.isAcceptableOrUnknown(data['fr']!, _frMeta));
+    } else if (isInserting) {
+      context.missing(_frMeta);
+    }
+    if (data.containsKey('en')) {
+      context.handle(_enMeta, en.isAcceptableOrUnknown(data['en']!, _enMeta));
+    } else if (isInserting) {
+      context.missing(_enMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  AyahSearchData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AyahSearchData(
+      ar: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}ar'])!,
+      fr: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}fr'])!,
+      en: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}en'])!,
+    );
+  }
+
+  @override
+  AyahSearch createAlias(String alias) {
+    return AyahSearch(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+  @override
+  String get moduleAndArgs =>
+      'fts5(ar, fr, en, content = \'\', detail = \'none\', tokenize = \'unicode61 remove_diacritics 2\')';
+}
+
+class AyahSearchData extends DataClass implements Insertable<AyahSearchData> {
+  final String ar;
+  final String fr;
+  final String en;
+  const AyahSearchData({required this.ar, required this.fr, required this.en});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['ar'] = Variable<String>(ar);
+    map['fr'] = Variable<String>(fr);
+    map['en'] = Variable<String>(en);
+    return map;
+  }
+
+  AyahSearchCompanion toCompanion(bool nullToAbsent) {
+    return AyahSearchCompanion(ar: Value(ar), fr: Value(fr), en: Value(en));
+  }
+
+  factory AyahSearchData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AyahSearchData(
+      ar: serializer.fromJson<String>(json['ar']),
+      fr: serializer.fromJson<String>(json['fr']),
+      en: serializer.fromJson<String>(json['en']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'ar': serializer.toJson<String>(ar),
+      'fr': serializer.toJson<String>(fr),
+      'en': serializer.toJson<String>(en),
+    };
+  }
+
+  AyahSearchData copyWith({String? ar, String? fr, String? en}) =>
+      AyahSearchData(ar: ar ?? this.ar, fr: fr ?? this.fr, en: en ?? this.en);
+  AyahSearchData copyWithCompanion(AyahSearchCompanion data) {
+    return AyahSearchData(
+      ar: data.ar.present ? data.ar.value : this.ar,
+      fr: data.fr.present ? data.fr.value : this.fr,
+      en: data.en.present ? data.en.value : this.en,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AyahSearchData(')
+          ..write('ar: $ar, ')
+          ..write('fr: $fr, ')
+          ..write('en: $en')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(ar, fr, en);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AyahSearchData &&
+          other.ar == this.ar &&
+          other.fr == this.fr &&
+          other.en == this.en);
+}
+
+class AyahSearchCompanion extends UpdateCompanion<AyahSearchData> {
+  final Value<String> ar;
+  final Value<String> fr;
+  final Value<String> en;
+  final Value<int> rowid;
+  const AyahSearchCompanion({
+    this.ar = const Value.absent(),
+    this.fr = const Value.absent(),
+    this.en = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AyahSearchCompanion.insert({
+    required String ar,
+    required String fr,
+    required String en,
+    this.rowid = const Value.absent(),
+  }) : ar = Value(ar),
+       fr = Value(fr),
+       en = Value(en);
+  static Insertable<AyahSearchData> custom({
+    Expression<String>? ar,
+    Expression<String>? fr,
+    Expression<String>? en,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (ar != null) 'ar': ar,
+      if (fr != null) 'fr': fr,
+      if (en != null) 'en': en,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AyahSearchCompanion copyWith({
+    Value<String>? ar,
+    Value<String>? fr,
+    Value<String>? en,
+    Value<int>? rowid,
+  }) {
+    return AyahSearchCompanion(
+      ar: ar ?? this.ar,
+      fr: fr ?? this.fr,
+      en: en ?? this.en,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (ar.present) {
+      map['ar'] = Variable<String>(ar.value);
+    }
+    if (fr.present) {
+      map['fr'] = Variable<String>(fr.value);
+    }
+    if (en.present) {
+      map['en'] = Variable<String>(en.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AyahSearchCompanion(')
+          ..write('ar: $ar, ')
+          ..write('fr: $fr, ')
+          ..write('en: $en, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$ContentDatabase extends GeneratedDatabase {
   _$ContentDatabase(QueryExecutor e) : super(e);
   $ContentDatabaseManager get managers => $ContentDatabaseManager(this);
@@ -3361,6 +3594,7 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
   late final Cities cities = Cities(this);
   late final AdhkarCategories adhkarCategories = AdhkarCategories(this);
   late final Adhkar adhkar = Adhkar(this);
+  late final AyahSearch ayahSearch = AyahSearch(this);
   late final Index ayahsSurahNumber = Index(
     'ayahs_surah_number',
     'CREATE UNIQUE INDEX ayahs_surah_number ON ayahs (surah, number)',
@@ -3552,6 +3786,39 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     );
   }
 
+  Selectable<SearchAyahsResult> searchAyahs({
+    String? edition,
+    required String query,
+    required int limit,
+  }) {
+    return customSelect(
+      'SELECT"a"."id" AS "nested_0.id", "a"."surah" AS "nested_0.surah", "a"."number" AS "nested_0.number", "a"."text_uthmani" AS "nested_0.text_uthmani", "a"."text_search" AS "nested_0.text_search", "a"."juz" AS "nested_0.juz", "a"."hizb_quarter" AS "nested_0.hizb_quarter", "a"."page" AS "nested_0.page", "a"."sajda" AS "nested_0.sajda", t.content AS translation FROM ayah_search AS s INNER JOIN ayahs AS a ON a.id = s."rowid" LEFT JOIN ayah_translations AS t ON t.ayah_id = a.id AND t.edition = ?1 WHERE ayah_search MATCH ?2 ORDER BY a.id LIMIT ?3',
+      variables: [Variable<String>(edition), Variable<String>(query), Variable<int>(limit)],
+      readsFrom: {this.ayahTranslations, this.ayahSearch, this.ayahs},
+    ).asyncMap(
+      (QueryRow row) async => SearchAyahsResult(
+        a: await this.ayahs.mapFromRow(row, tablePrefix: 'nested_0'),
+        translation: row.readNullable<String>('translation'),
+      ),
+    );
+  }
+
+  Selectable<AyahsByIdsResult> ayahsByIds({String? edition, required List<int> ids}) {
+    var $arrayStartIndex = 2;
+    final expandedids = $expandVar($arrayStartIndex, ids.length);
+    $arrayStartIndex += ids.length;
+    return customSelect(
+      'SELECT"a"."id" AS "nested_0.id", "a"."surah" AS "nested_0.surah", "a"."number" AS "nested_0.number", "a"."text_uthmani" AS "nested_0.text_uthmani", "a"."text_search" AS "nested_0.text_search", "a"."juz" AS "nested_0.juz", "a"."hizb_quarter" AS "nested_0.hizb_quarter", "a"."page" AS "nested_0.page", "a"."sajda" AS "nested_0.sajda", t.content AS translation FROM ayahs AS a LEFT JOIN ayah_translations AS t ON t.ayah_id = a.id AND t.edition = ?1 WHERE a.id IN ($expandedids) ORDER BY a.id',
+      variables: [Variable<String>(edition), for (var $ in ids) Variable<int>($)],
+      readsFrom: {this.ayahTranslations, this.ayahs},
+    ).asyncMap(
+      (QueryRow row) async => AyahsByIdsResult(
+        a: await this.ayahs.mapFromRow(row, tablePrefix: 'nested_0'),
+        translation: row.readNullable<String>('translation'),
+      ),
+    );
+  }
+
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -3566,6 +3833,7 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     cities,
     adhkarCategories,
     adhkar,
+    ayahSearch,
     ayahsSurahNumber,
     ayahsPage,
     citiesPopulation,
@@ -6023,6 +6291,135 @@ typedef $AdhkarProcessedTableManager =
       AdhkarData,
       PrefetchHooks Function({bool category})
     >;
+typedef $AyahSearchCreateCompanionBuilder = AyahSearchCompanion Function({
+  required String ar,
+  required String fr,
+  required String en,
+  Value<int> rowid,
+});
+typedef $AyahSearchUpdateCompanionBuilder = AyahSearchCompanion Function({
+  Value<String> ar,
+  Value<String> fr,
+  Value<String> en,
+  Value<int> rowid,
+});
+
+class $AyahSearchFilterComposer extends Composer<_$ContentDatabase, AyahSearch> {
+  $AyahSearchFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get ar =>
+      $composableBuilder(column: $table.ar, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fr =>
+      $composableBuilder(column: $table.fr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get en =>
+      $composableBuilder(column: $table.en, builder: (column) => ColumnFilters(column));
+}
+
+class $AyahSearchOrderingComposer extends Composer<_$ContentDatabase, AyahSearch> {
+  $AyahSearchOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get ar =>
+      $composableBuilder(column: $table.ar, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fr =>
+      $composableBuilder(column: $table.fr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get en =>
+      $composableBuilder(column: $table.en, builder: (column) => ColumnOrderings(column));
+}
+
+class $AyahSearchAnnotationComposer extends Composer<_$ContentDatabase, AyahSearch> {
+  $AyahSearchAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get ar =>
+      $composableBuilder(column: $table.ar, builder: (column) => column);
+
+  GeneratedColumn<String> get fr =>
+      $composableBuilder(column: $table.fr, builder: (column) => column);
+
+  GeneratedColumn<String> get en =>
+      $composableBuilder(column: $table.en, builder: (column) => column);
+}
+
+class $AyahSearchTableManager
+    extends
+        RootTableManager<
+          _$ContentDatabase,
+          AyahSearch,
+          AyahSearchData,
+          $AyahSearchFilterComposer,
+          $AyahSearchOrderingComposer,
+          $AyahSearchAnnotationComposer,
+          $AyahSearchCreateCompanionBuilder,
+          $AyahSearchUpdateCompanionBuilder,
+          (AyahSearchData, BaseReferences<_$ContentDatabase, AyahSearch, AyahSearchData>),
+          AyahSearchData,
+          PrefetchHooks Function()
+        > {
+  $AyahSearchTableManager(_$ContentDatabase db, AyahSearch table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () => $AyahSearchFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $AyahSearchOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $AyahSearchAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> ar = const Value.absent(),
+            Value<String> fr = const Value.absent(),
+            Value<String> en = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) => AyahSearchCompanion(ar: ar, fr: fr, en: en, rowid: rowid),
+          createCompanionCallback: ({
+            required String ar,
+            required String fr,
+            required String en,
+            Value<int> rowid = const Value.absent(),
+          }) => AyahSearchCompanion.insert(ar: ar, fr: fr, en: en, rowid: rowid),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<AyahSearch, AyahSearchData>(table),
+                  BaseReferences<_$ContentDatabase, AyahSearch, AyahSearchData>(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $AyahSearchProcessedTableManager =
+    ProcessedTableManager<
+      _$ContentDatabase,
+      AyahSearch,
+      AyahSearchData,
+      $AyahSearchFilterComposer,
+      $AyahSearchOrderingComposer,
+      $AyahSearchAnnotationComposer,
+      $AyahSearchCreateCompanionBuilder,
+      $AyahSearchUpdateCompanionBuilder,
+      (AyahSearchData, BaseReferences<_$ContentDatabase, AyahSearch, AyahSearchData>),
+      AyahSearchData,
+      PrefetchHooks Function()
+    >;
 
 class $ContentDatabaseManager {
   final _$ContentDatabase _db;
@@ -6039,6 +6436,7 @@ class $ContentDatabaseManager {
   $AdhkarCategoriesTableManager get adhkarCategories =>
       $AdhkarCategoriesTableManager(_db, _db.adhkarCategories);
   $AdhkarTableManager get adhkar => $AdhkarTableManager(_db, _db.adhkar);
+  $AyahSearchTableManager get ayahSearch => $AyahSearchTableManager(_db, _db.ayahSearch);
 }
 
 class SurahStartPagesResult {
@@ -6113,4 +6511,16 @@ class AyahByReferenceResult {
   final Ayah a;
   final String? translation;
   AyahByReferenceResult({required this.a, this.translation});
+}
+
+class SearchAyahsResult {
+  final Ayah a;
+  final String? translation;
+  SearchAyahsResult({required this.a, this.translation});
+}
+
+class AyahsByIdsResult {
+  final Ayah a;
+  final String? translation;
+  AyahsByIdsResult({required this.a, this.translation});
 }

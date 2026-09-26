@@ -53,6 +53,15 @@ CREATE TABLE ayah_translations (
   PRIMARY KEY (ayah_id, edition)
 ) WITHOUT ROWID;
 
+-- Index de recherche du Coran (sans copie du texte) : arabe normalisé,
+-- traductions française et anglaise ; rowid = ayahs.id.
+CREATE VIRTUAL TABLE ayah_search USING fts5(
+  ar, fr, en,
+  content = '',
+  detail = 'none',
+  tokenize = 'unicode61 remove_diacritics 2'
+);
+
 CREATE TABLE countries (
   code TEXT NOT NULL PRIMARY KEY,
   name_en TEXT NOT NULL,

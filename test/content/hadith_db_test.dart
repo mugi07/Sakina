@@ -4,7 +4,7 @@ import 'package:drift/drift.dart' show driftRuntimeOptions;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sakina/core/database/hadith_database.dart';
-import 'package:sakina/features/hadith/application/hadith_providers.dart';
+import 'package:sakina/core/text/search_normalizer.dart';
 
 void main() {
   late HadithDatabase db;

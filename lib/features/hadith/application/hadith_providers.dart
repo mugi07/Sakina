@@ -34,15 +34,6 @@ final hadithSearchProvider = FutureProvider.family<List<Hadith>, String>((ref, q
   return db.searchHadiths(query: match, limit: 100).get();
 });
 
-/// Expression FTS5 : chaque mot (normalisé comme l'index) doit apparaître,
-/// en acceptant les mots qui commencent par lui (« pri » → « prière »).
-/// Null si la requête ne contient aucun mot d'au moins 2 lettres.
-String? ftsQuery(String input) {
-  final words = normalizeForSearch(input).split(' ').where((w) => w.length >= 2).toList();
-  if (words.isEmpty) return null;
-  return words.map((w) => '"$w"*').join(' ');
-}
-
 /// Numéro affiché : « 35 » ou « 35.5 ».
 String hadithNumberLabel(double number) =>
     number == number.roundToDouble() ? '${number.toInt()}' : '$number';

@@ -662,4 +662,31 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get share => 'Partager';
+
+  @override
+  String get quranSearchHint => 'Rechercher dans le Coran…';
+
+  @override
+  String get tabBookmarks => 'Signets';
+
+  @override
+  String get noBookmarks => 'Aucun signet. Touchez un verset dans le mushaf, puis l\'icône signet.';
+
+  @override
+  String get bookmarkAdd => 'Ajouter un signet';
+
+  @override
+  String get bookmarkRemove => 'Retirer le signet';
+
+  @override
+  String searchResultsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count versets',
+      one: '1 verset',
+      zero: 'Aucun résultat',
+    );
+    return '$_temp0';
+  }
 }
