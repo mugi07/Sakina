@@ -21,10 +21,19 @@ const _referencePage = 3;
 /// Une page du mushaf en arabe : texte continu et justifié, en-têtes de
 /// sourate, et taille ajustée pour que la page tienne entière à l'écran.
 class MushafPage extends ConsumerStatefulWidget {
-  const MushafPage({required this.page, required this.onAyahTap, this.selectedAyahId, super.key});
+  const MushafPage({
+    required this.page,
+    required this.onAyahTap,
+    this.selectedAyahId,
+    this.playingAyahId,
+    super.key,
+  });
 
   final int page;
   final int? selectedAyahId;
+
+  /// Verset en cours de récitation (surligné en doré).
+  final int? playingAyahId;
   final ValueChanged<AyahsOfPageResult> onAyahTap;
 
   @override
@@ -103,6 +112,8 @@ class _MushafPageState extends ConsumerState<MushafPage> {
                         markColor: scheme.tertiary,
                         selectedAyahId: widget.selectedAyahId,
                         highlightColor: scheme.primary.withValues(alpha: 0.14),
+                        playingAyahId: widget.playingAyahId,
+                        playingColor: scheme.tertiary.withValues(alpha: 0.22),
                         recognizers: _recognizers,
                       ),
                       textAlign: TextAlign.justify,

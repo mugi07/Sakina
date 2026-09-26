@@ -180,5 +180,15 @@
   "noBookmarks": "No bookmarks. Tap a verse in the mushaf, then the bookmark icon.",
   "bookmarkAdd": "Add bookmark",
   "bookmarkRemove": "Remove bookmark",
-  "searchResultsCount": "{count, plural, =0{No results} =1{1 verse} other{{count} verses}}"
+  "searchResultsCount": "{count, plural, =0{No results} =1{1 verse} other{{count} verses}}",
+  "listen": "Listen",
+  "listenFromHere": "Listen from this verse",
+  "reciter": "Reciter",
+  "repeatVerse": "Repeat verse",
+  "stop": "Stop",
+  "recitationChannel": "Quran recitation",
+  "audioNeedsInternet": "An internet connection is needed the first time you play this verse.",
+  "previous": "Previous",
+  "next": "Next",
+  "pause": "Pause"
 }

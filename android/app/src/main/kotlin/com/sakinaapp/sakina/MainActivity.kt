@@ -1,5 +1,6 @@
 package com.sakinaapp.sakina
 
-import io.flutter.embedding.android.FlutterActivity
+import com.ryanheise.audioservice.AudioServiceActivity
 
-class MainActivity : FlutterActivity()
+// Lecture audio en arrière-plan (just_audio_background / audio_service).
+class MainActivity : AudioServiceActivity()

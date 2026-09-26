@@ -32,13 +32,16 @@ TextSpan ayahRunSpan(
   Color? markColor,
   int? selectedAyahId,
   Color? highlightColor,
+  int? playingAyahId,
+  Color? playingColor,
   Map<int, TapGestureRecognizer>? recognizers,
 }) {
   final children = <InlineSpan>[];
   for (final row in block.rows) {
     final a = row.a;
-    final selected = a.id == selectedAyahId;
-    final background = selected ? highlightColor : null;
+    final background = a.id == selectedAyahId
+        ? highlightColor
+        : (a.id == playingAyahId ? playingColor : null);
     final recognizer = recognizers?[a.id];
     children
       ..add(

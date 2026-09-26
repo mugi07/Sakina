@@ -1179,6 +1179,66 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{count, plural, =0{Aucun résultat} =1{1 verset} other{{count} versets}}'**
   String searchResultsCount(int count);
+
+  /// No description provided for @listen.
+  ///
+  /// In fr, this message translates to:
+  /// **'Écouter'**
+  String get listen;
+
+  /// No description provided for @listenFromHere.
+  ///
+  /// In fr, this message translates to:
+  /// **'Écouter à partir de ce verset'**
+  String get listenFromHere;
+
+  /// No description provided for @reciter.
+  ///
+  /// In fr, this message translates to:
+  /// **'Récitateur'**
+  String get reciter;
+
+  /// No description provided for @repeatVerse.
+  ///
+  /// In fr, this message translates to:
+  /// **'Répéter le verset'**
+  String get repeatVerse;
+
+  /// No description provided for @stop.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrêter'**
+  String get stop;
+
+  /// No description provided for @recitationChannel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Récitation du Coran'**
+  String get recitationChannel;
+
+  /// No description provided for @audioNeedsInternet.
+  ///
+  /// In fr, this message translates to:
+  /// **'Connexion internet nécessaire pour la première écoute de ce verset.'**
+  String get audioNeedsInternet;
+
+  /// No description provided for @previous.
+  ///
+  /// In fr, this message translates to:
+  /// **'Précédent'**
+  String get previous;
+
+  /// No description provided for @next.
+  ///
+  /// In fr, this message translates to:
+  /// **'Suivant'**
+  String get next;
+
+  /// No description provided for @pause.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pause'**
+  String get pause;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

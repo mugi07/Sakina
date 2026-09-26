@@ -686,4 +686,35 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get listen => 'Listen';
+
+  @override
+  String get listenFromHere => 'Listen from this verse';
+
+  @override
+  String get reciter => 'Reciter';
+
+  @override
+  String get repeatVerse => 'Repeat verse';
+
+  @override
+  String get stop => 'Stop';
+
+  @override
+  String get recitationChannel => 'Quran recitation';
+
+  @override
+  String get audioNeedsInternet =>
+      'An internet connection is needed the first time you play this verse.';
+
+  @override
+  String get previous => 'Previous';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get pause => 'Pause';
 }

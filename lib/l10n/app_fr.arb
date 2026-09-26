@@ -418,5 +418,15 @@
         "type": "int"
       }
     }
-  }
+  },
+  "listen": "Écouter",
+  "listenFromHere": "Écouter à partir de ce verset",
+  "reciter": "Récitateur",
+  "repeatVerse": "Répéter le verset",
+  "stop": "Arrêter",
+  "recitationChannel": "Récitation du Coran",
+  "audioNeedsInternet": "Connexion internet nécessaire pour la première écoute de ce verset.",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "pause": "Pause"
 }

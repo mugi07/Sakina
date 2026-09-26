@@ -7,9 +7,11 @@ import '../../../core/providers.dart';
 import '../../../core/settings/app_settings.dart';
 import '../../../l10n/app_localizations.dart';
 import '../application/quran_providers.dart';
+import '../application/recitation.dart';
 import '../domain/page_layout.dart';
 import 'widgets/ayah_sheet.dart';
 import 'widgets/mushaf_page.dart';
+import 'widgets/recitation_bar.dart';
 import 'widgets/translation_page.dart';
 
 /// Lecteur du Coran page par page (604 pages du mushaf de Médine).
@@ -104,6 +106,18 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
     final rows = ref.watch(pageAyahsProvider((page: _page, edition: null))).value;
     final surah = rows == null ? null : ref.watch(surahByIdProvider).value?[rows.first.a.surah];
     final edition = _language.edition;
+    final recitation = ref.watch(recitationProvider);
+
+    // La récitation tourne les pages d'elle-même.
+    ref.listen(recitationProvider.select((s) => s.page), (_, page) {
+      if (page != null && page != _page && _controller.hasClients) {
+        _controller.animateToPage(
+          page - 1,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -117,6 +131,17 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
           ],
         ),
         actions: [
+          if (!recitation.active && rows != null)
+            IconButton(
+              tooltip: l.listen,
+              icon: const Icon(Icons.headphones_outlined),
+              onPressed: () => playFromAyah(
+                ref,
+                context,
+                surah: rows.first.a.surah,
+                number: rows.first.a.number,
+              ),
+            ),
           IconButton(
             tooltip: l.goToPage,
             icon: const Icon(Icons.pin_outlined),
@@ -154,16 +179,23 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
               _saveLastPage();
             },
             itemBuilder: (context, i) => edition == null
-                ? MushafPage(page: i + 1, selectedAyahId: _selectedAyahId, onAyahTap: _onAyahTap)
+                ? MushafPage(
+                    page: i + 1,
+                    selectedAyahId: _selectedAyahId,
+                    playingAyahId: recitation.ayahId,
+                    onAyahTap: _onAyahTap,
+                  )
                 : TranslationPage(
                     page: i + 1,
                     edition: edition,
                     selectedAyahId: _selectedAyahId,
+                    playingAyahId: recitation.ayahId,
                     onAyahTap: _onAyahTap,
                   ),
           ),
         ),
       ),
+      bottomNavigationBar: recitation.active ? const RecitationBar() : null,
     );
   }
 }

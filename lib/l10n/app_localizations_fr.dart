@@ -689,4 +689,35 @@ class AppLocalizationsFr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get listen => 'Écouter';
+
+  @override
+  String get listenFromHere => 'Écouter à partir de ce verset';
+
+  @override
+  String get reciter => 'Récitateur';
+
+  @override
+  String get repeatVerse => 'Répéter le verset';
+
+  @override
+  String get stop => 'Arrêter';
+
+  @override
+  String get recitationChannel => 'Récitation du Coran';
+
+  @override
+  String get audioNeedsInternet =>
+      'Connexion internet nécessaire pour la première écoute de ce verset.';
+
+  @override
+  String get previous => 'Précédent';
+
+  @override
+  String get next => 'Suivant';
+
+  @override
+  String get pause => 'Pause';
 }

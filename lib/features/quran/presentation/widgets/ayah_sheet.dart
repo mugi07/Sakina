@@ -9,6 +9,7 @@ import '../../../../l10n/app_localizations.dart';
 import '../../application/bookmarks.dart';
 import '../../application/quran_providers.dart';
 import '../../domain/quran_text.dart';
+import 'recitation_bar.dart';
 
 /// Fiche d'un verset : le texte arabe, puis chaque traduction dans sa
 /// propre section (les langues ne sont jamais mélangées).
@@ -85,6 +86,17 @@ class _AyahSheet extends ConsumerWidget {
               },
             ),
           ],
+        ),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: FilledButton.tonalIcon(
+            onPressed: () {
+              Navigator.of(context).pop();
+              playFromAyah(ref, context, surah: ayah.surah, number: ayah.number);
+            },
+            icon: const Icon(Icons.play_arrow),
+            label: Text(l.listenFromHere),
+          ),
         ),
         const SizedBox(height: 8),
         Text(

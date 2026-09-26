@@ -697,4 +697,34 @@ class AppLocalizationsAr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get listen => 'استماع';
+
+  @override
+  String get listenFromHere => 'الاستماع ابتداءً من هذه الآية';
+
+  @override
+  String get reciter => 'القارئ';
+
+  @override
+  String get repeatVerse => 'تكرار الآية';
+
+  @override
+  String get stop => 'إيقاف';
+
+  @override
+  String get recitationChannel => 'تلاوة القرآن';
+
+  @override
+  String get audioNeedsInternet => 'يلزم الاتصال بالإنترنت عند أول استماع لهذه الآية.';
+
+  @override
+  String get previous => 'السابق';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get pause => 'إيقاف مؤقت';
 }

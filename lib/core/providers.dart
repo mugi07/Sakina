@@ -21,9 +21,9 @@ final settingsProvider = NotifierProvider<SettingsController, AppSettings>(Setti
 class SettingsController extends Notifier<AppSettings> {
   static const _key = 'settings.v1';
 
-  @override
-  AppSettings build() {
-    final raw = ref.watch(sharedPreferencesProvider).getString(_key);
+  /// Lit les réglages enregistrés (valeurs par défaut s'il n'y en a pas).
+  static AppSettings load(SharedPreferences prefs) {
+    final raw = prefs.getString(_key);
     if (raw == null) return const AppSettings();
     try {
       return AppSettings.fromJson(jsonDecode(raw) as Map<String, dynamic>);
@@ -31,6 +31,9 @@ class SettingsController extends Notifier<AppSettings> {
       return const AppSettings();
     }
   }
+
+  @override
+  AppSettings build() => load(ref.watch(sharedPreferencesProvider));
 
   void update(AppSettings Function(AppSettings current) change) {
     state = change(state);

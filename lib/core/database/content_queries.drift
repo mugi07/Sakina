@@ -93,3 +93,7 @@ ayahsByIds:
   LEFT JOIN ayah_translations t ON t.ayah_id = a.id AND t.edition = :edition
   WHERE a.id IN :ids
   ORDER BY a.id;
+
+-- Versets d'une sourate à partir d'un numéro (récitation jusqu'à la fin).
+surahAyahsFrom:
+  SELECT * FROM ayahs WHERE surah = :surah AND number >= :fromNumber ORDER BY number;

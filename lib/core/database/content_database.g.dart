@@ -3819,6 +3819,14 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     );
   }
 
+  Selectable<Ayah> surahAyahsFrom({required int surah, required int fromNumber}) {
+    return customSelect(
+      'SELECT * FROM ayahs WHERE surah = ?1 AND number >= ?2 ORDER BY number',
+      variables: [Variable<int>(surah), Variable<int>(fromNumber)],
+      readsFrom: {this.ayahs},
+    ).asyncMap(this.ayahs.mapFromRow);
+  }
+
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

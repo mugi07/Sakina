@@ -5,6 +5,23 @@ Coran, horaires de prière, Qibla, adhkar, hadiths… en arabe, français et ang
 
 Plan complet du produit : [docs/PLAN.md](docs/PLAN.md).
 
+## Fonctionnalités
+
+- **Coran** : mushaf de Médine page par page (604 pages), chaque langue sur ses propres pages
+  (arabe, français, anglais), index sourates / juz / hizb, recherche, signets, tafsir Al-Muyassar,
+  récitation audio verset par verset (8 récitateurs, arrière-plan, écoute hors-ligne après la
+  première lecture).
+- **Prière** : horaires calculés sur le téléphone (méthode selon le pays), notifications à l'heure
+  de chaque prière et rappel avant, tableau mensuel, date hégirienne.
+- **Qibla** : boussole en direct, corrigée de la déclinaison magnétique (WMM-2025).
+- **Adhkar** : Hisn al-Muslim complet (132 chapitres), compteurs de répétitions, rappels matin et
+  soir ; **Tasbih**.
+- **Hadiths** : an-Nawawi, Qudsi, Bukhari, Muslim, Muwatta Malik, en arabe, français et anglais,
+  avec recherche.
+- **Accueil** : prochaine prière, verset et hadith du jour, reprise de lecture.
+- Hors-ligne, sans compte, sans publicité, sans collecte de données. Seule l'audio de récitation
+  est téléchargée à la première écoute d'un verset.
+
 ## Démarrer
 
 ```bash
@@ -23,11 +40,13 @@ flutter test
 ```
 
 Les tests couvrent :
-- les horaires de prière, comparés aux valeurs de référence d'Adhan ;
-- la Qibla ;
-- la normalisation de l'arabe ;
+- les horaires de prière, comparés aux valeurs de référence d'Adhan, et le planning des notifications ;
+- la Qibla et la déclinaison magnétique (valeurs de test officielles NOAA WMM2025) ;
+- la normalisation de l'arabe et la recherche (Coran, hadiths) ;
 - l'intégrité du Coran : SHA-256 du texte identique à Tanzil, 6 236 versets, juz, pages et sajdas ;
-- un test d'interface de l'app complète, en français et en arabe (RTL).
+- la mise en page du mushaf (taille qui fait tenir la page), les index, les signets ;
+- l'intégrité des recueils de hadiths et des adhkar, le tasbih, la file de récitation ;
+- des tests d'interface de l'app complète, en français, anglais et arabe (RTL).
 
 ## Contenu : `tool/content_pipeline/`
 

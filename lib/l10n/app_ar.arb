@@ -180,5 +180,15 @@
   "noBookmarks": "لا توجد علامات. المس آية في المصحف ثم أيقونة العلامة.",
   "bookmarkAdd": "إضافة علامة",
   "bookmarkRemove": "إزالة العلامة",
-  "searchResultsCount": "{count, plural, =0{لا توجد نتائج} =1{آية واحدة} =2{آيتان} few{{count} آيات} many{{count} آية} other{{count} آية}}"
+  "searchResultsCount": "{count, plural, =0{لا توجد نتائج} =1{آية واحدة} =2{آيتان} few{{count} آيات} many{{count} آية} other{{count} آية}}",
+  "listen": "استماع",
+  "listenFromHere": "الاستماع ابتداءً من هذه الآية",
+  "reciter": "القارئ",
+  "repeatVerse": "تكرار الآية",
+  "stop": "إيقاف",
+  "recitationChannel": "تلاوة القرآن",
+  "audioNeedsInternet": "يلزم الاتصال بالإنترنت عند أول استماع لهذه الآية.",
+  "previous": "السابق",
+  "next": "التالي",
+  "pause": "إيقاف مؤقت"
 }

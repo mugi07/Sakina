@@ -16,12 +16,14 @@ class TranslationPage extends ConsumerWidget {
     required this.edition,
     required this.onAyahTap,
     this.selectedAyahId,
+    this.playingAyahId,
     super.key,
   });
 
   final int page;
   final String edition;
   final int? selectedAyahId;
+  final int? playingAyahId;
   final ValueChanged<AyahsOfPageResult> onAyahTap;
 
   @override
@@ -64,7 +66,9 @@ class TranslationPage extends ConsumerWidget {
                           decoration: BoxDecoration(
                             color: row.a.id == selectedAyahId
                                 ? scheme.primary.withValues(alpha: 0.12)
-                                : null,
+                                : (row.a.id == playingAyahId
+                                      ? scheme.tertiary.withValues(alpha: 0.18)
+                                      : null),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text.rich(

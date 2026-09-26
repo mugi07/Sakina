@@ -2,12 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 
 import 'app/app.dart';
 import 'core/database/content_database.dart';
 import 'core/providers.dart';
+import 'core/settings/app_locale.dart';
+import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +19,17 @@ Future<void> main() async {
 
   final prefs = await SharedPreferences.getInstance();
   final contentDb = await openContentDatabase(prefs);
+
+  // Récitation en arrière-plan (notification et écran de verrouillage).
+  final locale = resolveAppLocale(
+    SettingsController.load(prefs).language,
+    WidgetsBinding.instance.platformDispatcher.locale,
+  );
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.mugi07.sakinah.recitation',
+    androidNotificationChannelName: lookupAppLocalizations(locale).recitationChannel,
+    androidNotificationOngoing: true,
+  );
 
   runApp(
     ProviderScope(
