@@ -518,4 +518,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get compassNeedsLocation => 'Allow location access to enable the compass.';
+
+  @override
+  String get hadithSearchHint => 'Search hadith…';
+
+  @override
+  String hadithCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hadith',
+      one: '1 hadith',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String chapterLabel(int n) {
+    return 'Book $n';
+  }
+
+  @override
+  String get translationMissing => 'Translation not available for this hadith in this language.';
+
+  @override
+  String hadithNumber(String number) {
+    return 'Hadith $number';
+  }
+
+  @override
+  String get sahihCollection => 'Authentic collection (sahih)';
+
+  @override
+  String get hadithOfTheDay => 'Hadith of the day';
+
+  @override
+  String get preparingHadiths => 'Preparing hadith (first opening)…';
+
+  @override
+  String get noResults => 'No results.';
+
+  @override
+  String get search => 'Search';
 }

@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sakina/app/app.dart';
 import 'package:sakina/core/database/content_database.dart';
+import 'package:sakina/core/database/hadith_database.dart';
 import 'package:sakina/core/providers.dart';
 import 'package:sakina/core/settings/app_settings.dart';
 import 'package:sakina/features/prayer_times/presentation/prayer_times_screen.dart';
@@ -29,6 +30,14 @@ Future<ContentDatabase> _pumpApp(WidgetTester tester, {String? settingsJson}) as
       overrides: [
         sharedPreferencesProvider.overrideWithValue(prefs),
         contentDatabaseProvider.overrideWithValue(db),
+        hadithDatabaseProvider.overrideWith(
+          (ref) => HadithDatabase(
+            NativeDatabase(
+              File('assets/db/hadith.sqlite'),
+              setup: (raw) => raw.execute('PRAGMA query_only = ON'),
+            ),
+          ),
+        ),
       ],
       child: const SakinaApp(),
     ),

@@ -1,0 +1,53 @@
+-- Schéma de hadith.sqlite (recueils de hadiths, en lecture seule).
+--
+-- Source unique du schéma : Drift en génère le code Dart, et
+-- tool/content_pipeline l'exécute tel quel. SQL SQLite standard uniquement.
+
+CREATE TABLE hadith_meta (
+  "key" TEXT NOT NULL PRIMARY KEY,
+  value TEXT NOT NULL
+);
+
+CREATE TABLE hadith_books (
+  id TEXT NOT NULL PRIMARY KEY,
+  position INTEGER NOT NULL,
+  name_ar TEXT NOT NULL,
+  name_fr TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  hadith_count INTEGER NOT NULL
+);
+
+-- Chapitres (« livres ») d'un recueil ; noms disponibles en anglais seulement.
+CREATE TABLE hadith_sections (
+  book TEXT NOT NULL REFERENCES hadith_books (id),
+  number INTEGER NOT NULL,
+  name_en TEXT NOT NULL,
+  hadith_count INTEGER NOT NULL,
+  PRIMARY KEY (book, number)
+) WITHOUT ROWID;
+
+-- number : numéro du hadith dans le recueil (parfois décimal, ex. 35.5).
+-- Les traductions peuvent manquer (null) pour certains hadiths.
+-- grades : degrés d'authenticité « Savant : degré », séparés par « ; ».
+CREATE TABLE hadiths (
+  id INTEGER NOT NULL PRIMARY KEY,
+  book TEXT NOT NULL REFERENCES hadith_books (id),
+  number REAL NOT NULL,
+  section INTEGER NOT NULL,
+  text_ar TEXT,
+  text_fr TEXT,
+  text_en TEXT,
+  grades TEXT
+);
+
+CREATE INDEX hadiths_book_section ON hadiths (book, section, number);
+CREATE UNIQUE INDEX hadiths_book_number ON hadiths (book, number);
+
+-- Index de recherche (sans copie du texte) : arabe normalisé, français,
+-- anglais ; rowid = hadiths.id.
+CREATE VIRTUAL TABLE hadith_search USING fts5(
+  ar, fr, en,
+  content = '',
+  detail = 'none',
+  tokenize = 'unicode61 remove_diacritics 2'
+);

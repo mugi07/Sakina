@@ -1,12 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:flutter/services.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'asset_database.dart';
 
 part 'content_database.g.dart';
 
@@ -33,29 +28,6 @@ class ContentDatabase extends _$ContentDatabase {
   );
 }
 
-const _installedVersionKey = 'content_db.installed_version';
-
 /// Copie la base des assets si nécessaire, puis l'ouvre en lecture seule.
-Future<ContentDatabase> openContentDatabase(SharedPreferences prefs) async {
-  final manifest = jsonDecode(
-    await rootBundle.loadString('assets/db/content_manifest.json'),
-  ) as Map<String, dynamic>;
-  final version = manifest['content_version'] as int;
-
-  final dir = await getApplicationSupportDirectory();
-  final file = File(p.join(dir.path, 'content.sqlite'));
-  if (!file.existsSync() || prefs.getInt(_installedVersionKey) != version) {
-    final data = await rootBundle.load('assets/db/content.sqlite');
-    final tmp = File('${file.path}.tmp');
-    await tmp.writeAsBytes(
-      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
-      flush: true,
-    );
-    await tmp.rename(file.path);
-    await prefs.setInt(_installedVersionKey, version);
-  }
-
-  return ContentDatabase(
-    NativeDatabase.createInBackground(file, setup: (db) => db.execute('PRAGMA query_only = ON')),
-  );
-}
+Future<ContentDatabase> openContentDatabase(SharedPreferences prefs) async =>
+    ContentDatabase(openReadOnly(await installAssetDatabase('content', prefs)));

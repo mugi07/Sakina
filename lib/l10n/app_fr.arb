@@ -321,5 +321,36 @@
       }
     }
   },
-  "compassNeedsLocation": "Autorisez la localisation pour activer la boussole."
+  "compassNeedsLocation": "Autorisez la localisation pour activer la boussole.",
+  "hadithSearchHint": "Rechercher dans les hadiths…",
+  "hadithCount": "{count, plural, =1{1 hadith} other{{count} hadiths}}",
+  "@hadithCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "chapterLabel": "Chapitre {n}",
+  "@chapterLabel": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "translationMissing": "Traduction non disponible pour ce hadith dans cette langue.",
+  "hadithNumber": "Hadith {number}",
+  "@hadithNumber": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "sahihCollection": "Recueil authentique (sahih)",
+  "hadithOfTheDay": "Hadith du jour",
+  "preparingHadiths": "Préparation des hadiths (première ouverture)…",
+  "noResults": "Aucun résultat.",
+  "search": "Rechercher"
 }

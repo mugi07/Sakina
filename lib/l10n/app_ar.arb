@@ -135,5 +135,15 @@
   "calibrateTip": "الدقة ضعيفة: حرّك الهاتف على شكل الرقم 8 لمعايرة البوصلة.",
   "metalWarning": "أمسك الهاتف أفقيًا بعيدًا عن الأجسام المعدنية والمغناطيس والأجهزة الكهربائية.",
   "declinationNote": "تم تصحيح الانحراف المغناطيسي: {deg}°",
-  "compassNeedsLocation": "اسمح بالوصول إلى الموقع لتفعيل البوصلة."
+  "compassNeedsLocation": "اسمح بالوصول إلى الموقع لتفعيل البوصلة.",
+  "hadithSearchHint": "ابحث في الأحاديث…",
+  "hadithCount": "{count, plural, =1{حديث واحد} =2{حديثان} few{{count} أحاديث} many{{count} حديثًا} other{{count} حديث}}",
+  "chapterLabel": "الكتاب {n}",
+  "translationMissing": "الترجمة غير متوفرة لهذا الحديث بهذه اللغة.",
+  "hadithNumber": "الحديث {number}",
+  "sahihCollection": "مصنَّف صحيح",
+  "hadithOfTheDay": "حديث اليوم",
+  "preparingHadiths": "جارٍ تجهيز الأحاديث (أول فتح)…",
+  "noResults": "لا توجد نتائج.",
+  "search": "بحث"
 }

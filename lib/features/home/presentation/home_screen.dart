@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../../core/calendar/hijri_date.dart';
 import '../../../core/providers.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../hadith/presentation/widgets/hadith_of_the_day_card.dart';
 import '../../prayer_times/application/prayer_providers.dart';
 import '../../prayer_times/presentation/widgets/location_header.dart';
 import '../../prayer_times/presentation/widgets/next_prayer_card.dart';
@@ -52,6 +53,8 @@ class HomeScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               _ContinueReadingCard(page: settings.lastReadPage!),
             ],
+            const SizedBox(height: 16),
+            HadithOfTheDayCard(day: today),
           ],
         ),
       ),

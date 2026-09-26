@@ -135,5 +135,15 @@
   "calibrateTip": "Low accuracy: move your phone in a figure-8 to calibrate the compass.",
   "metalWarning": "Hold the phone flat, away from metal objects, magnets and electrical devices.",
   "declinationNote": "Magnetic declination corrected: {deg}°",
-  "compassNeedsLocation": "Allow location access to enable the compass."
+  "compassNeedsLocation": "Allow location access to enable the compass.",
+  "hadithSearchHint": "Search hadith…",
+  "hadithCount": "{count, plural, =1{1 hadith} other{{count} hadith}}",
+  "chapterLabel": "Book {n}",
+  "translationMissing": "Translation not available for this hadith in this language.",
+  "hadithNumber": "Hadith {number}",
+  "sahihCollection": "Authentic collection (sahih)",
+  "hadithOfTheDay": "Hadith of the day",
+  "preparingHadiths": "Preparing hadith (first opening)…",
+  "noResults": "No results.",
+  "search": "Search"
 }

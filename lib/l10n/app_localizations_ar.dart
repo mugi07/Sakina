@@ -520,4 +520,49 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get compassNeedsLocation => 'اسمح بالوصول إلى الموقع لتفعيل البوصلة.';
+
+  @override
+  String get hadithSearchHint => 'ابحث في الأحاديث…';
+
+  @override
+  String hadithCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count حديث',
+      many: '$count حديثًا',
+      few: '$count أحاديث',
+      two: 'حديثان',
+      one: 'حديث واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String chapterLabel(int n) {
+    return 'الكتاب $n';
+  }
+
+  @override
+  String get translationMissing => 'الترجمة غير متوفرة لهذا الحديث بهذه اللغة.';
+
+  @override
+  String hadithNumber(String number) {
+    return 'الحديث $number';
+  }
+
+  @override
+  String get sahihCollection => 'مصنَّف صحيح';
+
+  @override
+  String get hadithOfTheDay => 'حديث اليوم';
+
+  @override
+  String get preparingHadiths => 'جارٍ تجهيز الأحاديث (أول فتح)…';
+
+  @override
+  String get noResults => 'لا توجد نتائج.';
+
+  @override
+  String get search => 'بحث';
 }

@@ -909,6 +909,66 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Autorisez la localisation pour activer la boussole.'**
   String get compassNeedsLocation;
+
+  /// No description provided for @hadithSearchHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher dans les hadiths…'**
+  String get hadithSearchHint;
+
+  /// No description provided for @hadithCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1{1 hadith} other{{count} hadiths}}'**
+  String hadithCount(int count);
+
+  /// No description provided for @chapterLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Chapitre {n}'**
+  String chapterLabel(int n);
+
+  /// No description provided for @translationMissing.
+  ///
+  /// In fr, this message translates to:
+  /// **'Traduction non disponible pour ce hadith dans cette langue.'**
+  String get translationMissing;
+
+  /// No description provided for @hadithNumber.
+  ///
+  /// In fr, this message translates to:
+  /// **'Hadith {number}'**
+  String hadithNumber(String number);
+
+  /// No description provided for @sahihCollection.
+  ///
+  /// In fr, this message translates to:
+  /// **'Recueil authentique (sahih)'**
+  String get sahihCollection;
+
+  /// No description provided for @hadithOfTheDay.
+  ///
+  /// In fr, this message translates to:
+  /// **'Hadith du jour'**
+  String get hadithOfTheDay;
+
+  /// No description provided for @preparingHadiths.
+  ///
+  /// In fr, this message translates to:
+  /// **'Préparation des hadiths (première ouverture)…'**
+  String get preparingHadiths;
+
+  /// No description provided for @noResults.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun résultat.'**
+  String get noResults;
+
+  /// No description provided for @search.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher'**
+  String get search;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

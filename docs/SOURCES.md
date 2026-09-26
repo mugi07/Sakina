@@ -7,7 +7,9 @@ Fichier généré par `tool/content_pipeline/build_content_db.dart`. Ne pas modi
 | Texte du Coran (uthmani et simple) | Tanzil Project | Creative Commons Attribution 3.0 — texte reproduit sans modification | https://tanzil.net |
 | Traduction française | Muhammad Hamidullah (via Tanzil) | Usage non commercial | https://tanzil.net/trans/ |
 | Traduction anglaise | Saheeh International (via Tanzil) | Usage non commercial | https://tanzil.net/trans/ |
+| Hadiths (an-Nawawi, Qudsi, Bukhari, Muslim, Malik) en arabe, français, anglais | hadith-api (Fawaz Ahmed) | Domaine public (Unlicense) | https://github.com/fawazahmed0/hadith-api |
 | Villes et pays | GeoNames | Creative Commons Attribution 4.0 | https://www.geonames.org |
+| Déclinaison magnétique (boussole Qibla) | NOAA — World Magnetic Model 2025 | Domaine public | https://www.ncei.noaa.gov/products/world-magnetic-model |
 | Police IBM Plex Sans Arabic | IBM | SIL Open Font License 1.1 | https://github.com/IBM/plex |
 | Police Amiri Quran | Khaled Hosny / Amiri Project | SIL Open Font License 1.1 | https://github.com/aliftype/amiri |
 

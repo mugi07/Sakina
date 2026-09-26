@@ -8,3 +8,4 @@ targets:
             dialect: sqlite
             options:
               version: "3.45"
+              modules: [fts5]

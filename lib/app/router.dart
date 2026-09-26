@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../core/providers.dart';
 import '../core/widgets/coming_soon.dart';
+import '../features/hadith/presentation/hadith_screens.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/location/presentation/location_picker_screen.dart';
 import '../features/more/presentation/more_screen.dart';
@@ -93,6 +94,27 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
               routes: [
                 GoRoute(path: 'settings', builder: (_, _) => const SettingsScreen()),
                 GoRoute(path: 'sources', builder: (_, _) => const SourcesScreen()),
+                GoRoute(
+                  path: 'hadith',
+                  builder: (_, _) => const HadithBooksScreen(),
+                  routes: [
+                    GoRoute(path: 'search', builder: (_, _) => const HadithSearchScreen()),
+                    GoRoute(
+                      path: ':book',
+                      builder: (_, state) =>
+                          HadithBookScreen(bookId: state.pathParameters['book']!),
+                      routes: [
+                        GoRoute(
+                          path: ':section',
+                          builder: (_, state) => HadithListScreen(
+                            bookId: state.pathParameters['book']!,
+                            section: int.tryParse(state.pathParameters['section']!) ?? 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
           ],

@@ -521,4 +521,46 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get compassNeedsLocation => 'Autorisez la localisation pour activer la boussole.';
+
+  @override
+  String get hadithSearchHint => 'Rechercher dans les hadiths…';
+
+  @override
+  String hadithCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hadiths',
+      one: '1 hadith',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String chapterLabel(int n) {
+    return 'Chapitre $n';
+  }
+
+  @override
+  String get translationMissing => 'Traduction non disponible pour ce hadith dans cette langue.';
+
+  @override
+  String hadithNumber(String number) {
+    return 'Hadith $number';
+  }
+
+  @override
+  String get sahihCollection => 'Recueil authentique (sahih)';
+
+  @override
+  String get hadithOfTheDay => 'Hadith du jour';
+
+  @override
+  String get preparingHadiths => 'Préparation des hadiths (première ouverture)…';
+
+  @override
+  String get noResults => 'Aucun résultat.';
+
+  @override
+  String get search => 'Rechercher';
 }

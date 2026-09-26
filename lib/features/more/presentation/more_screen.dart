@@ -20,7 +20,12 @@ class MoreScreen extends StatelessWidget {
       appBar: AppBar(title: Text(l.moreTitle)),
       body: ListView(
         children: [
-          soon(Icons.auto_stories_outlined, l.hadith),
+          ListTile(
+            leading: const Icon(Icons.auto_stories_outlined),
+            title: Text(l.hadith),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.go('/more/hadith'),
+          ),
           soon(Icons.radio_button_checked, l.tasbih),
           soon(Icons.star_outline, l.asmaUlHusna),
           soon(Icons.calendar_month_outlined, l.hijriCalendar),

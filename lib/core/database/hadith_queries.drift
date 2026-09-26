@@ -1,0 +1,22 @@
+import 'hadith_schema.drift';
+
+allBooks: SELECT * FROM hadith_books ORDER BY position;
+
+sectionsOfBook: SELECT * FROM hadith_sections WHERE book = :book ORDER BY number;
+
+hadithsOfSection:
+  SELECT * FROM hadiths WHERE book = :book AND section = :section ORDER BY number;
+
+hadithById: SELECT * FROM hadiths WHERE id = :id;
+
+-- Hadiths courts et connus (an-Nawawi, qudsi) pour le « hadith du jour ».
+dailyCandidates:
+  SELECT * FROM hadiths WHERE book IN ('nawawi', 'qudsi') ORDER BY id;
+
+-- :query est une expression FTS5 (mots normalisés, avec préfixe *).
+searchHadiths:
+  SELECT h.* FROM hadith_search s
+  INNER JOIN hadiths h ON h.id = s.rowid
+  WHERE hadith_search MATCH :query
+  ORDER BY h.id
+  LIMIT :limit;
