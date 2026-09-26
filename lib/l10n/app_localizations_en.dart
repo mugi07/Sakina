@@ -560,4 +560,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get search => 'Search';
+
+  @override
+  String get tasbihTarget => 'Target';
+
+  @override
+  String get tasbihFree => 'Free';
+
+  @override
+  String tasbihToday(int count) {
+    return 'Today: $count';
+  }
+
+  @override
+  String get tasbihReset => 'Reset';
+
+  @override
+  String get tasbihCompleted => 'Target reached, may Allah accept it';
+
+  @override
+  String get tasbihTapHint => 'Tap the circle to count';
+
+  @override
+  String get phraseSubhanallah => 'Glory be to Allah';
+
+  @override
+  String get phraseAlhamdulillah => 'Praise be to Allah';
+
+  @override
+  String get phraseAllahuakbar => 'Allah is the Greatest';
+
+  @override
+  String get phraseLailaha => 'There is no god but Allah';
+
+  @override
+  String get phraseAstaghfirullah => 'I seek forgiveness from Allah';
+
+  @override
+  String get phraseSalawat => 'O Allah, send blessings upon Muhammad';
 }

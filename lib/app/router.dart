@@ -17,6 +17,7 @@ import '../features/quran/presentation/mushaf_screen.dart';
 import '../features/quran/presentation/quran_index_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
 import '../features/sources/presentation/sources_screen.dart';
+import '../features/tasbih/presentation/tasbih_screen.dart';
 import '../l10n/app_localizations.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -94,6 +95,7 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
               routes: [
                 GoRoute(path: 'settings', builder: (_, _) => const SettingsScreen()),
                 GoRoute(path: 'sources', builder: (_, _) => const SourcesScreen()),
+                GoRoute(path: 'tasbih', builder: (_, _) => const TasbihScreen()),
                 GoRoute(
                   path: 'hadith',
                   builder: (_, _) => const HadithBooksScreen(),

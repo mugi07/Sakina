@@ -352,5 +352,24 @@
   "hadithOfTheDay": "Hadith du jour",
   "preparingHadiths": "Préparation des hadiths (première ouverture)…",
   "noResults": "Aucun résultat.",
-  "search": "Rechercher"
+  "search": "Rechercher",
+  "tasbihTarget": "Objectif",
+  "tasbihFree": "Libre",
+  "tasbihToday": "Aujourd'hui : {count}",
+  "@tasbihToday": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tasbihReset": "Remettre à zéro",
+  "tasbihCompleted": "Objectif atteint, qu'Allah l'accepte",
+  "tasbihTapHint": "Touchez le cercle pour compter",
+  "phraseSubhanallah": "Gloire à Allah",
+  "phraseAlhamdulillah": "Louange à Allah",
+  "phraseAllahuakbar": "Allah est le plus grand",
+  "phraseLailaha": "Il n'y a de divinité qu'Allah",
+  "phraseAstaghfirullah": "Je demande pardon à Allah",
+  "phraseSalawat": "Ô Allah, prie sur Muhammad"
 }

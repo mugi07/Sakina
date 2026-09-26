@@ -969,6 +969,78 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Rechercher'**
   String get search;
+
+  /// No description provided for @tasbihTarget.
+  ///
+  /// In fr, this message translates to:
+  /// **'Objectif'**
+  String get tasbihTarget;
+
+  /// No description provided for @tasbihFree.
+  ///
+  /// In fr, this message translates to:
+  /// **'Libre'**
+  String get tasbihFree;
+
+  /// No description provided for @tasbihToday.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aujourd\'hui : {count}'**
+  String tasbihToday(int count);
+
+  /// No description provided for @tasbihReset.
+  ///
+  /// In fr, this message translates to:
+  /// **'Remettre à zéro'**
+  String get tasbihReset;
+
+  /// No description provided for @tasbihCompleted.
+  ///
+  /// In fr, this message translates to:
+  /// **'Objectif atteint, qu\'Allah l\'accepte'**
+  String get tasbihCompleted;
+
+  /// No description provided for @tasbihTapHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Touchez le cercle pour compter'**
+  String get tasbihTapHint;
+
+  /// No description provided for @phraseSubhanallah.
+  ///
+  /// In fr, this message translates to:
+  /// **'Gloire à Allah'**
+  String get phraseSubhanallah;
+
+  /// No description provided for @phraseAlhamdulillah.
+  ///
+  /// In fr, this message translates to:
+  /// **'Louange à Allah'**
+  String get phraseAlhamdulillah;
+
+  /// No description provided for @phraseAllahuakbar.
+  ///
+  /// In fr, this message translates to:
+  /// **'Allah est le plus grand'**
+  String get phraseAllahuakbar;
+
+  /// No description provided for @phraseLailaha.
+  ///
+  /// In fr, this message translates to:
+  /// **'Il n\'y a de divinité qu\'Allah'**
+  String get phraseLailaha;
+
+  /// No description provided for @phraseAstaghfirullah.
+  ///
+  /// In fr, this message translates to:
+  /// **'Je demande pardon à Allah'**
+  String get phraseAstaghfirullah;
+
+  /// No description provided for @phraseSalawat.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ô Allah, prie sur Muhammad'**
+  String get phraseSalawat;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

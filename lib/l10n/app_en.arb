@@ -145,5 +145,17 @@
   "hadithOfTheDay": "Hadith of the day",
   "preparingHadiths": "Preparing hadith (first opening)…",
   "noResults": "No results.",
-  "search": "Search"
+  "search": "Search",
+  "tasbihTarget": "Target",
+  "tasbihFree": "Free",
+  "tasbihToday": "Today: {count}",
+  "tasbihReset": "Reset",
+  "tasbihCompleted": "Target reached, may Allah accept it",
+  "tasbihTapHint": "Tap the circle to count",
+  "phraseSubhanallah": "Glory be to Allah",
+  "phraseAlhamdulillah": "Praise be to Allah",
+  "phraseAllahuakbar": "Allah is the Greatest",
+  "phraseLailaha": "There is no god but Allah",
+  "phraseAstaghfirullah": "I seek forgiveness from Allah",
+  "phraseSalawat": "O Allah, send blessings upon Muhammad"
 }

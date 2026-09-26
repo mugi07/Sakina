@@ -145,5 +145,17 @@
   "hadithOfTheDay": "حديث اليوم",
   "preparingHadiths": "جارٍ تجهيز الأحاديث (أول فتح)…",
   "noResults": "لا توجد نتائج.",
-  "search": "بحث"
+  "search": "بحث",
+  "tasbihTarget": "الهدف",
+  "tasbihFree": "حر",
+  "tasbihToday": "اليوم: {count}",
+  "tasbihReset": "إعادة العدّ",
+  "tasbihCompleted": "تم بلوغ الهدف، تقبّل الله",
+  "tasbihTapHint": "المس الدائرة للعدّ",
+  "phraseSubhanallah": "سبحان الله",
+  "phraseAlhamdulillah": "الحمد لله",
+  "phraseAllahuakbar": "الله أكبر",
+  "phraseLailaha": "لا إله إلا الله",
+  "phraseAstaghfirullah": "أستغفر الله",
+  "phraseSalawat": "اللهم صلّ على محمد"
 }
