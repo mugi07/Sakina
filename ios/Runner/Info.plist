@@ -11,6 +11,8 @@
 	<!-- Aucun chiffrement propriétaire : évite la question de conformité à chaque build. -->
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your location is used only on your device to calculate prayer times and the Qibla direction.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is used only on your device to calculate prayer times and the Qibla direction.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>

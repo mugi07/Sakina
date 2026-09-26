@@ -1,1 +1,2 @@
 "NSLocationWhenInUseUsageDescription" = "Votre position est utilisée uniquement sur votre téléphone pour calculer les horaires de prière et la direction de la Qibla.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Votre position est utilisée uniquement sur votre téléphone pour calculer les horaires de prière et la direction de la Qibla.";
