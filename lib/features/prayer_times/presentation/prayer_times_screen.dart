@@ -36,6 +36,11 @@ class _PrayerTimesScreenState extends ConsumerState<PrayerTimesScreen> {
         title: Text(l.prayerTimesTitle),
         actions: [
           IconButton(
+            tooltip: l.monthlyTimetable,
+            icon: const Icon(Icons.calendar_view_month),
+            onPressed: () => context.go('/prayer/month'),
+          ),
+          IconButton(
             tooltip: l.settingsTitle,
             icon: const Icon(Icons.tune),
             onPressed: () => context.go('/more/settings'),

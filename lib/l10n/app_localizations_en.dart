@@ -378,4 +378,106 @@ class AppLocalizationsEn extends AppLocalizations {
   String ayahReference(String surah, int ayah) {
     return '$surah, verse $ayah';
   }
+
+  @override
+  String adhanTitle(String prayer, String time) {
+    return '$prayer — $time';
+  }
+
+  @override
+  String adhanBody(String prayer) {
+    return 'It is time for $prayer prayer.';
+  }
+
+  @override
+  String reminderTitle(String prayer, int minutes) {
+    return '$prayer in $minutes min';
+  }
+
+  @override
+  String get reminderBody => 'Get ready for prayer, in sha Allah.';
+
+  @override
+  String get adhanChannelName => 'Prayer times';
+
+  @override
+  String get adhanChannelDescription => 'Notification at the time of each prayer';
+
+  @override
+  String get sectionAdhan => 'Prayer notifications';
+
+  @override
+  String get adhanNotifications => 'Notify at prayer time';
+
+  @override
+  String get adhanPrayersTitle => 'Prayers';
+
+  @override
+  String get reminderBefore => 'Reminder before prayer';
+
+  @override
+  String reminderValue(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes min before',
+      zero: 'None',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationsDenied =>
+      'Notifications are blocked. Allow them to receive prayer times.';
+
+  @override
+  String get allow => 'Allow';
+
+  @override
+  String get welcomeTagline => 'Quran, prayer, Qibla and remembrance. Free, no ads, no account.';
+
+  @override
+  String get welcomeLanguage => 'Choose your language';
+
+  @override
+  String get continueLabel => 'Continue';
+
+  @override
+  String get later => 'Later';
+
+  @override
+  String get start => 'Get started';
+
+  @override
+  String get welcomeLocationTitle => 'Your city';
+
+  @override
+  String get welcomeLocationBody =>
+      'To calculate prayer times and the Qibla direction. Your location stays on your phone.';
+
+  @override
+  String get welcomeNotifTitle => 'Prayer notifications';
+
+  @override
+  String get welcomeNotifBody =>
+      'Get a notification at the time of each prayer. You can choose the prayers in settings.';
+
+  @override
+  String get notificationsAllowed => 'Notifications allowed';
+
+  @override
+  String get monthlyTimetable => 'Monthly timetable';
+
+  @override
+  String get dayColumn => 'Day';
+
+  @override
+  String get previousMonth => 'Previous month';
+
+  @override
+  String get nextMonth => 'Next month';
+
+  @override
+  String get exactAlarmsDenied =>
+      'Notifications may arrive late: allow “Alarms & reminders” for exact timing.';
 }

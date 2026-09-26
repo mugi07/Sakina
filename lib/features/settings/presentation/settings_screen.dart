@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers.dart';
 import '../../../core/settings/app_settings.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../prayer_times/application/adhan_notifications.dart';
 import '../../prayer_times/domain/method_defaults.dart';
 import '../../prayer_times/domain/prayer_calculator.dart';
 import '../../prayer_times/presentation/prayer_labels.dart';
@@ -105,6 +106,8 @@ class SettingsScreen extends ConsumerWidget {
             labelOf: hijriAdjustmentLabel,
             onChanged: (v) => controller.update((s) => s.copyWith(hijriAdjustment: v)),
           ),
+          _SectionTitle(l.sectionAdhan),
+          const _AdhanSettings(),
           _SectionTitle(l.sectionQuran),
           ListTile(
             leading: const Icon(Icons.format_size),
@@ -197,5 +200,116 @@ class _ChoiceTile<T> extends StatelessWidget {
       ),
     );
     if (picked != null) onChanged(picked.value);
+  }
+}
+
+/// Notifications de prière : activation, prières concernées, rappel avant.
+class _AdhanSettings extends ConsumerStatefulWidget {
+  const _AdhanSettings();
+
+  @override
+  ConsumerState<_AdhanSettings> createState() => _AdhanSettingsState();
+}
+
+class _AdhanSettingsState extends ConsumerState<_AdhanSettings> {
+  bool? _permission;
+  bool? _exact;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshPermission();
+  }
+
+  Future<void> _refreshPermission() async {
+    final notifications = ref.read(adhanNotificationsProvider);
+    final granted = await notifications.hasPermission();
+    final exact = await notifications.canScheduleExact();
+    if (mounted) {
+      setState(() {
+        _permission = granted;
+        _exact = exact;
+      });
+    }
+  }
+
+  Future<void> _requestPermission() async {
+    await ref.read(adhanNotificationsProvider).requestPermission();
+    await _refreshPermission();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final settings = ref.watch(settingsProvider);
+    final controller = ref.read(settingsProvider.notifier);
+    final scheme = Theme.of(context).colorScheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SwitchListTile(
+          secondary: const Icon(Icons.notifications_outlined),
+          title: Text(l.adhanNotifications),
+          value: settings.adhanEnabled,
+          onChanged: (v) {
+            controller.update((s) => s.copyWith(adhanEnabled: v));
+            if (v) _requestPermission();
+          },
+        ),
+        if (settings.adhanEnabled && _permission == false)
+          ListTile(
+            leading: Icon(Icons.warning_amber_rounded, color: scheme.error),
+            title: Text(l.notificationsDenied, style: const TextStyle(fontSize: 13)),
+            trailing: TextButton(onPressed: _requestPermission, child: Text(l.allow)),
+          ),
+        if (settings.adhanEnabled && _permission != false && _exact == false)
+          ListTile(
+            leading: Icon(Icons.schedule, color: scheme.error),
+            title: Text(l.exactAlarmsDenied, style: const TextStyle(fontSize: 13)),
+            trailing: TextButton(
+              onPressed: () async {
+                await ref.read(adhanNotificationsProvider).requestExactAlarms();
+                await _refreshPermission();
+              },
+              child: Text(l.allow),
+            ),
+          ),
+        if (settings.adhanEnabled) ...[
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(72, 4, 20, 4),
+            child: Text(l.adhanPrayersTitle, style: TextStyle(color: scheme.onSurfaceVariant)),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(64, 0, 16, 4),
+            child: Wrap(
+              spacing: 8,
+              children: [
+                for (final salah in Salah.values.where((s) => s.isPrayer))
+                  FilterChip(
+                    label: Text(l.salahName(salah)),
+                    selected: !settings.adhanMuted.contains(salah.name),
+                    onSelected: (on) => controller.update(
+                      (s) => s.copyWith(
+                        adhanMuted: on
+                            ? ({...s.adhanMuted}..remove(salah.name))
+                            : {...s.adhanMuted, salah.name},
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          _ChoiceTile<int>(
+            icon: Icons.alarm,
+            title: l.reminderBefore,
+            value: settings.adhanReminderMinutes,
+            options: const [0, 5, 10, 15, 20, 30],
+            labelOf: l.reminderValue,
+            onChanged: (v) => controller.update((s) => s.copyWith(adhanReminderMinutes: v)),
+          ),
+        ],
+      ],
+    );
   }
 }

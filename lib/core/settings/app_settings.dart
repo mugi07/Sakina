@@ -33,6 +33,10 @@ class AppSettings {
     this.quranLanguage = QuranLanguage.arabic,
     this.arabicFontScale = 1.0,
     this.lastReadPage,
+    this.onboardingDone = false,
+    this.adhanEnabled = true,
+    this.adhanMuted = const {},
+    this.adhanReminderMinutes = 0,
   });
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
@@ -50,6 +54,10 @@ class AppSettings {
       quranLanguage: byName(QuranLanguage.values, json['quranLanguage']) ?? QuranLanguage.arabic,
       arabicFontScale: (json['arabicFontScale'] as num?)?.toDouble() ?? 1.0,
       lastReadPage: json['lastReadPage'] as int?,
+      onboardingDone: json['onboardingDone'] as bool? ?? false,
+      adhanEnabled: json['adhanEnabled'] as bool? ?? true,
+      adhanMuted: {...?(json['adhanMuted'] as List<dynamic>?)?.cast<String>()},
+      adhanReminderMinutes: json['adhanReminderMinutes'] as int? ?? 0,
     );
   }
 
@@ -69,6 +77,18 @@ class AppSettings {
   /// Dernière page du mushaf lue (1..604), pour « Continuer la lecture ».
   final int? lastReadPage;
 
+  /// Écran de bienvenue (langue, lieu, notifications) terminé.
+  final bool onboardingDone;
+
+  /// Notifications à l'heure de chaque prière.
+  final bool adhanEnabled;
+
+  /// Prières sans notification (noms : « fajr », « dhuhr »…).
+  final Set<String> adhanMuted;
+
+  /// Rappel supplémentaire avant chaque prière, en minutes (0 : aucun).
+  final int adhanReminderMinutes;
+
   static const _unset = Object();
 
   /// Pour les champs nullables, passer explicitement null remet la valeur
@@ -84,6 +104,10 @@ class AppSettings {
     QuranLanguage? quranLanguage,
     double? arabicFontScale,
     Object? lastReadPage = _unset,
+    bool? onboardingDone,
+    bool? adhanEnabled,
+    Set<String>? adhanMuted,
+    int? adhanReminderMinutes,
   }) => AppSettings(
     language: language ?? this.language,
     themeMode: themeMode ?? this.themeMode,
@@ -99,6 +123,10 @@ class AppSettings {
     quranLanguage: quranLanguage ?? this.quranLanguage,
     arabicFontScale: arabicFontScale ?? this.arabicFontScale,
     lastReadPage: lastReadPage == _unset ? this.lastReadPage : lastReadPage as int?,
+    onboardingDone: onboardingDone ?? this.onboardingDone,
+    adhanEnabled: adhanEnabled ?? this.adhanEnabled,
+    adhanMuted: adhanMuted ?? this.adhanMuted,
+    adhanReminderMinutes: adhanReminderMinutes ?? this.adhanReminderMinutes,
   );
 
   Map<String, dynamic> toJson() => {
@@ -112,5 +140,9 @@ class AppSettings {
     'quranLanguage': quranLanguage.name,
     'arabicFontScale': arabicFontScale,
     'lastReadPage': lastReadPage,
+    'onboardingDone': onboardingDone,
+    'adhanEnabled': adhanEnabled,
+    'adhanMuted': adhanMuted.toList()..sort(),
+    'adhanReminderMinutes': adhanReminderMinutes,
   };
 }

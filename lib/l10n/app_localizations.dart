@@ -681,6 +681,174 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{surah}, verset {ayah}'**
   String ayahReference(String surah, int ayah);
+
+  /// No description provided for @adhanTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'{prayer} — {time}'**
+  String adhanTitle(String prayer, String time);
+
+  /// No description provided for @adhanBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'C\'est l\'heure de la prière du {prayer}.'**
+  String adhanBody(String prayer);
+
+  /// No description provided for @reminderTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'{prayer} dans {minutes} min'**
+  String reminderTitle(String prayer, int minutes);
+
+  /// No description provided for @reminderBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Préparez-vous pour la prière, in cha Allah.'**
+  String get reminderBody;
+
+  /// No description provided for @adhanChannelName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Heures de prière'**
+  String get adhanChannelName;
+
+  /// No description provided for @adhanChannelDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notification à l\'heure de chaque prière'**
+  String get adhanChannelDescription;
+
+  /// No description provided for @sectionAdhan.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notifications de prière'**
+  String get sectionAdhan;
+
+  /// No description provided for @adhanNotifications.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notification à l\'heure de la prière'**
+  String get adhanNotifications;
+
+  /// No description provided for @adhanPrayersTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Prières concernées'**
+  String get adhanPrayersTitle;
+
+  /// No description provided for @reminderBefore.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rappel avant la prière'**
+  String get reminderBefore;
+
+  /// No description provided for @reminderValue.
+  ///
+  /// In fr, this message translates to:
+  /// **'{minutes, plural, =0{Aucun} other{{minutes} min avant}}'**
+  String reminderValue(int minutes);
+
+  /// No description provided for @notificationsDenied.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les notifications sont bloquées. Autorisez-les pour recevoir les heures de prière.'**
+  String get notificationsDenied;
+
+  /// No description provided for @allow.
+  ///
+  /// In fr, this message translates to:
+  /// **'Autoriser'**
+  String get allow;
+
+  /// No description provided for @welcomeTagline.
+  ///
+  /// In fr, this message translates to:
+  /// **'Coran, prière, Qibla et invocations. Gratuit, sans publicité, sans compte.'**
+  String get welcomeTagline;
+
+  /// No description provided for @welcomeLanguage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Choisissez votre langue'**
+  String get welcomeLanguage;
+
+  /// No description provided for @continueLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Continuer'**
+  String get continueLabel;
+
+  /// No description provided for @later.
+  ///
+  /// In fr, this message translates to:
+  /// **'Plus tard'**
+  String get later;
+
+  /// No description provided for @start.
+  ///
+  /// In fr, this message translates to:
+  /// **'Commencer'**
+  String get start;
+
+  /// No description provided for @welcomeLocationTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre ville'**
+  String get welcomeLocationTitle;
+
+  /// No description provided for @welcomeLocationBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Pour calculer les horaires de prière et la direction de la Qibla. Votre position reste sur votre téléphone.'**
+  String get welcomeLocationBody;
+
+  /// No description provided for @welcomeNotifTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notifications de prière'**
+  String get welcomeNotifTitle;
+
+  /// No description provided for @welcomeNotifBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Recevez une notification à l\'heure de chaque prière. Vous pourrez choisir les prières dans les réglages.'**
+  String get welcomeNotifBody;
+
+  /// No description provided for @notificationsAllowed.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notifications autorisées'**
+  String get notificationsAllowed;
+
+  /// No description provided for @monthlyTimetable.
+  ///
+  /// In fr, this message translates to:
+  /// **'Horaires du mois'**
+  String get monthlyTimetable;
+
+  /// No description provided for @dayColumn.
+  ///
+  /// In fr, this message translates to:
+  /// **'Jour'**
+  String get dayColumn;
+
+  /// No description provided for @previousMonth.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mois précédent'**
+  String get previousMonth;
+
+  /// No description provided for @nextMonth.
+  ///
+  /// In fr, this message translates to:
+  /// **'Mois suivant'**
+  String get nextMonth;
+
+  /// No description provided for @exactAlarmsDenied.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les notifications peuvent arriver en retard : autorisez « Alarmes et rappels » pour l\'heure exacte.'**
+  String get exactAlarmsDenied;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

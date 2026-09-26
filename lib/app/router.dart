@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../core/providers.dart';
 import '../core/widgets/coming_soon.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/location/presentation/location_picker_screen.dart';
 import '../features/more/presentation/more_screen.dart';
+import '../features/onboarding/presentation/welcome_screen.dart';
+import '../features/prayer_times/presentation/monthly_timetable_screen.dart';
 import '../features/prayer_times/presentation/prayer_times_screen.dart';
 import '../features/quran/domain/page_layout.dart';
 import '../features/quran/presentation/mushaf_screen.dart';
@@ -17,10 +21,19 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
 /// Cinq onglets (Accueil, Coran, Prière, Adhkar, Plus), chacun avec sa
 /// propre pile de navigation ; le choix du lieu s'ouvre en plein écran.
-GoRouter buildRouter() => GoRouter(
+/// Au premier lancement, l'écran de bienvenue passe avant tout le reste.
+GoRouter buildRouter(WidgetRef ref) => GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
+  redirect: (context, state) {
+    final settings = ref.read(settingsProvider);
+    final needsWelcome = !settings.onboardingDone && settings.location == null;
+    final path = state.matchedLocation;
+    if (needsWelcome && path != '/welcome' && path != '/location') return '/welcome';
+    return null;
+  },
   routes: [
+    GoRoute(path: '/welcome', builder: (_, _) => const WelcomeScreen()),
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) => _TabScaffold(shell: shell),
       branches: [
@@ -49,7 +62,13 @@ GoRouter buildRouter() => GoRouter(
           ],
         ),
         StatefulShellBranch(
-          routes: [GoRoute(path: '/prayer', builder: (_, _) => const PrayerTimesScreen())],
+          routes: [
+            GoRoute(
+              path: '/prayer',
+              builder: (_, _) => const PrayerTimesScreen(),
+              routes: [GoRoute(path: 'month', builder: (_, _) => const MonthlyTimetableScreen())],
+            ),
+          ],
         ),
         StatefulShellBranch(
           routes: [

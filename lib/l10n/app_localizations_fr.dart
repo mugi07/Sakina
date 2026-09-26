@@ -379,4 +379,107 @@ class AppLocalizationsFr extends AppLocalizations {
   String ayahReference(String surah, int ayah) {
     return '$surah, verset $ayah';
   }
+
+  @override
+  String adhanTitle(String prayer, String time) {
+    return '$prayer — $time';
+  }
+
+  @override
+  String adhanBody(String prayer) {
+    return 'C\'est l\'heure de la prière du $prayer.';
+  }
+
+  @override
+  String reminderTitle(String prayer, int minutes) {
+    return '$prayer dans $minutes min';
+  }
+
+  @override
+  String get reminderBody => 'Préparez-vous pour la prière, in cha Allah.';
+
+  @override
+  String get adhanChannelName => 'Heures de prière';
+
+  @override
+  String get adhanChannelDescription => 'Notification à l\'heure de chaque prière';
+
+  @override
+  String get sectionAdhan => 'Notifications de prière';
+
+  @override
+  String get adhanNotifications => 'Notification à l\'heure de la prière';
+
+  @override
+  String get adhanPrayersTitle => 'Prières concernées';
+
+  @override
+  String get reminderBefore => 'Rappel avant la prière';
+
+  @override
+  String reminderValue(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: '$minutes min avant',
+      zero: 'Aucun',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationsDenied =>
+      'Les notifications sont bloquées. Autorisez-les pour recevoir les heures de prière.';
+
+  @override
+  String get allow => 'Autoriser';
+
+  @override
+  String get welcomeTagline =>
+      'Coran, prière, Qibla et invocations. Gratuit, sans publicité, sans compte.';
+
+  @override
+  String get welcomeLanguage => 'Choisissez votre langue';
+
+  @override
+  String get continueLabel => 'Continuer';
+
+  @override
+  String get later => 'Plus tard';
+
+  @override
+  String get start => 'Commencer';
+
+  @override
+  String get welcomeLocationTitle => 'Votre ville';
+
+  @override
+  String get welcomeLocationBody =>
+      'Pour calculer les horaires de prière et la direction de la Qibla. Votre position reste sur votre téléphone.';
+
+  @override
+  String get welcomeNotifTitle => 'Notifications de prière';
+
+  @override
+  String get welcomeNotifBody =>
+      'Recevez une notification à l\'heure de chaque prière. Vous pourrez choisir les prières dans les réglages.';
+
+  @override
+  String get notificationsAllowed => 'Notifications autorisées';
+
+  @override
+  String get monthlyTimetable => 'Horaires du mois';
+
+  @override
+  String get dayColumn => 'Jour';
+
+  @override
+  String get previousMonth => 'Mois précédent';
+
+  @override
+  String get nextMonth => 'Mois suivant';
+
+  @override
+  String get exactAlarmsDenied =>
+      'Les notifications peuvent arriver en retard : autorisez « Alarmes et rappels » pour l\'heure exacte.';
 }

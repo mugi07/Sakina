@@ -62,8 +62,20 @@ void main() {
     driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   });
 
-  testWidgets('sans lieu : l\'app invite à choisir une ville', (tester) async {
+  testWidgets('premier lancement : bienvenue, puis accueil sans lieu', (tester) async {
     final db = await _pumpApp(tester, settingsJson: '{"language":"fr"}');
+    expect(find.text('Choisissez votre langue'), findsOneWidget);
+    expect(find.text('Accueil'), findsNothing);
+
+    await tester.tap(find.text('Continuer'));
+    await _settle(tester);
+    expect(find.text('Votre ville'), findsOneWidget);
+    await tester.tap(find.text('Plus tard'));
+    await _settle(tester);
+    expect(find.text('Notifications de prière'), findsOneWidget);
+    await tester.tap(find.text('Commencer'));
+    await _settle(tester);
+
     expect(find.text('Accueil'), findsOneWidget);
     expect(find.text('Où êtes-vous ?'), findsOneWidget);
     await _unmount(tester, db);
@@ -91,7 +103,7 @@ void main() {
   });
 
   testWidgets('Coran : page 1 en arabe, puis la même page en français seul', (tester) async {
-    final db = await _pumpApp(tester, settingsJson: '{"language":"fr"}');
+    final db = await _pumpApp(tester, settingsJson: '{"language":"fr","onboardingDone":true}');
     await tester.tap(find.text('Coran'));
     await _settle(tester);
     expect(find.text('Al-Faatiha'), findsOneWidget);
@@ -114,7 +126,7 @@ void main() {
   });
 
   testWidgets('en arabe, l\'interface passe de droite à gauche', (tester) async {
-    final db = await _pumpApp(tester, settingsJson: '{"language":"ar"}');
+    final db = await _pumpApp(tester, settingsJson: '{"language":"ar","onboardingDone":true}');
     expect(find.text('الرئيسية'), findsOneWidget);
     final context = tester.element(find.text('الرئيسية'));
     expect(Directionality.of(context), TextDirection.rtl);

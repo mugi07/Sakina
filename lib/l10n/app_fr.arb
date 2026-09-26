@@ -228,5 +228,67 @@
         "type": "int"
       }
     }
-  }
+  },
+  "adhanTitle": "{prayer} — {time}",
+  "@adhanTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "adhanBody": "C'est l'heure de la prière du {prayer}.",
+  "@adhanBody": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderTitle": "{prayer} dans {minutes} min",
+  "@reminderTitle": {
+    "placeholders": {
+      "prayer": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderBody": "Préparez-vous pour la prière, in cha Allah.",
+  "adhanChannelName": "Heures de prière",
+  "adhanChannelDescription": "Notification à l'heure de chaque prière",
+  "sectionAdhan": "Notifications de prière",
+  "adhanNotifications": "Notification à l'heure de la prière",
+  "adhanPrayersTitle": "Prières concernées",
+  "reminderBefore": "Rappel avant la prière",
+  "reminderValue": "{minutes, plural, =0{Aucun} other{{minutes} min avant}}",
+  "@reminderValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationsDenied": "Les notifications sont bloquées. Autorisez-les pour recevoir les heures de prière.",
+  "allow": "Autoriser",
+  "welcomeTagline": "Coran, prière, Qibla et invocations. Gratuit, sans publicité, sans compte.",
+  "welcomeLanguage": "Choisissez votre langue",
+  "continueLabel": "Continuer",
+  "later": "Plus tard",
+  "start": "Commencer",
+  "welcomeLocationTitle": "Votre ville",
+  "welcomeLocationBody": "Pour calculer les horaires de prière et la direction de la Qibla. Votre position reste sur votre téléphone.",
+  "welcomeNotifTitle": "Notifications de prière",
+  "welcomeNotifBody": "Recevez une notification à l'heure de chaque prière. Vous pourrez choisir les prières dans les réglages.",
+  "notificationsAllowed": "Notifications autorisées",
+  "monthlyTimetable": "Horaires du mois",
+  "dayColumn": "Jour",
+  "previousMonth": "Mois précédent",
+  "nextMonth": "Mois suivant",
+  "exactAlarmsDenied": "Les notifications peuvent arriver en retard : autorisez « Alarmes et rappels » pour l'heure exacte."
 }

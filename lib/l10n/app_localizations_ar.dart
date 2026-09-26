@@ -382,4 +382,104 @@ class AppLocalizationsAr extends AppLocalizations {
   String ayahReference(String surah, int ayah) {
     return '$surah، الآية $ayah';
   }
+
+  @override
+  String adhanTitle(String prayer, String time) {
+    return '$prayer — $time';
+  }
+
+  @override
+  String adhanBody(String prayer) {
+    return 'حان الآن موعد صلاة $prayer.';
+  }
+
+  @override
+  String reminderTitle(String prayer, int minutes) {
+    return '$prayer بعد $minutes دقيقة';
+  }
+
+  @override
+  String get reminderBody => 'استعدّ للصلاة، إن شاء الله.';
+
+  @override
+  String get adhanChannelName => 'مواقيت الصلاة';
+
+  @override
+  String get adhanChannelDescription => 'تنبيه عند دخول وقت كل صلاة';
+
+  @override
+  String get sectionAdhan => 'تنبيهات الصلاة';
+
+  @override
+  String get adhanNotifications => 'تنبيه عند دخول وقت الصلاة';
+
+  @override
+  String get adhanPrayersTitle => 'الصلوات المعنية';
+
+  @override
+  String get reminderBefore => 'تذكير قبل الصلاة';
+
+  @override
+  String reminderValue(int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      minutes,
+      locale: localeName,
+      other: 'قبل $minutes دقيقة',
+      zero: 'بدون',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationsDenied => 'التنبيهات محظورة. اسمح بها لتلقي مواقيت الصلاة.';
+
+  @override
+  String get allow => 'السماح';
+
+  @override
+  String get welcomeTagline => 'القرآن، الصلاة، القبلة والأذكار. مجاني، بدون إعلانات، بدون حساب.';
+
+  @override
+  String get welcomeLanguage => 'اختر لغتك';
+
+  @override
+  String get continueLabel => 'متابعة';
+
+  @override
+  String get later => 'لاحقًا';
+
+  @override
+  String get start => 'ابدأ';
+
+  @override
+  String get welcomeLocationTitle => 'مدينتك';
+
+  @override
+  String get welcomeLocationBody => 'لحساب مواقيت الصلاة واتجاه القبلة. يبقى موقعك على هاتفك فقط.';
+
+  @override
+  String get welcomeNotifTitle => 'تنبيهات الصلاة';
+
+  @override
+  String get welcomeNotifBody =>
+      'تلقَّ تنبيهًا عند دخول وقت كل صلاة. يمكنك اختيار الصلوات من الإعدادات.';
+
+  @override
+  String get notificationsAllowed => 'تم السماح بالتنبيهات';
+
+  @override
+  String get monthlyTimetable => 'مواقيت الشهر';
+
+  @override
+  String get dayColumn => 'اليوم';
+
+  @override
+  String get previousMonth => 'الشهر السابق';
+
+  @override
+  String get nextMonth => 'الشهر التالي';
+
+  @override
+  String get exactAlarmsDenied =>
+      'قد تتأخر التنبيهات: اسمح بـ«المنبّهات والتذكيرات» للحصول على الوقت الدقيق.';
 }
