@@ -5,28 +5,17 @@ import '../location/saved_location.dart';
 
 enum AppLanguage { system, ar, fr, en }
 
-/// Traduction du Coran affichée sous le texte arabe.
-enum QuranTranslation {
-  /// Français si l'app est en français, anglais si elle est en anglais,
-  /// aucune si elle est en arabe.
-  auto,
-  none,
-  frHamidullah('fr.hamidullah'),
-  enSahih('en.sahih');
+/// Langue affichée dans le lecteur du Coran : l'arabe (mushaf) ou une
+/// traduction, chacune sur ses propres pages.
+enum QuranLanguage {
+  arabic,
+  french('fr.hamidullah'),
+  english('en.sahih');
 
-  const QuranTranslation([this.edition]);
+  const QuranLanguage([this.edition]);
 
-  /// Identifiant de l'édition dans content.sqlite.
+  /// Identifiant de l'édition de traduction dans content.sqlite.
   final String? edition;
-
-  String? editionFor(String languageCode) => switch (this) {
-    auto => switch (languageCode) {
-      'fr' => frHamidullah.edition,
-      'en' => enSahih.edition,
-      _ => null,
-    },
-    _ => edition,
-  };
 }
 
 /// Préférences de l'utilisateur. Pour les réglages de prière, null signifie
@@ -41,9 +30,9 @@ class AppSettings {
     this.madhab,
     this.highLatitudeRule,
     this.hijriAdjustment = 0,
-    this.quranTranslation = QuranTranslation.auto,
+    this.quranLanguage = QuranLanguage.arabic,
     this.arabicFontScale = 1.0,
-    this.lastReadSurah,
+    this.lastReadPage,
   });
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
@@ -58,10 +47,9 @@ class AppSettings {
       madhab: byName(Madhab.values, json['madhab']),
       highLatitudeRule: byName(HighLatitudeRule.values, json['highLatitudeRule']),
       hijriAdjustment: json['hijriAdjustment'] as int? ?? 0,
-      quranTranslation:
-          byName(QuranTranslation.values, json['quranTranslation']) ?? QuranTranslation.auto,
+      quranLanguage: byName(QuranLanguage.values, json['quranLanguage']) ?? QuranLanguage.arabic,
       arabicFontScale: (json['arabicFontScale'] as num?)?.toDouble() ?? 1.0,
-      lastReadSurah: json['lastReadSurah'] as int?,
+      lastReadPage: json['lastReadPage'] as int?,
     );
   }
 
@@ -75,9 +63,11 @@ class AppSettings {
   /// Décalage du calendrier hégirien en jours (−2 à +2), pour s'aligner
   /// sur l'observation locale du croissant.
   final int hijriAdjustment;
-  final QuranTranslation quranTranslation;
+  final QuranLanguage quranLanguage;
   final double arabicFontScale;
-  final int? lastReadSurah;
+
+  /// Dernière page du mushaf lue (1..604), pour « Continuer la lecture ».
+  final int? lastReadPage;
 
   static const _unset = Object();
 
@@ -91,9 +81,9 @@ class AppSettings {
     Object? madhab = _unset,
     Object? highLatitudeRule = _unset,
     int? hijriAdjustment,
-    QuranTranslation? quranTranslation,
+    QuranLanguage? quranLanguage,
     double? arabicFontScale,
-    Object? lastReadSurah = _unset,
+    Object? lastReadPage = _unset,
   }) => AppSettings(
     language: language ?? this.language,
     themeMode: themeMode ?? this.themeMode,
@@ -106,9 +96,9 @@ class AppSettings {
         ? this.highLatitudeRule
         : highLatitudeRule as HighLatitudeRule?,
     hijriAdjustment: hijriAdjustment ?? this.hijriAdjustment,
-    quranTranslation: quranTranslation ?? this.quranTranslation,
+    quranLanguage: quranLanguage ?? this.quranLanguage,
     arabicFontScale: arabicFontScale ?? this.arabicFontScale,
-    lastReadSurah: lastReadSurah == _unset ? this.lastReadSurah : lastReadSurah as int?,
+    lastReadPage: lastReadPage == _unset ? this.lastReadPage : lastReadPage as int?,
   );
 
   Map<String, dynamic> toJson() => {
@@ -119,8 +109,8 @@ class AppSettings {
     'madhab': madhab?.name,
     'highLatitudeRule': highLatitudeRule?.name,
     'hijriAdjustment': hijriAdjustment,
-    'quranTranslation': quranTranslation.name,
+    'quranLanguage': quranLanguage.name,
     'arabicFontScale': arabicFontScale,
-    'lastReadSurah': lastReadSurah,
+    'lastReadPage': lastReadPage,
   };
 }

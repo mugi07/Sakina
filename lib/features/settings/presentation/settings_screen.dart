@@ -32,12 +32,6 @@ class SettingsScreen extends ConsumerWidget {
       ThemeMode.light => l.themeLight,
       ThemeMode.dark => l.themeDark,
     };
-    String translationName(QuranTranslation t) => switch (t) {
-      QuranTranslation.auto => l.translationAuto,
-      QuranTranslation.none => l.translationNone,
-      QuranTranslation.frHamidullah => 'Français — Muhammad Hamidullah',
-      QuranTranslation.enSahih => 'English — Saheeh International',
-    };
     String hijriAdjustmentLabel(int days) => days == 0
         ? l.hijriAdjustmentValue(0)
         : '${days > 0 ? '+' : '−'}${l.hijriAdjustmentValue(days.abs())}';
@@ -112,14 +106,6 @@ class SettingsScreen extends ConsumerWidget {
             onChanged: (v) => controller.update((s) => s.copyWith(hijriAdjustment: v)),
           ),
           _SectionTitle(l.sectionQuran),
-          _ChoiceTile<QuranTranslation>(
-            icon: Icons.translate,
-            title: l.translation,
-            value: settings.quranTranslation,
-            options: QuranTranslation.values,
-            labelOf: translationName,
-            onChanged: (v) => controller.update((s) => s.copyWith(quranTranslation: v)),
-          ),
           ListTile(
             leading: const Icon(Icons.format_size),
             title: Text(l.arabicFontSize),

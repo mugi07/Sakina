@@ -2560,6 +2560,14 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     ).map((QueryRow row) => row.read<String>('text_uthmani'));
   }
 
+  Selectable<String> basmalaTranslation({required String edition}) {
+    return customSelect(
+      'SELECT content FROM ayah_translations WHERE ayah_id = 1 AND edition = ?1',
+      variables: [Variable<String>(edition)],
+      readsFrom: {this.ayahTranslations},
+    ).map((QueryRow row) => row.read<String>('content'));
+  }
+
   Selectable<Surah> allSurahs() {
     return customSelect(
       'SELECT * FROM surahs ORDER BY id',
@@ -2568,23 +2576,75 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     ).asyncMap(this.surahs.mapFromRow);
   }
 
-  Selectable<Surah> surahById({required int id}) {
+  Selectable<SurahStartPagesResult> surahStartPages() {
     return customSelect(
-      'SELECT * FROM surahs WHERE id = ?1',
-      variables: [Variable<int>(id)],
-      readsFrom: {this.surahs},
-    ).asyncMap(this.surahs.mapFromRow);
+      'SELECT surah, MIN(page) AS page FROM ayahs GROUP BY surah ORDER BY surah',
+      variables: [],
+      readsFrom: {this.ayahs},
+    ).map(
+      (QueryRow row) =>
+          SurahStartPagesResult(surah: row.read<int>('surah'), page: row.readNullable<int>('page')),
+    );
   }
 
-  Selectable<AyahsOfSurahResult> ayahsOfSurah({String? edition, required int surah}) {
+  Selectable<AyahsOfPageResult> ayahsOfPage({String? edition, required int page}) {
     return customSelect(
-      'SELECT"a"."id" AS "nested_0.id", "a"."surah" AS "nested_0.surah", "a"."number" AS "nested_0.number", "a"."text_uthmani" AS "nested_0.text_uthmani", "a"."text_search" AS "nested_0.text_search", "a"."juz" AS "nested_0.juz", "a"."hizb_quarter" AS "nested_0.hizb_quarter", "a"."page" AS "nested_0.page", "a"."sajda" AS "nested_0.sajda", t.content AS translation FROM ayahs AS a LEFT JOIN ayah_translations AS t ON t.ayah_id = a.id AND t.edition = ?1 WHERE a.surah = ?2 ORDER BY a.number',
-      variables: [Variable<String>(edition), Variable<int>(surah)],
+      'SELECT"a"."id" AS "nested_0.id", "a"."surah" AS "nested_0.surah", "a"."number" AS "nested_0.number", "a"."text_uthmani" AS "nested_0.text_uthmani", "a"."text_search" AS "nested_0.text_search", "a"."juz" AS "nested_0.juz", "a"."hizb_quarter" AS "nested_0.hizb_quarter", "a"."page" AS "nested_0.page", "a"."sajda" AS "nested_0.sajda", t.content AS translation FROM ayahs AS a LEFT JOIN ayah_translations AS t ON t.ayah_id = a.id AND t.edition = ?1 WHERE a.page = ?2 ORDER BY a.id',
+      variables: [Variable<String>(edition), Variable<int>(page)],
       readsFrom: {this.ayahTranslations, this.ayahs},
     ).asyncMap(
-      (QueryRow row) async => AyahsOfSurahResult(
+      (QueryRow row) async => AyahsOfPageResult(
         a: await this.ayahs.mapFromRow(row, tablePrefix: 'nested_0'),
         translation: row.readNullable<String>('translation'),
+      ),
+    );
+  }
+
+  Selectable<JuzStartsResult> juzStarts() {
+    return customSelect(
+      'SELECT a.juz, a.surah, a.number, a.page, a.text_uthmani, s.name_ar, s.name_translit FROM ayahs AS a INNER JOIN surahs AS s ON s.id = a.surah WHERE a.id IN (SELECT MIN(id) FROM ayahs GROUP BY juz) ORDER BY a.juz',
+      variables: [],
+      readsFrom: {this.ayahs, this.surahs},
+    ).map(
+      (QueryRow row) => JuzStartsResult(
+        juz: row.read<int>('juz'),
+        surah: row.read<int>('surah'),
+        number: row.read<int>('number'),
+        page: row.read<int>('page'),
+        textUthmani: row.read<String>('text_uthmani'),
+        nameAr: row.read<String>('name_ar'),
+        nameTranslit: row.read<String>('name_translit'),
+      ),
+    );
+  }
+
+  Selectable<HizbStartsResult> hizbStarts() {
+    return customSelect(
+      'SELECT(a.hizb_quarter + 3)/ 4 AS hizb, a.surah, a.number, a.page, a.text_uthmani, s.name_ar, s.name_translit FROM ayahs AS a INNER JOIN surahs AS s ON s.id = a.surah WHERE a.id IN (SELECT MIN(id) FROM ayahs GROUP BY hizb_quarter) AND a.hizb_quarter % 4 = 1 ORDER BY a.hizb_quarter',
+      variables: [],
+      readsFrom: {this.ayahs, this.surahs},
+    ).map(
+      (QueryRow row) => HizbStartsResult(
+        hizb: row.read<int>('hizb'),
+        surah: row.read<int>('surah'),
+        number: row.read<int>('number'),
+        page: row.read<int>('page'),
+        textUthmani: row.read<String>('text_uthmani'),
+        nameAr: row.read<String>('name_ar'),
+        nameTranslit: row.read<String>('name_translit'),
+      ),
+    );
+  }
+
+  Selectable<TranslationsOfAyahResult> translationsOfAyah({required int ayahId}) {
+    return customSelect(
+      'SELECT"e"."id" AS "nested_0.id", "e"."language" AS "nested_0.language", "e"."name" AS "nested_0.name", "e"."translator" AS "nested_0.translator", t.content FROM ayah_translations AS t INNER JOIN translation_editions AS e ON e.id = t.edition WHERE t.ayah_id = ?1 ORDER BY e.language DESC',
+      variables: [Variable<int>(ayahId)],
+      readsFrom: {this.ayahTranslations, this.translationEditions},
+    ).asyncMap(
+      (QueryRow row) async => TranslationsOfAyahResult(
+        e: await this.translationEditions.mapFromRow(row, tablePrefix: 'nested_0'),
+        content: row.read<String>('content'),
       ),
     );
   }
@@ -4542,10 +4602,60 @@ class $ContentDatabaseManager {
   $CitiesTableManager get cities => $CitiesTableManager(_db, _db.cities);
 }
 
-class AyahsOfSurahResult {
+class SurahStartPagesResult {
+  final int surah;
+  final int? page;
+  SurahStartPagesResult({required this.surah, this.page});
+}
+
+class AyahsOfPageResult {
   final Ayah a;
   final String? translation;
-  AyahsOfSurahResult({required this.a, this.translation});
+  AyahsOfPageResult({required this.a, this.translation});
+}
+
+class JuzStartsResult {
+  final int juz;
+  final int surah;
+  final int number;
+  final int page;
+  final String textUthmani;
+  final String nameAr;
+  final String nameTranslit;
+  JuzStartsResult({
+    required this.juz,
+    required this.surah,
+    required this.number,
+    required this.page,
+    required this.textUthmani,
+    required this.nameAr,
+    required this.nameTranslit,
+  });
+}
+
+class HizbStartsResult {
+  final int hizb;
+  final int surah;
+  final int number;
+  final int page;
+  final String textUthmani;
+  final String nameAr;
+  final String nameTranslit;
+  HizbStartsResult({
+    required this.hizb,
+    required this.surah,
+    required this.number,
+    required this.page,
+    required this.textUthmani,
+    required this.nameAr,
+    required this.nameTranslit,
+  });
+}
+
+class TranslationsOfAyahResult {
+  final TranslationEdition e;
+  final String content;
+  TranslationsOfAyahResult({required this.e, required this.content});
 }
 
 class SearchCitiesResult {

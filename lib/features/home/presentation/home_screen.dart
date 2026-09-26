@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/calendar/hijri_date.dart';
@@ -10,7 +9,7 @@ import '../../prayer_times/application/prayer_providers.dart';
 import '../../prayer_times/presentation/widgets/location_header.dart';
 import '../../prayer_times/presentation/widgets/next_prayer_card.dart';
 import '../../quran/application/quran_providers.dart';
-import '../../quran/presentation/surah_list_screen.dart';
+import '../../quran/presentation/quran_index_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -49,9 +48,9 @@ class HomeScreen extends ConsumerWidget {
             if (settings.location != null) const LocationHeader(),
             const SizedBox(height: 8),
             const NextPrayerCard(),
-            if (settings.lastReadSurah != null) ...[
+            if (settings.lastReadPage != null) ...[
               const SizedBox(height: 16),
-              _ContinueReadingCard(surahId: settings.lastReadSurah!),
+              _ContinueReadingCard(page: settings.lastReadPage!),
             ],
           ],
         ),
@@ -61,26 +60,26 @@ class HomeScreen extends ConsumerWidget {
 }
 
 class _ContinueReadingCard extends ConsumerWidget {
-  const _ContinueReadingCard({required this.surahId});
+  const _ContinueReadingCard({required this.page});
 
-  final int surahId;
+  final int page;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
-    final surahs = ref.watch(surahListProvider).value;
-    final surah = surahs?.where((s) => s.id == surahId).firstOrNull;
+    final rows = ref.watch(pageAyahsProvider((page: page, edition: null))).value;
+    final surah = rows == null ? null : ref.watch(surahByIdProvider).value?[rows.first.a.surah];
     if (surah == null) return const SizedBox.shrink();
 
     return Card(
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        leading: SurahNumberBadge(number: surah.id),
+        leading: NumberBadge(number: surah.id),
         title: Text(l.continueReading),
-        subtitle: Text(l.continueReadingSurah(isArabic ? surah.nameAr : surah.nameTranslit)),
+        subtitle: Text(l.continueReadingPage(page, isArabic ? surah.nameAr : surah.nameTranslit)),
         trailing: const Icon(Icons.menu_book_outlined),
-        onTap: () => context.go('/quran/surah/${surah.id}'),
+        onTap: () => openMushafPage(context, page),
       ),
     );
   }

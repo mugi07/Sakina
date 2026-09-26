@@ -184,12 +184,6 @@ abstract class AppLocalizations {
   /// **'Continuer la lecture'**
   String get continueReading;
 
-  /// No description provided for @continueReadingSurah.
-  ///
-  /// In fr, this message translates to:
-  /// **'Sourate {name}'**
-  String continueReadingSurah(String name);
-
   /// No description provided for @prayerFajr.
   ///
   /// In fr, this message translates to:
@@ -562,24 +556,6 @@ abstract class AppLocalizations {
   /// **'Coran'**
   String get sectionQuran;
 
-  /// No description provided for @translation.
-  ///
-  /// In fr, this message translates to:
-  /// **'Traduction'**
-  String get translation;
-
-  /// No description provided for @translationAuto.
-  ///
-  /// In fr, this message translates to:
-  /// **'Selon la langue de l\'app'**
-  String get translationAuto;
-
-  /// No description provided for @translationNone.
-  ///
-  /// In fr, this message translates to:
-  /// **'Aucune'**
-  String get translationNone;
-
   /// No description provided for @arabicFontSize.
   ///
   /// In fr, this message translates to:
@@ -627,6 +603,84 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Polices'**
   String get fontsTitle;
+
+  /// No description provided for @tabSurahs.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sourates'**
+  String get tabSurahs;
+
+  /// No description provided for @tabJuz.
+  ///
+  /// In fr, this message translates to:
+  /// **'Juz'**
+  String get tabJuz;
+
+  /// No description provided for @tabHizb.
+  ///
+  /// In fr, this message translates to:
+  /// **'Hizb'**
+  String get tabHizb;
+
+  /// No description provided for @juzLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Juz {n}'**
+  String juzLabel(int n);
+
+  /// No description provided for @hizbLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Hizb {n}'**
+  String hizbLabel(int n);
+
+  /// No description provided for @pageLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Page {n}'**
+  String pageLabel(int n);
+
+  /// No description provided for @goToPage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aller à la page'**
+  String get goToPage;
+
+  /// No description provided for @go.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aller'**
+  String get go;
+
+  /// No description provided for @copy.
+  ///
+  /// In fr, this message translates to:
+  /// **'Copier'**
+  String get copy;
+
+  /// No description provided for @copied.
+  ///
+  /// In fr, this message translates to:
+  /// **'Verset copié'**
+  String get copied;
+
+  /// No description provided for @continueReadingPage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Page {page} · {surah}'**
+  String continueReadingPage(int page, String surah);
+
+  /// No description provided for @surahTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sourate {name}'**
+  String surahTitle(String name);
+
+  /// No description provided for @ayahReference.
+  ///
+  /// In fr, this message translates to:
+  /// **'{surah}, verset {ayah}'**
+  String ayahReference(String surah, int ayah);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

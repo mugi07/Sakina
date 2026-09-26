@@ -10,6 +10,7 @@ import 'package:sakina/core/database/content_database.dart';
 import 'package:sakina/core/providers.dart';
 import 'package:sakina/core/settings/app_settings.dart';
 import 'package:sakina/features/prayer_times/presentation/prayer_times_screen.dart';
+import 'package:sakina/features/quran/presentation/widgets/mushaf_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 
@@ -89,16 +90,26 @@ void main() {
     await _unmount(tester, db);
   });
 
-  testWidgets('Coran : liste des sourates puis lecture d\'Al-Fatiha', (tester) async {
+  testWidgets('Coran : page 1 en arabe, puis la même page en français seul', (tester) async {
     final db = await _pumpApp(tester, settingsJson: '{"language":"fr"}');
     await tester.tap(find.text('Coran'));
     await _settle(tester);
     expect(find.text('Al-Faatiha'), findsOneWidget);
+    expect(find.text('Juz'), findsOneWidget);
 
     await tester.tap(find.text('Al-Faatiha'));
     await _settle(tester);
-    // Traduction française affichée automatiquement.
-    expect(find.textContaining("1. Au nom d'Allah"), findsOneWidget);
+    // Mushaf arabe : page 1, sans traduction.
+    expect(find.byType(MushafPage), findsOneWidget);
+    expect(find.text('Page 1'), findsOneWidget);
+    expect(find.textContaining("Au nom d'Allah"), findsNothing);
+
+    await tester.tap(find.text('Français'));
+    await _settle(tester);
+    // Même page, en français uniquement.
+    expect(find.byType(MushafPage), findsNothing);
+    expect(find.textContaining("Au nom d'Allah"), findsOneWidget);
+    expect(find.text('Page 1'), findsOneWidget);
     await _unmount(tester, db);
   });
 
@@ -111,8 +122,16 @@ void main() {
   });
 
   test('les réglages survivent à un aller-retour JSON', () {
-    const settings = AppSettings(language: AppLanguage.ar, hijriAdjustment: -1, lastReadSurah: 18);
+    const settings = AppSettings(
+      language: AppLanguage.ar,
+      hijriAdjustment: -1,
+      lastReadPage: 293,
+      quranLanguage: QuranLanguage.french,
+    );
     final back = AppSettings.fromJson(settings.toJson());
-    expect((back.language, back.hijriAdjustment, back.lastReadSurah), (AppLanguage.ar, -1, 18));
+    expect(
+      (back.language, back.hijriAdjustment, back.lastReadPage, back.quranLanguage),
+      (AppLanguage.ar, -1, 293, QuranLanguage.french),
+    );
   });
 }

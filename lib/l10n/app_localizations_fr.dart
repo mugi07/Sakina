@@ -55,11 +55,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get continueReading => 'Continuer la lecture';
 
   @override
-  String continueReadingSurah(String name) {
-    return 'Sourate $name';
-  }
-
-  @override
   String get prayerFajr => 'Fajr';
 
   @override
@@ -278,15 +273,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sectionQuran => 'Coran';
 
   @override
-  String get translation => 'Traduction';
-
-  @override
-  String get translationAuto => 'Selon la langue de l\'app';
-
-  @override
-  String get translationNone => 'Aucune';
-
-  @override
   String get arabicFontSize => 'Taille du texte arabe';
 
   @override
@@ -342,4 +328,55 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get fontsTitle => 'Polices';
+
+  @override
+  String get tabSurahs => 'Sourates';
+
+  @override
+  String get tabJuz => 'Juz';
+
+  @override
+  String get tabHizb => 'Hizb';
+
+  @override
+  String juzLabel(int n) {
+    return 'Juz $n';
+  }
+
+  @override
+  String hizbLabel(int n) {
+    return 'Hizb $n';
+  }
+
+  @override
+  String pageLabel(int n) {
+    return 'Page $n';
+  }
+
+  @override
+  String get goToPage => 'Aller à la page';
+
+  @override
+  String get go => 'Aller';
+
+  @override
+  String get copy => 'Copier';
+
+  @override
+  String get copied => 'Verset copié';
+
+  @override
+  String continueReadingPage(int page, String surah) {
+    return 'Page $page · $surah';
+  }
+
+  @override
+  String surahTitle(String name) {
+    return 'Sourate $name';
+  }
+
+  @override
+  String ayahReference(String surah, int ayah) {
+    return '$surah, verset $ayah';
+  }
 }

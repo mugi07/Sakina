@@ -1,13 +1,11 @@
 {
   "@@locale": "ar",
   "appTitle": "سكينة",
-
   "navHome": "الرئيسية",
   "navQuran": "القرآن",
   "navPrayer": "الصلاة",
   "navAdhkar": "الأذكار",
   "navMore": "المزيد",
-
   "comingSoon": "قريبًا",
   "comingSoonBody": "هذا القسم قادم في إصدار قريب، إن شاء الله.",
   "retry": "إعادة المحاولة",
@@ -15,11 +13,8 @@
   "automatic": "تلقائي",
   "system": "النظام",
   "loadError": "حدث خطأ أثناء التحميل.",
-
   "homeGreeting": "السلام عليكم",
   "continueReading": "متابعة القراءة",
-  "continueReadingSurah": "سورة {name}",
-
   "prayerFajr": "الفجر",
   "prayerSunrise": "الشروق",
   "prayerDhuhr": "الظهر",
@@ -38,12 +33,10 @@
   "noLocationBody": "اختر مدينتك لحساب مواقيت الصلاة واتجاه القبلة.",
   "methodSummary": "طريقة الحساب: {method}",
   "asrSummary": "العصر: {madhab}",
-
   "qiblaTitle": "اتجاه القبلة",
   "qiblaBearing": "{degrees}° من الشمال",
   "qiblaDistance": "{km} كم إلى الكعبة",
   "qiblaHint": "حدّد اتجاه الشمال، ثم استدر بهذه الزاوية في اتجاه عقارب الساعة. البوصلة المباشرة قادمة قريبًا.",
-
   "locationTitle": "اختيار الموقع",
   "searchCityHint": "ابحث عن مدينة…",
   "useMyLocation": "استخدام موقعي الحالي",
@@ -54,12 +47,10 @@
   "myPosition": "موقعي",
   "noCityFound": "لم يتم العثور على أي مدينة.",
   "searchCityPrompt": "اكتب حرفين على الأقل.",
-
   "quranTitle": "القرآن الكريم",
   "meccan": "مكية",
   "medinan": "مدنية",
   "ayahCount": "{count, plural, =1{آية واحدة} =2{آيتان} few{{count} آيات} many{{count} آية} other{{count} آية}}",
-
   "moreTitle": "المزيد",
   "hadith": "الأحاديث",
   "tasbih": "التسبيح",
@@ -68,7 +59,6 @@
   "settingsTitle": "الإعدادات",
   "sourcesTitle": "المصادر والتراخيص",
   "softwareLicenses": "تراخيص البرمجيات",
-
   "sectionGeneral": "عام",
   "language": "اللغة",
   "theme": "المظهر",
@@ -87,17 +77,25 @@
   "hijriAdjustment": "تعديل التقويم الهجري",
   "hijriAdjustmentValue": "{days, plural, =0{بدون} =1{يوم واحد} =2{يومان} few{{days} أيام} many{{days} يومًا} other{{days} يوم}}",
   "sectionQuran": "القرآن",
-  "translation": "الترجمة",
-  "translationAuto": "حسب لغة التطبيق",
-  "translationNone": "بدون",
   "arabicFontSize": "حجم الخط العربي",
   "anglesFajrIsha": "الفجر {fajr}° · العشاء {isha}°",
   "anglesFajrIshaInterval": "الفجر {fajr}° · العشاء بعد المغرب بـ {minutes} دقيقة",
-
   "calcMethodName": "{method, select, algerian{الجزائر (وزارة الشؤون الدينية)} dubai{دبي} egyptian{الهيئة المصرية العامة للمساحة} france{فرنسا (UOIF)} gulfRegion{منطقة الخليج} indonesian{إندونيسيا} jafari{الجعفري (قم)} jordan{الأردن} karachi{جامعة العلوم الإسلامية بكراتشي} kuwait{الكويت} moonsightingCommittee{لجنة رؤية الهلال} morocco{المغرب (وزارة الأوقاف)} muslimWorldLeague{رابطة العالم الإسلامي} northAmerica{أمريكا الشمالية (ISNA)} portugal{البرتغال} qatar{قطر} russia{روسيا} singapore{سنغافورة} tehran{طهران} tunisia{تونس} turkiye{تركيا (رئاسة الشؤون الدينية)} ummAlQura{أم القرى (مكة المكرمة)} other{مخصصة}}",
-
   "sourcesIntro": "محتوى سكينة مأخوذ من مصادر موثوقة. نص القرآن الكريم منقول دون أي تعديل.",
   "privacyNote": "يعمل تطبيق سكينة بالكامل على هاتفك: لا يتم جمع أي بيانات ولا إرسالها.",
   "tanzilNoticeTitle": "إشعار حقوق مشروع تنزيل",
-  "fontsTitle": "الخطوط"
+  "fontsTitle": "الخطوط",
+  "tabSurahs": "السور",
+  "tabJuz": "الأجزاء",
+  "tabHizb": "الأحزاب",
+  "juzLabel": "الجزء {n}",
+  "hizbLabel": "الحزب {n}",
+  "pageLabel": "الصفحة {n}",
+  "goToPage": "الانتقال إلى صفحة",
+  "go": "انتقال",
+  "copy": "نسخ",
+  "copied": "تم نسخ الآية",
+  "continueReadingPage": "الصفحة {page} · {surah}",
+  "surahTitle": "سورة {name}",
+  "ayahReference": "{surah}، الآية {ayah}"
 }

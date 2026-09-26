@@ -1,13 +1,11 @@
 {
   "@@locale": "en",
   "appTitle": "Sakinah",
-
   "navHome": "Home",
   "navQuran": "Quran",
   "navPrayer": "Prayer",
   "navAdhkar": "Adhkar",
   "navMore": "More",
-
   "comingSoon": "Soon",
   "comingSoonBody": "This section is coming in a future version, in sha Allah.",
   "retry": "Retry",
@@ -15,11 +13,8 @@
   "automatic": "Automatic",
   "system": "System",
   "loadError": "Something went wrong while loading.",
-
   "homeGreeting": "Assalamu alaykum",
   "continueReading": "Continue reading",
-  "continueReadingSurah": "Surah {name}",
-
   "prayerFajr": "Fajr",
   "prayerSunrise": "Sunrise",
   "prayerDhuhr": "Dhuhr",
@@ -38,12 +33,10 @@
   "noLocationBody": "Choose your city to calculate prayer times and the Qibla direction.",
   "methodSummary": "Method: {method}",
   "asrSummary": "Asr: {madhab}",
-
   "qiblaTitle": "Qibla direction",
   "qiblaBearing": "{degrees}° from north",
   "qiblaDistance": "{km} km to the Kaaba",
   "qiblaHint": "Find north, then turn clockwise by this angle. A live compass is coming soon.",
-
   "locationTitle": "Choose a location",
   "searchCityHint": "Search for a city…",
   "useMyLocation": "Use my current location",
@@ -54,12 +47,10 @@
   "myPosition": "My location",
   "noCityFound": "No city found.",
   "searchCityPrompt": "Type at least 2 letters.",
-
   "quranTitle": "The Holy Quran",
   "meccan": "Meccan",
   "medinan": "Medinan",
   "ayahCount": "{count, plural, =1{1 verse} other{{count} verses}}",
-
   "moreTitle": "More",
   "hadith": "Hadith",
   "tasbih": "Tasbih",
@@ -68,7 +59,6 @@
   "settingsTitle": "Settings",
   "sourcesTitle": "Sources & licenses",
   "softwareLicenses": "Software licenses",
-
   "sectionGeneral": "General",
   "language": "Language",
   "theme": "Theme",
@@ -87,17 +77,25 @@
   "hijriAdjustment": "Hijri calendar adjustment",
   "hijriAdjustmentValue": "{days, plural, =0{None} =1{1 day} other{{days} days}}",
   "sectionQuran": "Quran",
-  "translation": "Translation",
-  "translationAuto": "Match app language",
-  "translationNone": "None",
   "arabicFontSize": "Arabic text size",
   "anglesFajrIsha": "Fajr {fajr}° · Isha {isha}°",
   "anglesFajrIshaInterval": "Fajr {fajr}° · Isha {minutes} min after Maghrib",
-
   "calcMethodName": "{method, select, algerian{Algeria (Ministry of Religious Affairs)} dubai{Dubai} egyptian{Egyptian General Authority of Survey} france{France (UOIF)} gulfRegion{Gulf Region} indonesian{Indonesia (KEMENAG)} jafari{Ja'fari (Qum)} jordan{Jordan} karachi{University of Islamic Sciences, Karachi} kuwait{Kuwait} moonsightingCommittee{Moonsighting Committee} morocco{Morocco (Ministry of Habous)} muslimWorldLeague{Muslim World League} northAmerica{North America (ISNA)} portugal{Portugal (Islamic Community of Lisbon)} qatar{Qatar} russia{Russia} singapore{Singapore (MUIS)} tehran{Tehran} tunisia{Tunisia} turkiye{Türkiye (Diyanet)} ummAlQura{Umm al-Qura (Makkah)} other{Custom}}",
-
   "sourcesIntro": "Sakina's content comes from recognized sources. The Quran text is reproduced without any modification.",
   "privacyNote": "Sakina runs entirely on your phone: no data is collected or sent.",
   "tanzilNoticeTitle": "Tanzil copyright notice",
-  "fontsTitle": "Fonts"
+  "fontsTitle": "Fonts",
+  "tabSurahs": "Surahs",
+  "tabJuz": "Juz",
+  "tabHizb": "Hizb",
+  "juzLabel": "Juz {n}",
+  "hizbLabel": "Hizb {n}",
+  "pageLabel": "Page {n}",
+  "goToPage": "Go to page",
+  "go": "Go",
+  "copy": "Copy",
+  "copied": "Verse copied",
+  "continueReadingPage": "Page {page} · {surah}",
+  "surahTitle": "Surah {name}",
+  "ayahReference": "{surah}, verse {ayah}"
 }

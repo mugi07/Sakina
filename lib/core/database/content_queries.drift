@@ -5,16 +5,49 @@ metaValue: SELECT value FROM meta_entries WHERE "key" = :key;
 -- Basmala telle qu'écrite dans Tanzil (verset 1:1), affichée en en-tête.
 basmala: SELECT text_uthmani FROM ayahs WHERE id = 1;
 
+-- Traduction de la basmala (verset 1:1) dans une édition, pour les en-têtes.
+basmalaTranslation:
+  SELECT content FROM ayah_translations WHERE ayah_id = 1 AND edition = :edition;
+
 allSurahs: SELECT * FROM surahs ORDER BY id;
 
-surahById: SELECT * FROM surahs WHERE id = :id;
+-- Page du mushaf où commence chaque sourate.
+surahStartPages: SELECT surah, MIN(page) AS page FROM ayahs GROUP BY surah ORDER BY surah;
 
-ayahsOfSurah:
+-- Versets d'une page du mushaf (1..604), avec la traduction demandée
+-- ('' : arabe seul).
+ayahsOfPage:
   SELECT a.**, t.content AS translation
   FROM ayahs a
   LEFT JOIN ayah_translations t ON t.ayah_id = a.id AND t.edition = :edition
-  WHERE a.surah = :surah
-  ORDER BY a.number;
+  WHERE a.page = :page
+  ORDER BY a.id;
+
+-- Premier verset de chaque juz (1..30).
+juzStarts:
+  SELECT a.juz, a.surah, a.number, a.page, a.text_uthmani, s.name_ar, s.name_translit
+  FROM ayahs a
+  INNER JOIN surahs s ON s.id = a.surah
+  WHERE a.id IN (SELECT MIN(id) FROM ayahs GROUP BY juz)
+  ORDER BY a.juz;
+
+-- Premier verset de chaque hizb (1..60), soit un quart sur quatre.
+hizbStarts:
+  SELECT (a.hizb_quarter + 3) / 4 AS hizb, a.surah, a.number, a.page, a.text_uthmani,
+         s.name_ar, s.name_translit
+  FROM ayahs a
+  INNER JOIN surahs s ON s.id = a.surah
+  WHERE a.id IN (SELECT MIN(id) FROM ayahs GROUP BY hizb_quarter)
+    AND a.hizb_quarter % 4 = 1
+  ORDER BY a.hizb_quarter;
+
+-- Toutes les traductions d'un verset, pour la fiche d'un verset.
+translationsOfAyah:
+  SELECT e.**, t.content
+  FROM ayah_translations t
+  INNER JOIN translation_editions e ON e.id = t.edition
+  WHERE t.ayah_id = :ayahId
+  ORDER BY e.language DESC;
 
 searchCities:
   SELECT c.**, co.**

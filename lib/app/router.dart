@@ -6,8 +6,9 @@ import '../features/home/presentation/home_screen.dart';
 import '../features/location/presentation/location_picker_screen.dart';
 import '../features/more/presentation/more_screen.dart';
 import '../features/prayer_times/presentation/prayer_times_screen.dart';
-import '../features/quran/presentation/surah_list_screen.dart';
-import '../features/quran/presentation/surah_reader_screen.dart';
+import '../features/quran/domain/page_layout.dart';
+import '../features/quran/presentation/mushaf_screen.dart';
+import '../features/quran/presentation/quran_index_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
 import '../features/sources/presentation/sources_screen.dart';
 import '../l10n/app_localizations.dart';
@@ -30,12 +31,18 @@ GoRouter buildRouter() => GoRouter(
           routes: [
             GoRoute(
               path: '/quran',
-              builder: (_, _) => const SurahListScreen(),
+              builder: (_, _) => const QuranIndexScreen(),
               routes: [
+                // Lecteur en plein écran (sans la barre d'onglets).
                 GoRoute(
-                  path: 'surah/:id',
-                  builder: (_, state) =>
-                      SurahReaderScreen(surahId: int.parse(state.pathParameters['id']!)),
+                  path: 'page/:page',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (_, state) => MushafScreen(
+                    initialPage: (int.tryParse(state.pathParameters['page']!) ?? 1).clamp(
+                      1,
+                      mushafPageCount,
+                    ),
+                  ),
                 ),
               ],
             ),
