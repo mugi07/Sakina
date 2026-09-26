@@ -1,4 +1,4 @@
-# Sakina – سكينة
+# Sakinah – سكينة
 
 Application musulmane gratuite, sans publicité et 100 % hors-ligne (Android et iOS) :
 Coran, horaires de prière, Qibla, adhkar, hadiths… en arabe, français et anglais.
