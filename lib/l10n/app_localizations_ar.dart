@@ -778,4 +778,150 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get asmaReviewNote => 'القائمة كما رواها الترمذي.';
+
+  @override
+  String get khatmaTitle => 'الختمة';
+
+  @override
+  String get khatmaIntro =>
+      'اقرأ القرآن كاملًا في عدد من الأيام تختاره، ويحسب التطبيق وِردك اليومي.';
+
+  @override
+  String get khatmaDuration => 'المدة';
+
+  @override
+  String khatmaDays(int days) {
+    return '$days يومًا';
+  }
+
+  @override
+  String get khatmaStartFrom => 'البداية';
+
+  @override
+  String get khatmaFromBeginning => 'من أول المصحف';
+
+  @override
+  String khatmaFromPage(int page) {
+    return 'من الصفحة $page';
+  }
+
+  @override
+  String get khatmaStart => 'ابدأ الختمة';
+
+  @override
+  String get khatmaReminder => 'تذكير يومي';
+
+  @override
+  String get khatmaReminderOff => 'بدون';
+
+  @override
+  String khatmaDayOf(int day, int days) {
+    return 'اليوم $day من $days';
+  }
+
+  @override
+  String khatmaPagesPerDay(int pages) {
+    return '$pages صفحة في اليوم';
+  }
+
+  @override
+  String khatmaTodayGoal(int page) {
+    return 'هدف اليوم: حتى الصفحة $page';
+  }
+
+  @override
+  String khatmaRemainingToday(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'بقيت $count صفحة اليوم',
+      many: 'بقيت $count صفحة اليوم',
+      few: 'بقيت $count صفحات اليوم',
+      two: 'بقيت صفحتان اليوم',
+      one: 'بقيت صفحة واحدة اليوم',
+      zero: 'تم هدف اليوم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String khatmaBehind(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'متأخر بـ $count صفحة',
+      many: 'متأخر بـ $count صفحة',
+      few: 'متأخر بـ $count صفحات',
+      two: 'متأخر بصفحتين',
+      one: 'متأخر بصفحة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get khatmaAhead => 'أنت متقدّم على هدفك';
+
+  @override
+  String get khatmaOnTrack => 'أنت في الموعد';
+
+  @override
+  String get khatmaCompleted => 'تمّت الختمة، تقبّل الله منك!';
+
+  @override
+  String khatmaCompletedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ختمة',
+      many: '$count ختمة',
+      few: '$count ختمات',
+      two: 'ختمتان',
+      one: 'ختمة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String khatmaContinue(int page) {
+    return 'المتابعة من الصفحة $page';
+  }
+
+  @override
+  String get khatmaMarkRead => 'الختمة: قرأت إلى هنا';
+
+  @override
+  String khatmaMarkedRead(int page) {
+    return 'الختمة: تمت القراءة حتى الصفحة $page';
+  }
+
+  @override
+  String get khatmaSetPage => 'تحديد آخر صفحة مقروءة';
+
+  @override
+  String get khatmaStop => 'إيقاف الختمة';
+
+  @override
+  String get khatmaStopConfirm => 'إيقاف هذه الختمة؟ سيضيع التقدّم.';
+
+  @override
+  String get khatmaRestart => 'ختمة جديدة';
+
+  @override
+  String khatmaReminderBody(int pages) {
+    return 'اقرأ $pages صفحة اليوم لتبقى على هدفك.';
+  }
+
+  @override
+  String khatmaProgress(int read, int total) {
+    return '$read / $total صفحة';
+  }
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get addWidget => 'إضافة الأداة إلى الشاشة الرئيسية';
+
+  @override
+  String get widgetNoLocation => 'افتح سكينة لاختيار مدينتك.';
 }

@@ -1287,6 +1287,192 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Liste rapportée par at-Tirmidhi. Les traductions sont indicatives.'**
   String get asmaReviewNote;
+
+  /// No description provided for @khatmaTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Khatma'**
+  String get khatmaTitle;
+
+  /// No description provided for @khatmaIntro.
+  ///
+  /// In fr, this message translates to:
+  /// **'Lisez le Coran en entier en un nombre de jours choisi. L\'app calcule votre objectif de chaque jour.'**
+  String get khatmaIntro;
+
+  /// No description provided for @khatmaDuration.
+  ///
+  /// In fr, this message translates to:
+  /// **'Durée'**
+  String get khatmaDuration;
+
+  /// No description provided for @khatmaDays.
+  ///
+  /// In fr, this message translates to:
+  /// **'{days} jours'**
+  String khatmaDays(int days);
+
+  /// No description provided for @khatmaStartFrom.
+  ///
+  /// In fr, this message translates to:
+  /// **'Commencer'**
+  String get khatmaStartFrom;
+
+  /// No description provided for @khatmaFromBeginning.
+  ///
+  /// In fr, this message translates to:
+  /// **'Depuis le début'**
+  String get khatmaFromBeginning;
+
+  /// No description provided for @khatmaFromPage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Depuis la page {page}'**
+  String khatmaFromPage(int page);
+
+  /// No description provided for @khatmaStart.
+  ///
+  /// In fr, this message translates to:
+  /// **'Commencer la khatma'**
+  String get khatmaStart;
+
+  /// No description provided for @khatmaReminder.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rappel quotidien'**
+  String get khatmaReminder;
+
+  /// No description provided for @khatmaReminderOff.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aucun'**
+  String get khatmaReminderOff;
+
+  /// No description provided for @khatmaDayOf.
+  ///
+  /// In fr, this message translates to:
+  /// **'Jour {day} sur {days}'**
+  String khatmaDayOf(int day, int days);
+
+  /// No description provided for @khatmaPagesPerDay.
+  ///
+  /// In fr, this message translates to:
+  /// **'{pages} pages par jour'**
+  String khatmaPagesPerDay(int pages);
+
+  /// No description provided for @khatmaTodayGoal.
+  ///
+  /// In fr, this message translates to:
+  /// **'Objectif d\'aujourd\'hui : jusqu\'à la page {page}'**
+  String khatmaTodayGoal(int page);
+
+  /// No description provided for @khatmaRemainingToday.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =0{Objectif du jour atteint} =1{Encore 1 page aujourd\'hui} other{Encore {count} pages aujourd\'hui}}'**
+  String khatmaRemainingToday(int count);
+
+  /// No description provided for @khatmaBehind.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1{1 page de retard} other{{count} pages de retard}}'**
+  String khatmaBehind(int count);
+
+  /// No description provided for @khatmaAhead.
+  ///
+  /// In fr, this message translates to:
+  /// **'En avance sur votre objectif'**
+  String get khatmaAhead;
+
+  /// No description provided for @khatmaOnTrack.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous êtes dans les temps'**
+  String get khatmaOnTrack;
+
+  /// No description provided for @khatmaCompleted.
+  ///
+  /// In fr, this message translates to:
+  /// **'Khatma terminée, qu\'Allah l\'accepte de vous !'**
+  String get khatmaCompleted;
+
+  /// No description provided for @khatmaCompletedCount.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1{1 khatma terminée} other{{count} khatmas terminées}}'**
+  String khatmaCompletedCount(int count);
+
+  /// No description provided for @khatmaContinue.
+  ///
+  /// In fr, this message translates to:
+  /// **'Continuer à la page {page}'**
+  String khatmaContinue(int page);
+
+  /// No description provided for @khatmaMarkRead.
+  ///
+  /// In fr, this message translates to:
+  /// **'Khatma : lu jusqu\'ici'**
+  String get khatmaMarkRead;
+
+  /// No description provided for @khatmaMarkedRead.
+  ///
+  /// In fr, this message translates to:
+  /// **'Khatma : lu jusqu\'à la page {page}'**
+  String khatmaMarkedRead(int page);
+
+  /// No description provided for @khatmaSetPage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Indiquer la dernière page lue'**
+  String get khatmaSetPage;
+
+  /// No description provided for @khatmaStop.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrêter la khatma'**
+  String get khatmaStop;
+
+  /// No description provided for @khatmaStopConfirm.
+  ///
+  /// In fr, this message translates to:
+  /// **'Arrêter cette khatma ? La progression sera perdue.'**
+  String get khatmaStopConfirm;
+
+  /// No description provided for @khatmaRestart.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nouvelle khatma'**
+  String get khatmaRestart;
+
+  /// No description provided for @khatmaReminderBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Lisez {pages} pages aujourd\'hui pour tenir votre objectif.'**
+  String khatmaReminderBody(int pages);
+
+  /// No description provided for @khatmaProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'{read} / {total} pages'**
+  String khatmaProgress(int read, int total);
+
+  /// No description provided for @confirm.
+  ///
+  /// In fr, this message translates to:
+  /// **'Confirmer'**
+  String get confirm;
+
+  /// No description provided for @addWidget.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ajouter le widget à l\'écran d\'accueil'**
+  String get addWidget;
+
+  /// No description provided for @widgetNoLocation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ouvrez Sakinah pour choisir votre ville.'**
+  String get widgetNoLocation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

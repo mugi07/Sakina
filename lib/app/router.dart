@@ -8,6 +8,7 @@ import '../features/asma_husna/presentation/asma_husna_screen.dart';
 import '../features/calendar/presentation/hijri_calendar_screen.dart';
 import '../features/hadith/presentation/hadith_screens.dart';
 import '../features/home/presentation/home_screen.dart';
+import '../features/khatma/presentation/khatma_screen.dart';
 import '../features/location/presentation/location_picker_screen.dart';
 import '../features/more/presentation/more_screen.dart';
 import '../features/onboarding/presentation/welcome_screen.dart';
@@ -53,6 +54,7 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
               builder: (_, _) => const QuranIndexScreen(),
               routes: [
                 GoRoute(path: 'search', builder: (_, _) => const QuranSearchScreen()),
+                GoRoute(path: 'khatma', builder: (_, _) => const KhatmaScreen()),
                 // Lecteur en plein écran (sans la barre d'onglets).
                 GoRoute(
                   path: 'page/:page',

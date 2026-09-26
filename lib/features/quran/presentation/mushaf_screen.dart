@@ -7,6 +7,7 @@ import '../../../core/database/content_database.dart';
 import '../../../core/providers.dart';
 import '../../../core/settings/app_settings.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../khatma/application/khatma_controller.dart';
 import '../application/quran_providers.dart';
 import '../application/recitation.dart';
 import '../domain/page_layout.dart';
@@ -131,6 +132,15 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
     ref.read(settingsProvider.notifier).update((s) => s.copyWith(quranLanguage: language));
   }
 
+  /// Khatma : la page affichée (et celles d'avant) est lue.
+  void _markKhatmaRead() {
+    final l = AppLocalizations.of(context);
+    final finished = ref.read(khatmaProvider.notifier).markReadUpTo(_page);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(finished ? l.khatmaCompleted : l.khatmaMarkedRead(_page))),
+    );
+  }
+
   Future<void> _onAyahTap(AyahsOfPageResult row) async {
     setState(() => _selectedAyahId = row.a.id);
     await showAyahSheet(context, row.a);
@@ -177,6 +187,7 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
     final surah = rows == null ? null : ref.watch(surahByIdProvider).value?[rows.first.a.surah];
     final edition = _language.edition;
     final recitation = ref.watch(recitationProvider);
+    final khatma = ref.watch(khatmaProvider);
 
     // La récitation fait défiler jusqu'à la page du verset lu.
     ref.listen(recitationProvider.select((s) => s.page), (_, page) {
@@ -216,6 +227,14 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
                 surah: rows.first.a.surah,
                 number: rows.first.a.number,
               ),
+            ),
+          if (khatma != null && !khatma.isCompleted)
+            IconButton(
+              tooltip: l.khatmaMarkRead,
+              icon: Icon(
+                _page <= khatma.lastPageRead ? Icons.task_alt : Icons.check_circle_outline,
+              ),
+              onPressed: _markKhatmaRead,
             ),
           IconButton(
             tooltip: l.goToPage,

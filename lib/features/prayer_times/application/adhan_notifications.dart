@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 import '../../../core/settings/app_settings.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../khatma/domain/khatma_plan.dart';
 import '../domain/adhan_schedule.dart';
 import '../domain/prayer_calculator.dart';
 import '../presentation/prayer_labels.dart';
@@ -101,21 +103,30 @@ class AdhanNotifications {
     required AppSettings settings,
     required AppLocalizations l,
     required String locale,
+    KhatmaPlan? khatma,
+    tz.Location? localZone,
   }) async {
     if (!_supported) return 0;
     await _ensureInitialized();
     await _plugin.cancelAllPendingNotifications();
-    if (calculator == null || (!settings.adhanEnabled && !settings.adhkarReminders)) return 0;
 
-    final schedule = buildAdhanSchedule(
-      calculator: calculator,
-      now: DateTime.now(),
-      muted: {for (final name in settings.adhanMuted) ?Salah.values.asNameMap()[name]},
-      reminderMinutes: settings.adhanReminderMinutes,
-      prayers: settings.adhanEnabled,
-      adhkarReminders: settings.adhkarReminders,
-      maxCount: Platform.isIOS ? 60 : 120,
-    );
+    final now = DateTime.now();
+    final khatmaTimes = khatma == null || localZone == null
+        ? const <tz.TZDateTime>[]
+        : khatmaReminderTimes(khatma, localZone, now);
+    final schedule = calculator == null || (!settings.adhanEnabled && !settings.adhkarReminders)
+        ? const <ScheduledAdhan>[]
+        : buildAdhanSchedule(
+            calculator: calculator,
+            now: now,
+            muted: {for (final name in settings.adhanMuted) ?Salah.values.asNameMap()[name]},
+            reminderMinutes: settings.adhanReminderMinutes,
+            prayers: settings.adhanEnabled,
+            adhkarReminders: settings.adhkarReminders,
+            // Limite iOS (64) partagée avec les rappels de khatma.
+            maxCount: (Platform.isIOS ? 60 : 120) - khatmaTimes.length,
+          );
+    if (schedule.isEmpty && khatmaTimes.isEmpty) return 0;
 
     final exact = Platform.isAndroid && (await _android?.canScheduleExactNotifications() ?? false);
     final details = NotificationDetails(
@@ -153,6 +164,19 @@ class AdhanNotifications {
         },
       );
     }
-    return schedule.length;
+    for (final t in khatmaTimes) {
+      await _plugin.zonedSchedule(
+        // Identifiants à part : 2AAMMJJ00.
+        id: 200000000 + ((t.year % 100) * 10000 + t.month * 100 + t.day) * 10,
+        scheduledDate: t,
+        notificationDetails: details,
+        androidScheduleMode: exact
+            ? AndroidScheduleMode.exactAllowWhileIdle
+            : AndroidScheduleMode.inexactAllowWhileIdle,
+        title: l.khatmaTitle,
+        body: l.khatmaReminderBody(khatma!.pagesPerDay),
+      );
+    }
+    return schedule.length + khatmaTimes.length;
   }
 }

@@ -56,6 +56,7 @@ class HomeScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               _ContinueReadingCard(page: settings.lastReadPage!),
             ],
+            const KhatmaHomeCard(),
             const SizedBox(height: 16),
             VerseOfTheDayCard(day: today),
             const SizedBox(height: 16),

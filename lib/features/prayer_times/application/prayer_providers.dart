@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers.dart';
 import '../../../core/settings/app_settings.dart';
+import '../../khatma/application/khatma_controller.dart';
 import '../domain/prayer_calculator.dart';
 
 /// Null tant que l'utilisateur n'a pas choisi de lieu. Ne dépend que des
@@ -31,6 +32,9 @@ final nextPrayerProvider = Provider<NextPrayer?>((ref) {
 /// change, elles sont reprogrammées.
 final adhanInputsProvider = Provider<Object>((ref) {
   final calculator = ref.watch(prayerCalculatorProvider);
+  final khatma = ref.watch(
+    khatmaProvider.select((k) => (k?.startDate, k?.days, k?.reminderMinutes, k?.isCompleted)),
+  );
   return ref.watch(
     settingsProvider.select(
       (s) => (
@@ -40,6 +44,7 @@ final adhanInputsProvider = Provider<Object>((ref) {
         s.adhanReminderMinutes,
         s.adhkarReminders,
         s.language,
+        khatma,
       ),
     ),
   );

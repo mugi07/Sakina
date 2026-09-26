@@ -450,5 +450,126 @@
   "whiteDays": "Jours blancs (13, 14, 15) : jeûne recommandé",
   "eventsThisMonth": "Ce mois-ci",
   "asmaSearchHint": "Rechercher un nom…",
-  "asmaReviewNote": "Liste rapportée par at-Tirmidhi. Les traductions sont indicatives."
+  "asmaReviewNote": "Liste rapportée par at-Tirmidhi. Les traductions sont indicatives.",
+  "khatmaTitle": "Khatma",
+  "khatmaIntro": "Lisez le Coran en entier en un nombre de jours choisi. L'app calcule votre objectif de chaque jour.",
+  "khatmaDuration": "Durée",
+  "khatmaDays": "{days} jours",
+  "@khatmaDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaStartFrom": "Commencer",
+  "khatmaFromBeginning": "Depuis le début",
+  "khatmaFromPage": "Depuis la page {page}",
+  "@khatmaFromPage": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaStart": "Commencer la khatma",
+  "khatmaReminder": "Rappel quotidien",
+  "khatmaReminderOff": "Aucun",
+  "khatmaDayOf": "Jour {day} sur {days}",
+  "@khatmaDayOf": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaPagesPerDay": "{pages} pages par jour",
+  "@khatmaPagesPerDay": {
+    "placeholders": {
+      "pages": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaTodayGoal": "Objectif d'aujourd'hui : jusqu'à la page {page}",
+  "@khatmaTodayGoal": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaRemainingToday": "{count, plural, =0{Objectif du jour atteint} =1{Encore 1 page aujourd'hui} other{Encore {count} pages aujourd'hui}}",
+  "@khatmaRemainingToday": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaBehind": "{count, plural, =1{1 page de retard} other{{count} pages de retard}}",
+  "@khatmaBehind": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaAhead": "En avance sur votre objectif",
+  "khatmaOnTrack": "Vous êtes dans les temps",
+  "khatmaCompleted": "Khatma terminée, qu'Allah l'accepte de vous !",
+  "khatmaCompletedCount": "{count, plural, =1{1 khatma terminée} other{{count} khatmas terminées}}",
+  "@khatmaCompletedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaContinue": "Continuer à la page {page}",
+  "@khatmaContinue": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaMarkRead": "Khatma : lu jusqu'ici",
+  "khatmaMarkedRead": "Khatma : lu jusqu'à la page {page}",
+  "@khatmaMarkedRead": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaSetPage": "Indiquer la dernière page lue",
+  "khatmaStop": "Arrêter la khatma",
+  "khatmaStopConfirm": "Arrêter cette khatma ? La progression sera perdue.",
+  "khatmaRestart": "Nouvelle khatma",
+  "khatmaReminderBody": "Lisez {pages} pages aujourd'hui pour tenir votre objectif.",
+  "@khatmaReminderBody": {
+    "placeholders": {
+      "pages": {
+        "type": "int"
+      }
+    }
+  },
+  "khatmaProgress": "{read} / {total} pages",
+  "@khatmaProgress": {
+    "placeholders": {
+      "read": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "confirm": "Confirmer",
+  "addWidget": "Ajouter le widget à l'écran d'accueil",
+  "widgetNoLocation": "Ouvrez Sakinah pour choisir votre ville."
 }

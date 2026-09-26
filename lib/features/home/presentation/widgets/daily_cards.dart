@@ -6,6 +6,8 @@ import '../../../../app/theme/app_theme.dart';
 import '../../../../core/database/content_database.dart';
 import '../../../../core/providers.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../khatma/application/khatma_controller.dart';
+import '../../../khatma/domain/khatma_plan.dart';
 import '../../../prayer_times/application/prayer_providers.dart';
 import '../../../prayer_times/domain/prayer_calculator.dart';
 import '../../../quran/application/quran_providers.dart';
@@ -187,6 +189,50 @@ class AdhkarShortcutCard extends ConsumerWidget {
         trailing: const Icon(Icons.chevron_right),
         // Chapitre « matin et soir » de Hisn al-Muslim.
         onTap: () => context.go('/adhkar/27'),
+      ),
+    );
+  }
+}
+
+/// Khatma en cours : jour, pages restantes aujourd'hui (rien s'il n'y en a pas).
+class KhatmaHomeCard extends ConsumerWidget {
+  const KhatmaHomeCard({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final plan = ref.watch(khatmaProvider);
+    if (plan == null || plan.isCompleted) return const SizedBox.shrink();
+    final l = AppLocalizations.of(context);
+    final today = DateTime.now();
+    final scheme = Theme.of(context).colorScheme;
+    final behind = plan.status(today) == KhatmaStatus.behind;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Card(
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          leading: SizedBox.square(
+            dimension: 40,
+            child: CircularProgressIndicator(
+              value: plan.progress,
+              strokeWidth: 5,
+              backgroundColor: scheme.primary.withValues(alpha: 0.12),
+            ),
+          ),
+          title: Text(
+            '${l.khatmaTitle} · ${l.khatmaDayOf(plan.dayNumber(today), plan.days)}',
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: Text(
+            behind
+                ? l.khatmaBehind(plan.pagesBehind(today))
+                : l.khatmaRemainingToday(plan.remainingToday(today)),
+            style: TextStyle(color: behind ? scheme.error : null),
+          ),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () => context.go('/quran/khatma'),
+        ),
       ),
     );
   }

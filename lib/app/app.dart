@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 import '../core/providers.dart';
 import '../core/settings/app_locale.dart';
 import '../core/settings/app_settings.dart';
+import '../features/khatma/application/khatma_controller.dart';
 import '../features/prayer_times/application/adhan_notifications.dart';
 import '../features/prayer_times/application/prayer_providers.dart';
 import '../l10n/app_localizations.dart';
@@ -50,6 +53,10 @@ class _SakinaAppState extends ConsumerState<SakinaApp> {
       WidgetsBinding.instance.platformDispatcher.locale,
     );
     try {
+      // Fuseau des rappels « à heure fixe » (khatma) : celui du lieu choisi,
+      // sinon celui du téléphone.
+      final zoneName =
+          settings.location?.timezone ?? (await FlutterTimezone.getLocalTimezone()).identifier;
       await ref
           .read(adhanNotificationsProvider)
           .reschedule(
@@ -57,6 +64,8 @@ class _SakinaAppState extends ConsumerState<SakinaApp> {
             settings: settings,
             l: lookupAppLocalizations(locale),
             locale: locale.toLanguageTag(),
+            khatma: ref.read(khatmaProvider),
+            localZone: tz.getLocation(zoneName),
           );
     } on Exception catch (e) {
       debugPrint('Programmation des notifications impossible : $e');

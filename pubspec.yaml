@@ -33,6 +33,7 @@ dependencies:
   just_audio: ^0.10.6
   just_audio_background: ^0.0.1-beta.17
   super_sliver_list: ^0.4.1
+  home_widget: ^0.10.0
 
 dev_dependencies:
   flutter_test:

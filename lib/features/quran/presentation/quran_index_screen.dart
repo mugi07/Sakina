@@ -27,6 +27,11 @@ class QuranIndexScreen extends StatelessWidget {
           title: Text(l.quranTitle),
           actions: [
             IconButton(
+              tooltip: l.khatmaTitle,
+              icon: const Icon(Icons.flag_outlined),
+              onPressed: () => context.go('/quran/khatma'),
+            ),
+            IconButton(
               tooltip: l.search,
               icon: const Icon(Icons.search),
               onPressed: () => context.go('/quran/search'),
