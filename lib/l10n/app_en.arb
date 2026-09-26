@@ -157,5 +157,14 @@
   "phraseAllahuakbar": "Allah is the Greatest",
   "phraseLailaha": "There is no god but Allah",
   "phraseAstaghfirullah": "I seek forgiveness from Allah",
-  "phraseSalawat": "O Allah, send blessings upon Muhammad"
+  "phraseSalawat": "O Allah, send blessings upon Muhammad",
+  "adhkarEssentials": "Essentials",
+  "adhkarAllChapters": "All chapters",
+  "adhkarSearchHint": "Search a chapter…",
+  "repeatTimes": "{count, plural, =1{once} other{{count} times}}",
+  "adhkarDone": "Done",
+  "adhkarTapHint": "Tap a remembrance each time you recite it.",
+  "translationEnglishPending": "",
+  "restart": "Start over",
+  "adhkarProgress": "{done} / {total}"
 }

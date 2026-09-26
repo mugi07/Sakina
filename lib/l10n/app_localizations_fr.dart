@@ -601,4 +601,41 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get phraseSalawat => 'Ô Allah, prie sur Muhammad';
+
+  @override
+  String get adhkarEssentials => 'Essentiels';
+
+  @override
+  String get adhkarAllChapters => 'Tous les chapitres';
+
+  @override
+  String get adhkarSearchHint => 'Rechercher un chapitre…';
+
+  @override
+  String repeatTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count fois',
+      one: '1 fois',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adhkarDone => 'Terminé';
+
+  @override
+  String get adhkarTapHint => 'Touchez une invocation à chaque récitation.';
+
+  @override
+  String get translationEnglishPending => 'Traduction française à venir — en anglais :';
+
+  @override
+  String get restart => 'Recommencer';
+
+  @override
+  String adhkarProgress(int done, int total) {
+    return '$done / $total';
+  }
 }

@@ -76,3 +76,29 @@ CREATE TABLE cities (
 
 CREATE INDEX cities_population ON cities (population DESC);
 CREATE INDEX cities_latitude ON cities (latitude);
+
+-- Adhkar : Hisn al-Muslim (Sa'id al-Qahtani), via hisnmuslim.com.
+-- title_fr / text_fr : prévus pour une traduction française dont les droits
+-- sont confirmés (vides pour l'instant).
+CREATE TABLE adhkar_categories (
+  id INTEGER NOT NULL PRIMARY KEY,
+  position INTEGER NOT NULL,
+  title_ar TEXT NOT NULL,
+  title_en TEXT NOT NULL,
+  title_fr TEXT,
+  item_count INTEGER NOT NULL
+);
+
+-- repeat_count : nombre de répétitions recommandé.
+CREATE TABLE adhkar (
+  id INTEGER NOT NULL PRIMARY KEY,
+  category INTEGER NOT NULL REFERENCES adhkar_categories (id),
+  position INTEGER NOT NULL,
+  text_ar TEXT NOT NULL,
+  transliteration TEXT,
+  text_en TEXT,
+  text_fr TEXT,
+  repeat_count INTEGER NOT NULL
+);
+
+CREATE INDEX adhkar_category ON adhkar (category, position);

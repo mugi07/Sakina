@@ -41,12 +41,18 @@ class MetaEntries extends Table with TableInfo<MetaEntries, MetaEntry> {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('key')) {
-      context.handle(_keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+      context.handle(
+        _keyMeta,
+        key.isAcceptableOrUnknown(data['key']!, _keyMeta),
+      );
     } else if (isInserting) {
       context.missing(_keyMeta);
     }
     if (data.containsKey('value')) {
-      context.handle(_valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
+      context.handle(
+        _valueMeta,
+        value.isAcceptableOrUnknown(data['value']!, _valueMeta),
+      );
     } else if (isInserting) {
       context.missing(_valueMeta);
     }
@@ -59,7 +65,10 @@ class MetaEntries extends Table with TableInfo<MetaEntries, MetaEntry> {
   MetaEntry map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return MetaEntry(
-      key: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}key'])!,
+      key: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
       value: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}value'],
@@ -92,7 +101,10 @@ class MetaEntry extends DataClass implements Insertable<MetaEntry> {
     return MetaEntriesCompanion(key: Value(key), value: Value(value));
   }
 
-  factory MetaEntry.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory MetaEntry.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return MetaEntry(
       key: serializer.fromJson<String>(json['key']),
@@ -131,7 +143,9 @@ class MetaEntry extends DataClass implements Insertable<MetaEntry> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is MetaEntry && other.key == this.key && other.value == this.value);
+      (other is MetaEntry &&
+          other.key == this.key &&
+          other.value == this.value);
 }
 
 class MetaEntriesCompanion extends UpdateCompanion<MetaEntry> {
@@ -161,7 +175,11 @@ class MetaEntriesCompanion extends UpdateCompanion<MetaEntry> {
     });
   }
 
-  MetaEntriesCompanion copyWith({Value<String>? key, Value<String>? value, Value<int>? rowid}) {
+  MetaEntriesCompanion copyWith({
+    Value<String>? key,
+    Value<String>? value,
+    Value<int>? rowid,
+  }) {
     return MetaEntriesCompanion(
       key: key ?? this.key,
       value: value ?? this.value,
@@ -218,7 +236,9 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _nameTranslitMeta = const VerificationMeta('nameTranslit');
+  static const VerificationMeta _nameTranslitMeta = const VerificationMeta(
+    'nameTranslit',
+  );
   late final GeneratedColumn<String> nameTranslit = GeneratedColumn<String>(
     'name_translit',
     aliasedName,
@@ -236,7 +256,9 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _revelationTypeMeta = const VerificationMeta('revelationType');
+  static const VerificationMeta _revelationTypeMeta = const VerificationMeta(
+    'revelationType',
+  );
   late final GeneratedColumn<String> revelationType = GeneratedColumn<String>(
     'revelation_type',
     aliasedName,
@@ -245,7 +267,9 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _revelationOrderMeta = const VerificationMeta('revelationOrder');
+  static const VerificationMeta _revelationOrderMeta = const VerificationMeta(
+    'revelationOrder',
+  );
   late final GeneratedColumn<int> revelationOrder = GeneratedColumn<int>(
     'revelation_order',
     aliasedName,
@@ -254,7 +278,9 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _ayahCountMeta = const VerificationMeta('ayahCount');
+  static const VerificationMeta _ayahCountMeta = const VerificationMeta(
+    'ayahCount',
+  );
   late final GeneratedColumn<int> ayahCount = GeneratedColumn<int>(
     'ayah_count',
     aliasedName,
@@ -263,7 +289,9 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _firstAyahIdMeta = const VerificationMeta('firstAyahId');
+  static const VerificationMeta _firstAyahIdMeta = const VerificationMeta(
+    'firstAyahId',
+  );
   late final GeneratedColumn<int> firstAyahId = GeneratedColumn<int>(
     'first_ayah_id',
     aliasedName,
@@ -289,34 +317,49 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
   String get actualTableName => $name;
   static const String $name = 'surahs';
   @override
-  VerificationContext validateIntegrity(Insertable<Surah> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Surah> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta, nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+      context.handle(
+        _nameArMeta,
+        nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameArMeta);
     }
     if (data.containsKey('name_translit')) {
       context.handle(
         _nameTranslitMeta,
-        nameTranslit.isAcceptableOrUnknown(data['name_translit']!, _nameTranslitMeta),
+        nameTranslit.isAcceptableOrUnknown(
+          data['name_translit']!,
+          _nameTranslitMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_nameTranslitMeta);
     }
     if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta, nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+      context.handle(
+        _nameEnMeta,
+        nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameEnMeta);
     }
     if (data.containsKey('revelation_type')) {
       context.handle(
         _revelationTypeMeta,
-        revelationType.isAcceptableOrUnknown(data['revelation_type']!, _revelationTypeMeta),
+        revelationType.isAcceptableOrUnknown(
+          data['revelation_type']!,
+          _revelationTypeMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_revelationTypeMeta);
@@ -324,7 +367,10 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
     if (data.containsKey('revelation_order')) {
       context.handle(
         _revelationOrderMeta,
-        revelationOrder.isAcceptableOrUnknown(data['revelation_order']!, _revelationOrderMeta),
+        revelationOrder.isAcceptableOrUnknown(
+          data['revelation_order']!,
+          _revelationOrderMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_revelationOrderMeta);
@@ -340,7 +386,10 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
     if (data.containsKey('first_ayah_id')) {
       context.handle(
         _firstAyahIdMeta,
-        firstAyahId.isAcceptableOrUnknown(data['first_ayah_id']!, _firstAyahIdMeta),
+        firstAyahId.isAcceptableOrUnknown(
+          data['first_ayah_id']!,
+          _firstAyahIdMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_firstAyahIdMeta);
@@ -354,7 +403,10 @@ class Surahs extends Table with TableInfo<Surahs, Surah> {
   Surah map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Surah(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
       nameAr: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name_ar'],
@@ -441,7 +493,10 @@ class Surah extends DataClass implements Insertable<Surah> {
     );
   }
 
-  factory Surah.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory Surah.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Surah(
       id: serializer.fromJson<int>(json['id']),
@@ -492,14 +547,20 @@ class Surah extends DataClass implements Insertable<Surah> {
     return Surah(
       id: data.id.present ? data.id.value : this.id,
       nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameTranslit: data.nameTranslit.present ? data.nameTranslit.value : this.nameTranslit,
+      nameTranslit: data.nameTranslit.present
+          ? data.nameTranslit.value
+          : this.nameTranslit,
       nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      revelationType: data.revelationType.present ? data.revelationType.value : this.revelationType,
+      revelationType: data.revelationType.present
+          ? data.revelationType.value
+          : this.revelationType,
       revelationOrder: data.revelationOrder.present
           ? data.revelationOrder.value
           : this.revelationOrder,
       ayahCount: data.ayahCount.present ? data.ayahCount.value : this.ayahCount,
-      firstAyahId: data.firstAyahId.present ? data.firstAyahId.value : this.firstAyahId,
+      firstAyahId: data.firstAyahId.present
+          ? data.firstAyahId.value
+          : this.firstAyahId,
     );
   }
 
@@ -700,7 +761,9 @@ class Ayahs extends Table with TableInfo<Ayahs, Ayah> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _textUthmaniMeta = const VerificationMeta('textUthmani');
+  static const VerificationMeta _textUthmaniMeta = const VerificationMeta(
+    'textUthmani',
+  );
   late final GeneratedColumn<String> textUthmani = GeneratedColumn<String>(
     'text_uthmani',
     aliasedName,
@@ -709,7 +772,9 @@ class Ayahs extends Table with TableInfo<Ayahs, Ayah> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _textSearchMeta = const VerificationMeta('textSearch');
+  static const VerificationMeta _textSearchMeta = const VerificationMeta(
+    'textSearch',
+  );
   late final GeneratedColumn<String> textSearch = GeneratedColumn<String>(
     'text_search',
     aliasedName,
@@ -727,7 +792,9 @@ class Ayahs extends Table with TableInfo<Ayahs, Ayah> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _hizbQuarterMeta = const VerificationMeta('hizbQuarter');
+  static const VerificationMeta _hizbQuarterMeta = const VerificationMeta(
+    'hizbQuarter',
+  );
   late final GeneratedColumn<int> hizbQuarter = GeneratedColumn<int>(
     'hizb_quarter',
     aliasedName,
@@ -772,26 +839,38 @@ class Ayahs extends Table with TableInfo<Ayahs, Ayah> {
   String get actualTableName => $name;
   static const String $name = 'ayahs';
   @override
-  VerificationContext validateIntegrity(Insertable<Ayah> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Ayah> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('surah')) {
-      context.handle(_surahMeta, surah.isAcceptableOrUnknown(data['surah']!, _surahMeta));
+      context.handle(
+        _surahMeta,
+        surah.isAcceptableOrUnknown(data['surah']!, _surahMeta),
+      );
     } else if (isInserting) {
       context.missing(_surahMeta);
     }
     if (data.containsKey('number')) {
-      context.handle(_numberMeta, number.isAcceptableOrUnknown(data['number']!, _numberMeta));
+      context.handle(
+        _numberMeta,
+        number.isAcceptableOrUnknown(data['number']!, _numberMeta),
+      );
     } else if (isInserting) {
       context.missing(_numberMeta);
     }
     if (data.containsKey('text_uthmani')) {
       context.handle(
         _textUthmaniMeta,
-        textUthmani.isAcceptableOrUnknown(data['text_uthmani']!, _textUthmaniMeta),
+        textUthmani.isAcceptableOrUnknown(
+          data['text_uthmani']!,
+          _textUthmaniMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_textUthmaniMeta);
@@ -805,25 +884,37 @@ class Ayahs extends Table with TableInfo<Ayahs, Ayah> {
       context.missing(_textSearchMeta);
     }
     if (data.containsKey('juz')) {
-      context.handle(_juzMeta, juz.isAcceptableOrUnknown(data['juz']!, _juzMeta));
+      context.handle(
+        _juzMeta,
+        juz.isAcceptableOrUnknown(data['juz']!, _juzMeta),
+      );
     } else if (isInserting) {
       context.missing(_juzMeta);
     }
     if (data.containsKey('hizb_quarter')) {
       context.handle(
         _hizbQuarterMeta,
-        hizbQuarter.isAcceptableOrUnknown(data['hizb_quarter']!, _hizbQuarterMeta),
+        hizbQuarter.isAcceptableOrUnknown(
+          data['hizb_quarter']!,
+          _hizbQuarterMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_hizbQuarterMeta);
     }
     if (data.containsKey('page')) {
-      context.handle(_pageMeta, page.isAcceptableOrUnknown(data['page']!, _pageMeta));
+      context.handle(
+        _pageMeta,
+        page.isAcceptableOrUnknown(data['page']!, _pageMeta),
+      );
     } else if (isInserting) {
       context.missing(_pageMeta);
     }
     if (data.containsKey('sajda')) {
-      context.handle(_sajdaMeta, sajda.isAcceptableOrUnknown(data['sajda']!, _sajdaMeta));
+      context.handle(
+        _sajdaMeta,
+        sajda.isAcceptableOrUnknown(data['sajda']!, _sajdaMeta),
+      );
     }
     return context;
   }
@@ -834,8 +925,14 @@ class Ayahs extends Table with TableInfo<Ayahs, Ayah> {
   Ayah map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Ayah(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      surah: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}surah'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      surah: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}surah'],
+      )!,
       number: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}number'],
@@ -848,12 +945,18 @@ class Ayahs extends Table with TableInfo<Ayahs, Ayah> {
         DriftSqlType.string,
         data['${effectivePrefix}text_search'],
       )!,
-      juz: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}juz'])!,
+      juz: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}juz'],
+      )!,
       hizbQuarter: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}hizb_quarter'],
       )!,
-      page: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}page'])!,
+      page: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}page'],
+      )!,
       sajda: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}sajda'],
@@ -918,11 +1021,16 @@ class Ayah extends DataClass implements Insertable<Ayah> {
       juz: Value(juz),
       hizbQuarter: Value(hizbQuarter),
       page: Value(page),
-      sajda: sajda == null && nullToAbsent ? const Value.absent() : Value(sajda),
+      sajda: sajda == null && nullToAbsent
+          ? const Value.absent()
+          : Value(sajda),
     );
   }
 
-  factory Ayah.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory Ayah.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Ayah(
       id: serializer.fromJson<int>(json['id']),
@@ -978,10 +1086,16 @@ class Ayah extends DataClass implements Insertable<Ayah> {
       id: data.id.present ? data.id.value : this.id,
       surah: data.surah.present ? data.surah.value : this.surah,
       number: data.number.present ? data.number.value : this.number,
-      textUthmani: data.textUthmani.present ? data.textUthmani.value : this.textUthmani,
-      textSearch: data.textSearch.present ? data.textSearch.value : this.textSearch,
+      textUthmani: data.textUthmani.present
+          ? data.textUthmani.value
+          : this.textUthmani,
+      textSearch: data.textSearch.present
+          ? data.textSearch.value
+          : this.textSearch,
       juz: data.juz.present ? data.juz.value : this.juz,
-      hizbQuarter: data.hizbQuarter.present ? data.hizbQuarter.value : this.hizbQuarter,
+      hizbQuarter: data.hizbQuarter.present
+          ? data.hizbQuarter.value
+          : this.hizbQuarter,
       page: data.page.present ? data.page.value : this.page,
       sajda: data.sajda.present ? data.sajda.value : this.sajda,
     );
@@ -1004,8 +1118,17 @@ class Ayah extends DataClass implements Insertable<Ayah> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, surah, number, textUthmani, textSearch, juz, hizbQuarter, page, sajda);
+  int get hashCode => Object.hash(
+    id,
+    surah,
+    number,
+    textUthmani,
+    textSearch,
+    juz,
+    hizbQuarter,
+    page,
+    sajda,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1157,7 +1280,8 @@ class AyahsCompanion extends UpdateCompanion<Ayah> {
   }
 }
 
-class TranslationEditions extends Table with TableInfo<TranslationEditions, TranslationEdition> {
+class TranslationEditions extends Table
+    with TableInfo<TranslationEditions, TranslationEdition> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -1171,7 +1295,9 @@ class TranslationEditions extends Table with TableInfo<TranslationEditions, Tran
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL PRIMARY KEY',
   );
-  static const VerificationMeta _languageMeta = const VerificationMeta('language');
+  static const VerificationMeta _languageMeta = const VerificationMeta(
+    'language',
+  );
   late final GeneratedColumn<String> language = GeneratedColumn<String>(
     'language',
     aliasedName,
@@ -1189,7 +1315,9 @@ class TranslationEditions extends Table with TableInfo<TranslationEditions, Tran
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _translatorMeta = const VerificationMeta('translator');
+  static const VerificationMeta _translatorMeta = const VerificationMeta(
+    'translator',
+  );
   late final GeneratedColumn<String> translator = GeneratedColumn<String>(
     'translator',
     aliasedName,
@@ -1226,7 +1354,10 @@ class TranslationEditions extends Table with TableInfo<TranslationEditions, Tran
       context.missing(_languageMeta);
     }
     if (data.containsKey('name')) {
-      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
@@ -1247,12 +1378,18 @@ class TranslationEditions extends Table with TableInfo<TranslationEditions, Tran
   TranslationEdition map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return TranslationEdition(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
       language: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}language'],
       )!,
-      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
       translator: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}translator'],
@@ -1269,7 +1406,8 @@ class TranslationEditions extends Table with TableInfo<TranslationEditions, Tran
   bool get dontWriteConstraints => true;
 }
 
-class TranslationEdition extends DataClass implements Insertable<TranslationEdition> {
+class TranslationEdition extends DataClass
+    implements Insertable<TranslationEdition> {
   final String id;
   final String language;
   final String name;
@@ -1299,7 +1437,10 @@ class TranslationEdition extends DataClass implements Insertable<TranslationEdit
     );
   }
 
-  factory TranslationEdition.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory TranslationEdition.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TranslationEdition(
       id: serializer.fromJson<String>(json['id']),
@@ -1319,19 +1460,25 @@ class TranslationEdition extends DataClass implements Insertable<TranslationEdit
     };
   }
 
-  TranslationEdition copyWith({String? id, String? language, String? name, String? translator}) =>
-      TranslationEdition(
-        id: id ?? this.id,
-        language: language ?? this.language,
-        name: name ?? this.name,
-        translator: translator ?? this.translator,
-      );
+  TranslationEdition copyWith({
+    String? id,
+    String? language,
+    String? name,
+    String? translator,
+  }) => TranslationEdition(
+    id: id ?? this.id,
+    language: language ?? this.language,
+    name: name ?? this.name,
+    translator: translator ?? this.translator,
+  );
   TranslationEdition copyWithCompanion(TranslationEditionsCompanion data) {
     return TranslationEdition(
       id: data.id.present ? data.id.value : this.id,
       language: data.language.present ? data.language.value : this.language,
       name: data.name.present ? data.name.value : this.name,
-      translator: data.translator.present ? data.translator.value : this.translator,
+      translator: data.translator.present
+          ? data.translator.value
+          : this.translator,
     );
   }
 
@@ -1447,7 +1594,8 @@ class TranslationEditionsCompanion extends UpdateCompanion<TranslationEdition> {
   }
 }
 
-class AyahTranslations extends Table with TableInfo<AyahTranslations, AyahTranslation> {
+class AyahTranslations extends Table
+    with TableInfo<AyahTranslations, AyahTranslation> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -1461,7 +1609,9 @@ class AyahTranslations extends Table with TableInfo<AyahTranslations, AyahTransl
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL REFERENCES ayahs(id)',
   );
-  static const VerificationMeta _editionMeta = const VerificationMeta('edition');
+  static const VerificationMeta _editionMeta = const VerificationMeta(
+    'edition',
+  );
   late final GeneratedColumn<String> edition = GeneratedColumn<String>(
     'edition',
     aliasedName,
@@ -1470,7 +1620,9 @@ class AyahTranslations extends Table with TableInfo<AyahTranslations, AyahTransl
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL REFERENCES translation_editions(id)',
   );
-  static const VerificationMeta _contentMeta = const VerificationMeta('content');
+  static const VerificationMeta _contentMeta = const VerificationMeta(
+    'content',
+  );
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
     'content',
     aliasedName,
@@ -1494,17 +1646,26 @@ class AyahTranslations extends Table with TableInfo<AyahTranslations, AyahTransl
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('ayah_id')) {
-      context.handle(_ayahIdMeta, ayahId.isAcceptableOrUnknown(data['ayah_id']!, _ayahIdMeta));
+      context.handle(
+        _ayahIdMeta,
+        ayahId.isAcceptableOrUnknown(data['ayah_id']!, _ayahIdMeta),
+      );
     } else if (isInserting) {
       context.missing(_ayahIdMeta);
     }
     if (data.containsKey('edition')) {
-      context.handle(_editionMeta, edition.isAcceptableOrUnknown(data['edition']!, _editionMeta));
+      context.handle(
+        _editionMeta,
+        edition.isAcceptableOrUnknown(data['edition']!, _editionMeta),
+      );
     } else if (isInserting) {
       context.missing(_editionMeta);
     }
     if (data.containsKey('content')) {
-      context.handle(_contentMeta, content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+      context.handle(
+        _contentMeta,
+        content.isAcceptableOrUnknown(data['content']!, _contentMeta),
+      );
     } else if (isInserting) {
       context.missing(_contentMeta);
     }
@@ -1549,7 +1710,11 @@ class AyahTranslation extends DataClass implements Insertable<AyahTranslation> {
   final int ayahId;
   final String edition;
   final String content;
-  const AyahTranslation({required this.ayahId, required this.edition, required this.content});
+  const AyahTranslation({
+    required this.ayahId,
+    required this.edition,
+    required this.content,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1567,7 +1732,10 @@ class AyahTranslation extends DataClass implements Insertable<AyahTranslation> {
     );
   }
 
-  factory AyahTranslation.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory AyahTranslation.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return AyahTranslation(
       ayahId: serializer.fromJson<int>(json['ayah_id']),
@@ -1585,11 +1753,12 @@ class AyahTranslation extends DataClass implements Insertable<AyahTranslation> {
     };
   }
 
-  AyahTranslation copyWith({int? ayahId, String? edition, String? content}) => AyahTranslation(
-    ayahId: ayahId ?? this.ayahId,
-    edition: edition ?? this.edition,
-    content: content ?? this.content,
-  );
+  AyahTranslation copyWith({int? ayahId, String? edition, String? content}) =>
+      AyahTranslation(
+        ayahId: ayahId ?? this.ayahId,
+        edition: edition ?? this.edition,
+        content: content ?? this.content,
+      );
   AyahTranslation copyWithCompanion(AyahTranslationsCompanion data) {
     return AyahTranslation(
       ayahId: data.ayahId.present ? data.ayahId.value : this.ayahId,
@@ -1734,24 +1903,39 @@ class Countries extends Table with TableInfo<Countries, Country> {
   String get actualTableName => $name;
   static const String $name = 'countries';
   @override
-  VerificationContext validateIntegrity(Insertable<Country> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<Country> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('code')) {
-      context.handle(_codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
+      context.handle(
+        _codeMeta,
+        code.isAcceptableOrUnknown(data['code']!, _codeMeta),
+      );
     } else if (isInserting) {
       context.missing(_codeMeta);
     }
     if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta, nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+      context.handle(
+        _nameEnMeta,
+        nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameEnMeta);
     }
     if (data.containsKey('name_fr')) {
-      context.handle(_nameFrMeta, nameFr.isAcceptableOrUnknown(data['name_fr']!, _nameFrMeta));
+      context.handle(
+        _nameFrMeta,
+        nameFr.isAcceptableOrUnknown(data['name_fr']!, _nameFrMeta),
+      );
     }
     if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta, nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+      context.handle(
+        _nameArMeta,
+        nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta),
+      );
     }
     return context;
   }
@@ -1762,7 +1946,10 @@ class Countries extends Table with TableInfo<Countries, Country> {
   Country map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Country(
-      code: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}code'])!,
+      code: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}code'],
+      )!,
       nameEn: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name_en'],
@@ -1792,7 +1979,12 @@ class Country extends DataClass implements Insertable<Country> {
   final String nameEn;
   final String? nameFr;
   final String? nameAr;
-  const Country({required this.code, required this.nameEn, this.nameFr, this.nameAr});
+  const Country({
+    required this.code,
+    required this.nameEn,
+    this.nameFr,
+    this.nameAr,
+  });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1811,12 +2003,19 @@ class Country extends DataClass implements Insertable<Country> {
     return CountriesCompanion(
       code: Value(code),
       nameEn: Value(nameEn),
-      nameFr: nameFr == null && nullToAbsent ? const Value.absent() : Value(nameFr),
-      nameAr: nameAr == null && nullToAbsent ? const Value.absent() : Value(nameAr),
+      nameFr: nameFr == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nameFr),
+      nameAr: nameAr == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nameAr),
     );
   }
 
-  factory Country.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory Country.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Country(
       code: serializer.fromJson<String>(json['code']),
@@ -2007,7 +2206,9 @@ class Cities extends Table with TableInfo<Cities, City> {
     requiredDuringInsert: false,
     $customConstraints: '',
   );
-  static const VerificationMeta _countryCodeMeta = const VerificationMeta('countryCode');
+  static const VerificationMeta _countryCodeMeta = const VerificationMeta(
+    'countryCode',
+  );
   late final GeneratedColumn<String> countryCode = GeneratedColumn<String>(
     'country_code',
     aliasedName,
@@ -2016,7 +2217,9 @@ class Cities extends Table with TableInfo<Cities, City> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL REFERENCES countries(code)',
   );
-  static const VerificationMeta _latitudeMeta = const VerificationMeta('latitude');
+  static const VerificationMeta _latitudeMeta = const VerificationMeta(
+    'latitude',
+  );
   late final GeneratedColumn<double> latitude = GeneratedColumn<double>(
     'latitude',
     aliasedName,
@@ -2025,7 +2228,9 @@ class Cities extends Table with TableInfo<Cities, City> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _longitudeMeta = const VerificationMeta('longitude');
+  static const VerificationMeta _longitudeMeta = const VerificationMeta(
+    'longitude',
+  );
   late final GeneratedColumn<double> longitude = GeneratedColumn<double>(
     'longitude',
     aliasedName,
@@ -2034,7 +2239,9 @@ class Cities extends Table with TableInfo<Cities, City> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _timezoneMeta = const VerificationMeta('timezone');
+  static const VerificationMeta _timezoneMeta = const VerificationMeta(
+    'timezone',
+  );
   late final GeneratedColumn<String> timezone = GeneratedColumn<String>(
     'timezone',
     aliasedName,
@@ -2043,7 +2250,9 @@ class Cities extends Table with TableInfo<Cities, City> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _populationMeta = const VerificationMeta('population');
+  static const VerificationMeta _populationMeta = const VerificationMeta(
+    'population',
+  );
   late final GeneratedColumn<int> population = GeneratedColumn<int>(
     'population',
     aliasedName,
@@ -2052,7 +2261,9 @@ class Cities extends Table with TableInfo<Cities, City> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _searchKeyMeta = const VerificationMeta('searchKey');
+  static const VerificationMeta _searchKeyMeta = const VerificationMeta(
+    'searchKey',
+  );
   late final GeneratedColumn<String> searchKey = GeneratedColumn<String>(
     'search_key',
     aliasedName,
@@ -2080,27 +2291,42 @@ class Cities extends Table with TableInfo<Cities, City> {
   String get actualTableName => $name;
   static const String $name = 'cities';
   @override
-  VerificationContext validateIntegrity(Insertable<City> instance, {bool isInserting = false}) {
+  VerificationContext validateIntegrity(
+    Insertable<City> instance, {
+    bool isInserting = false,
+  }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name')) {
-      context.handle(_nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
     if (data.containsKey('name_fr')) {
-      context.handle(_nameFrMeta, nameFr.isAcceptableOrUnknown(data['name_fr']!, _nameFrMeta));
+      context.handle(
+        _nameFrMeta,
+        nameFr.isAcceptableOrUnknown(data['name_fr']!, _nameFrMeta),
+      );
     }
     if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta, nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+      context.handle(
+        _nameArMeta,
+        nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta),
+      );
     }
     if (data.containsKey('country_code')) {
       context.handle(
         _countryCodeMeta,
-        countryCode.isAcceptableOrUnknown(data['country_code']!, _countryCodeMeta),
+        countryCode.isAcceptableOrUnknown(
+          data['country_code']!,
+          _countryCodeMeta,
+        ),
       );
     } else if (isInserting) {
       context.missing(_countryCodeMeta);
@@ -2154,8 +2380,14 @@ class Cities extends Table with TableInfo<Cities, City> {
   City map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return City(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
       nameFr: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}name_fr'],
@@ -2247,8 +2479,12 @@ class City extends DataClass implements Insertable<City> {
     return CitiesCompanion(
       id: Value(id),
       name: Value(name),
-      nameFr: nameFr == null && nullToAbsent ? const Value.absent() : Value(nameFr),
-      nameAr: nameAr == null && nullToAbsent ? const Value.absent() : Value(nameAr),
+      nameFr: nameFr == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nameFr),
+      nameAr: nameAr == null && nullToAbsent
+          ? const Value.absent()
+          : Value(nameAr),
       countryCode: Value(countryCode),
       latitude: Value(latitude),
       longitude: Value(longitude),
@@ -2258,7 +2494,10 @@ class City extends DataClass implements Insertable<City> {
     );
   }
 
-  factory City.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory City.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return City(
       id: serializer.fromJson<int>(json['id']),
@@ -2319,11 +2558,15 @@ class City extends DataClass implements Insertable<City> {
       name: data.name.present ? data.name.value : this.name,
       nameFr: data.nameFr.present ? data.nameFr.value : this.nameFr,
       nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      countryCode: data.countryCode.present ? data.countryCode.value : this.countryCode,
+      countryCode: data.countryCode.present
+          ? data.countryCode.value
+          : this.countryCode,
       latitude: data.latitude.present ? data.latitude.value : this.latitude,
       longitude: data.longitude.present ? data.longitude.value : this.longitude,
       timezone: data.timezone.present ? data.timezone.value : this.timezone,
-      population: data.population.present ? data.population.value : this.population,
+      population: data.population.present
+          ? data.population.value
+          : this.population,
       searchKey: data.searchKey.present ? data.searchKey.value : this.searchKey,
     );
   }
@@ -2521,21 +2764,937 @@ class CitiesCompanion extends UpdateCompanion<City> {
   }
 }
 
+class AdhkarCategories extends Table
+    with TableInfo<AdhkarCategories, AdhkarCategory> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  AdhkarCategories(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL PRIMARY KEY',
+  );
+  static const VerificationMeta _positionMeta = const VerificationMeta(
+    'position',
+  );
+  late final GeneratedColumn<int> position = GeneratedColumn<int>(
+    'position',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const VerificationMeta _titleArMeta = const VerificationMeta(
+    'titleAr',
+  );
+  late final GeneratedColumn<String> titleAr = GeneratedColumn<String>(
+    'title_ar',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const VerificationMeta _titleEnMeta = const VerificationMeta(
+    'titleEn',
+  );
+  late final GeneratedColumn<String> titleEn = GeneratedColumn<String>(
+    'title_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const VerificationMeta _titleFrMeta = const VerificationMeta(
+    'titleFr',
+  );
+  late final GeneratedColumn<String> titleFr = GeneratedColumn<String>(
+    'title_fr',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
+  static const VerificationMeta _itemCountMeta = const VerificationMeta(
+    'itemCount',
+  );
+  late final GeneratedColumn<int> itemCount = GeneratedColumn<int>(
+    'item_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    position,
+    titleAr,
+    titleEn,
+    titleFr,
+    itemCount,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'adhkar_categories';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AdhkarCategory> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('position')) {
+      context.handle(
+        _positionMeta,
+        position.isAcceptableOrUnknown(data['position']!, _positionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_positionMeta);
+    }
+    if (data.containsKey('title_ar')) {
+      context.handle(
+        _titleArMeta,
+        titleAr.isAcceptableOrUnknown(data['title_ar']!, _titleArMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleArMeta);
+    }
+    if (data.containsKey('title_en')) {
+      context.handle(
+        _titleEnMeta,
+        titleEn.isAcceptableOrUnknown(data['title_en']!, _titleEnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_titleEnMeta);
+    }
+    if (data.containsKey('title_fr')) {
+      context.handle(
+        _titleFrMeta,
+        titleFr.isAcceptableOrUnknown(data['title_fr']!, _titleFrMeta),
+      );
+    }
+    if (data.containsKey('item_count')) {
+      context.handle(
+        _itemCountMeta,
+        itemCount.isAcceptableOrUnknown(data['item_count']!, _itemCountMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_itemCountMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AdhkarCategory map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AdhkarCategory(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      position: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}position'],
+      )!,
+      titleAr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title_ar'],
+      )!,
+      titleEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title_en'],
+      )!,
+      titleFr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}title_fr'],
+      ),
+      itemCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}item_count'],
+      )!,
+    );
+  }
+
+  @override
+  AdhkarCategories createAlias(String alias) {
+    return AdhkarCategories(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class AdhkarCategory extends DataClass implements Insertable<AdhkarCategory> {
+  final int id;
+  final int position;
+  final String titleAr;
+  final String titleEn;
+  final String? titleFr;
+  final int itemCount;
+  const AdhkarCategory({
+    required this.id,
+    required this.position,
+    required this.titleAr,
+    required this.titleEn,
+    this.titleFr,
+    required this.itemCount,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['position'] = Variable<int>(position);
+    map['title_ar'] = Variable<String>(titleAr);
+    map['title_en'] = Variable<String>(titleEn);
+    if (!nullToAbsent || titleFr != null) {
+      map['title_fr'] = Variable<String>(titleFr);
+    }
+    map['item_count'] = Variable<int>(itemCount);
+    return map;
+  }
+
+  AdhkarCategoriesCompanion toCompanion(bool nullToAbsent) {
+    return AdhkarCategoriesCompanion(
+      id: Value(id),
+      position: Value(position),
+      titleAr: Value(titleAr),
+      titleEn: Value(titleEn),
+      titleFr: titleFr == null && nullToAbsent
+          ? const Value.absent()
+          : Value(titleFr),
+      itemCount: Value(itemCount),
+    );
+  }
+
+  factory AdhkarCategory.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AdhkarCategory(
+      id: serializer.fromJson<int>(json['id']),
+      position: serializer.fromJson<int>(json['position']),
+      titleAr: serializer.fromJson<String>(json['title_ar']),
+      titleEn: serializer.fromJson<String>(json['title_en']),
+      titleFr: serializer.fromJson<String?>(json['title_fr']),
+      itemCount: serializer.fromJson<int>(json['item_count']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'position': serializer.toJson<int>(position),
+      'title_ar': serializer.toJson<String>(titleAr),
+      'title_en': serializer.toJson<String>(titleEn),
+      'title_fr': serializer.toJson<String?>(titleFr),
+      'item_count': serializer.toJson<int>(itemCount),
+    };
+  }
+
+  AdhkarCategory copyWith({
+    int? id,
+    int? position,
+    String? titleAr,
+    String? titleEn,
+    Value<String?> titleFr = const Value.absent(),
+    int? itemCount,
+  }) => AdhkarCategory(
+    id: id ?? this.id,
+    position: position ?? this.position,
+    titleAr: titleAr ?? this.titleAr,
+    titleEn: titleEn ?? this.titleEn,
+    titleFr: titleFr.present ? titleFr.value : this.titleFr,
+    itemCount: itemCount ?? this.itemCount,
+  );
+  AdhkarCategory copyWithCompanion(AdhkarCategoriesCompanion data) {
+    return AdhkarCategory(
+      id: data.id.present ? data.id.value : this.id,
+      position: data.position.present ? data.position.value : this.position,
+      titleAr: data.titleAr.present ? data.titleAr.value : this.titleAr,
+      titleEn: data.titleEn.present ? data.titleEn.value : this.titleEn,
+      titleFr: data.titleFr.present ? data.titleFr.value : this.titleFr,
+      itemCount: data.itemCount.present ? data.itemCount.value : this.itemCount,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AdhkarCategory(')
+          ..write('id: $id, ')
+          ..write('position: $position, ')
+          ..write('titleAr: $titleAr, ')
+          ..write('titleEn: $titleEn, ')
+          ..write('titleFr: $titleFr, ')
+          ..write('itemCount: $itemCount')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, position, titleAr, titleEn, titleFr, itemCount);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AdhkarCategory &&
+          other.id == this.id &&
+          other.position == this.position &&
+          other.titleAr == this.titleAr &&
+          other.titleEn == this.titleEn &&
+          other.titleFr == this.titleFr &&
+          other.itemCount == this.itemCount);
+}
+
+class AdhkarCategoriesCompanion extends UpdateCompanion<AdhkarCategory> {
+  final Value<int> id;
+  final Value<int> position;
+  final Value<String> titleAr;
+  final Value<String> titleEn;
+  final Value<String?> titleFr;
+  final Value<int> itemCount;
+  const AdhkarCategoriesCompanion({
+    this.id = const Value.absent(),
+    this.position = const Value.absent(),
+    this.titleAr = const Value.absent(),
+    this.titleEn = const Value.absent(),
+    this.titleFr = const Value.absent(),
+    this.itemCount = const Value.absent(),
+  });
+  AdhkarCategoriesCompanion.insert({
+    this.id = const Value.absent(),
+    required int position,
+    required String titleAr,
+    required String titleEn,
+    this.titleFr = const Value.absent(),
+    required int itemCount,
+  }) : position = Value(position),
+       titleAr = Value(titleAr),
+       titleEn = Value(titleEn),
+       itemCount = Value(itemCount);
+  static Insertable<AdhkarCategory> custom({
+    Expression<int>? id,
+    Expression<int>? position,
+    Expression<String>? titleAr,
+    Expression<String>? titleEn,
+    Expression<String>? titleFr,
+    Expression<int>? itemCount,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (position != null) 'position': position,
+      if (titleAr != null) 'title_ar': titleAr,
+      if (titleEn != null) 'title_en': titleEn,
+      if (titleFr != null) 'title_fr': titleFr,
+      if (itemCount != null) 'item_count': itemCount,
+    });
+  }
+
+  AdhkarCategoriesCompanion copyWith({
+    Value<int>? id,
+    Value<int>? position,
+    Value<String>? titleAr,
+    Value<String>? titleEn,
+    Value<String?>? titleFr,
+    Value<int>? itemCount,
+  }) {
+    return AdhkarCategoriesCompanion(
+      id: id ?? this.id,
+      position: position ?? this.position,
+      titleAr: titleAr ?? this.titleAr,
+      titleEn: titleEn ?? this.titleEn,
+      titleFr: titleFr ?? this.titleFr,
+      itemCount: itemCount ?? this.itemCount,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (position.present) {
+      map['position'] = Variable<int>(position.value);
+    }
+    if (titleAr.present) {
+      map['title_ar'] = Variable<String>(titleAr.value);
+    }
+    if (titleEn.present) {
+      map['title_en'] = Variable<String>(titleEn.value);
+    }
+    if (titleFr.present) {
+      map['title_fr'] = Variable<String>(titleFr.value);
+    }
+    if (itemCount.present) {
+      map['item_count'] = Variable<int>(itemCount.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AdhkarCategoriesCompanion(')
+          ..write('id: $id, ')
+          ..write('position: $position, ')
+          ..write('titleAr: $titleAr, ')
+          ..write('titleEn: $titleEn, ')
+          ..write('titleFr: $titleFr, ')
+          ..write('itemCount: $itemCount')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Adhkar extends Table with TableInfo<Adhkar, AdhkarData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Adhkar(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL PRIMARY KEY',
+  );
+  static const VerificationMeta _categoryMeta = const VerificationMeta(
+    'category',
+  );
+  late final GeneratedColumn<int> category = GeneratedColumn<int>(
+    'category',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL REFERENCES adhkar_categories(id)',
+  );
+  static const VerificationMeta _positionMeta = const VerificationMeta(
+    'position',
+  );
+  late final GeneratedColumn<int> position = GeneratedColumn<int>(
+    'position',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const VerificationMeta _textArMeta = const VerificationMeta('textAr');
+  late final GeneratedColumn<String> textAr = GeneratedColumn<String>(
+    'text_ar',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const VerificationMeta _transliterationMeta = const VerificationMeta(
+    'transliteration',
+  );
+  late final GeneratedColumn<String> transliteration = GeneratedColumn<String>(
+    'transliteration',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
+  static const VerificationMeta _textEnMeta = const VerificationMeta('textEn');
+  late final GeneratedColumn<String> textEn = GeneratedColumn<String>(
+    'text_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
+  static const VerificationMeta _textFrMeta = const VerificationMeta('textFr');
+  late final GeneratedColumn<String> textFr = GeneratedColumn<String>(
+    'text_fr',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
+  static const VerificationMeta _repeatCountMeta = const VerificationMeta(
+    'repeatCount',
+  );
+  late final GeneratedColumn<int> repeatCount = GeneratedColumn<int>(
+    'repeat_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    category,
+    position,
+    textAr,
+    transliteration,
+    textEn,
+    textFr,
+    repeatCount,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'adhkar';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<AdhkarData> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('category')) {
+      context.handle(
+        _categoryMeta,
+        category.isAcceptableOrUnknown(data['category']!, _categoryMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('position')) {
+      context.handle(
+        _positionMeta,
+        position.isAcceptableOrUnknown(data['position']!, _positionMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_positionMeta);
+    }
+    if (data.containsKey('text_ar')) {
+      context.handle(
+        _textArMeta,
+        textAr.isAcceptableOrUnknown(data['text_ar']!, _textArMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_textArMeta);
+    }
+    if (data.containsKey('transliteration')) {
+      context.handle(
+        _transliterationMeta,
+        transliteration.isAcceptableOrUnknown(
+          data['transliteration']!,
+          _transliterationMeta,
+        ),
+      );
+    }
+    if (data.containsKey('text_en')) {
+      context.handle(
+        _textEnMeta,
+        textEn.isAcceptableOrUnknown(data['text_en']!, _textEnMeta),
+      );
+    }
+    if (data.containsKey('text_fr')) {
+      context.handle(
+        _textFrMeta,
+        textFr.isAcceptableOrUnknown(data['text_fr']!, _textFrMeta),
+      );
+    }
+    if (data.containsKey('repeat_count')) {
+      context.handle(
+        _repeatCountMeta,
+        repeatCount.isAcceptableOrUnknown(
+          data['repeat_count']!,
+          _repeatCountMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_repeatCountMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  AdhkarData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AdhkarData(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      category: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}category'],
+      )!,
+      position: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}position'],
+      )!,
+      textAr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}text_ar'],
+      )!,
+      transliteration: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}transliteration'],
+      ),
+      textEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}text_en'],
+      ),
+      textFr: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}text_fr'],
+      ),
+      repeatCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}repeat_count'],
+      )!,
+    );
+  }
+
+  @override
+  Adhkar createAlias(String alias) {
+    return Adhkar(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class AdhkarData extends DataClass implements Insertable<AdhkarData> {
+  final int id;
+  final int category;
+  final int position;
+  final String textAr;
+  final String? transliteration;
+  final String? textEn;
+  final String? textFr;
+  final int repeatCount;
+  const AdhkarData({
+    required this.id,
+    required this.category,
+    required this.position,
+    required this.textAr,
+    this.transliteration,
+    this.textEn,
+    this.textFr,
+    required this.repeatCount,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['category'] = Variable<int>(category);
+    map['position'] = Variable<int>(position);
+    map['text_ar'] = Variable<String>(textAr);
+    if (!nullToAbsent || transliteration != null) {
+      map['transliteration'] = Variable<String>(transliteration);
+    }
+    if (!nullToAbsent || textEn != null) {
+      map['text_en'] = Variable<String>(textEn);
+    }
+    if (!nullToAbsent || textFr != null) {
+      map['text_fr'] = Variable<String>(textFr);
+    }
+    map['repeat_count'] = Variable<int>(repeatCount);
+    return map;
+  }
+
+  AdhkarCompanion toCompanion(bool nullToAbsent) {
+    return AdhkarCompanion(
+      id: Value(id),
+      category: Value(category),
+      position: Value(position),
+      textAr: Value(textAr),
+      transliteration: transliteration == null && nullToAbsent
+          ? const Value.absent()
+          : Value(transliteration),
+      textEn: textEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(textEn),
+      textFr: textFr == null && nullToAbsent
+          ? const Value.absent()
+          : Value(textFr),
+      repeatCount: Value(repeatCount),
+    );
+  }
+
+  factory AdhkarData.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AdhkarData(
+      id: serializer.fromJson<int>(json['id']),
+      category: serializer.fromJson<int>(json['category']),
+      position: serializer.fromJson<int>(json['position']),
+      textAr: serializer.fromJson<String>(json['text_ar']),
+      transliteration: serializer.fromJson<String?>(json['transliteration']),
+      textEn: serializer.fromJson<String?>(json['text_en']),
+      textFr: serializer.fromJson<String?>(json['text_fr']),
+      repeatCount: serializer.fromJson<int>(json['repeat_count']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'category': serializer.toJson<int>(category),
+      'position': serializer.toJson<int>(position),
+      'text_ar': serializer.toJson<String>(textAr),
+      'transliteration': serializer.toJson<String?>(transliteration),
+      'text_en': serializer.toJson<String?>(textEn),
+      'text_fr': serializer.toJson<String?>(textFr),
+      'repeat_count': serializer.toJson<int>(repeatCount),
+    };
+  }
+
+  AdhkarData copyWith({
+    int? id,
+    int? category,
+    int? position,
+    String? textAr,
+    Value<String?> transliteration = const Value.absent(),
+    Value<String?> textEn = const Value.absent(),
+    Value<String?> textFr = const Value.absent(),
+    int? repeatCount,
+  }) => AdhkarData(
+    id: id ?? this.id,
+    category: category ?? this.category,
+    position: position ?? this.position,
+    textAr: textAr ?? this.textAr,
+    transliteration: transliteration.present
+        ? transliteration.value
+        : this.transliteration,
+    textEn: textEn.present ? textEn.value : this.textEn,
+    textFr: textFr.present ? textFr.value : this.textFr,
+    repeatCount: repeatCount ?? this.repeatCount,
+  );
+  AdhkarData copyWithCompanion(AdhkarCompanion data) {
+    return AdhkarData(
+      id: data.id.present ? data.id.value : this.id,
+      category: data.category.present ? data.category.value : this.category,
+      position: data.position.present ? data.position.value : this.position,
+      textAr: data.textAr.present ? data.textAr.value : this.textAr,
+      transliteration: data.transliteration.present
+          ? data.transliteration.value
+          : this.transliteration,
+      textEn: data.textEn.present ? data.textEn.value : this.textEn,
+      textFr: data.textFr.present ? data.textFr.value : this.textFr,
+      repeatCount: data.repeatCount.present
+          ? data.repeatCount.value
+          : this.repeatCount,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AdhkarData(')
+          ..write('id: $id, ')
+          ..write('category: $category, ')
+          ..write('position: $position, ')
+          ..write('textAr: $textAr, ')
+          ..write('transliteration: $transliteration, ')
+          ..write('textEn: $textEn, ')
+          ..write('textFr: $textFr, ')
+          ..write('repeatCount: $repeatCount')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    category,
+    position,
+    textAr,
+    transliteration,
+    textEn,
+    textFr,
+    repeatCount,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AdhkarData &&
+          other.id == this.id &&
+          other.category == this.category &&
+          other.position == this.position &&
+          other.textAr == this.textAr &&
+          other.transliteration == this.transliteration &&
+          other.textEn == this.textEn &&
+          other.textFr == this.textFr &&
+          other.repeatCount == this.repeatCount);
+}
+
+class AdhkarCompanion extends UpdateCompanion<AdhkarData> {
+  final Value<int> id;
+  final Value<int> category;
+  final Value<int> position;
+  final Value<String> textAr;
+  final Value<String?> transliteration;
+  final Value<String?> textEn;
+  final Value<String?> textFr;
+  final Value<int> repeatCount;
+  const AdhkarCompanion({
+    this.id = const Value.absent(),
+    this.category = const Value.absent(),
+    this.position = const Value.absent(),
+    this.textAr = const Value.absent(),
+    this.transliteration = const Value.absent(),
+    this.textEn = const Value.absent(),
+    this.textFr = const Value.absent(),
+    this.repeatCount = const Value.absent(),
+  });
+  AdhkarCompanion.insert({
+    this.id = const Value.absent(),
+    required int category,
+    required int position,
+    required String textAr,
+    this.transliteration = const Value.absent(),
+    this.textEn = const Value.absent(),
+    this.textFr = const Value.absent(),
+    required int repeatCount,
+  }) : category = Value(category),
+       position = Value(position),
+       textAr = Value(textAr),
+       repeatCount = Value(repeatCount);
+  static Insertable<AdhkarData> custom({
+    Expression<int>? id,
+    Expression<int>? category,
+    Expression<int>? position,
+    Expression<String>? textAr,
+    Expression<String>? transliteration,
+    Expression<String>? textEn,
+    Expression<String>? textFr,
+    Expression<int>? repeatCount,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (category != null) 'category': category,
+      if (position != null) 'position': position,
+      if (textAr != null) 'text_ar': textAr,
+      if (transliteration != null) 'transliteration': transliteration,
+      if (textEn != null) 'text_en': textEn,
+      if (textFr != null) 'text_fr': textFr,
+      if (repeatCount != null) 'repeat_count': repeatCount,
+    });
+  }
+
+  AdhkarCompanion copyWith({
+    Value<int>? id,
+    Value<int>? category,
+    Value<int>? position,
+    Value<String>? textAr,
+    Value<String?>? transliteration,
+    Value<String?>? textEn,
+    Value<String?>? textFr,
+    Value<int>? repeatCount,
+  }) {
+    return AdhkarCompanion(
+      id: id ?? this.id,
+      category: category ?? this.category,
+      position: position ?? this.position,
+      textAr: textAr ?? this.textAr,
+      transliteration: transliteration ?? this.transliteration,
+      textEn: textEn ?? this.textEn,
+      textFr: textFr ?? this.textFr,
+      repeatCount: repeatCount ?? this.repeatCount,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<int>(category.value);
+    }
+    if (position.present) {
+      map['position'] = Variable<int>(position.value);
+    }
+    if (textAr.present) {
+      map['text_ar'] = Variable<String>(textAr.value);
+    }
+    if (transliteration.present) {
+      map['transliteration'] = Variable<String>(transliteration.value);
+    }
+    if (textEn.present) {
+      map['text_en'] = Variable<String>(textEn.value);
+    }
+    if (textFr.present) {
+      map['text_fr'] = Variable<String>(textFr.value);
+    }
+    if (repeatCount.present) {
+      map['repeat_count'] = Variable<int>(repeatCount.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AdhkarCompanion(')
+          ..write('id: $id, ')
+          ..write('category: $category, ')
+          ..write('position: $position, ')
+          ..write('textAr: $textAr, ')
+          ..write('transliteration: $transliteration, ')
+          ..write('textEn: $textEn, ')
+          ..write('textFr: $textFr, ')
+          ..write('repeatCount: $repeatCount')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$ContentDatabase extends GeneratedDatabase {
   _$ContentDatabase(QueryExecutor e) : super(e);
   $ContentDatabaseManager get managers => $ContentDatabaseManager(this);
   late final MetaEntries metaEntries = MetaEntries(this);
   late final Surahs surahs = Surahs(this);
   late final Ayahs ayahs = Ayahs(this);
-  late final TranslationEditions translationEditions = TranslationEditions(this);
+  late final TranslationEditions translationEditions = TranslationEditions(
+    this,
+  );
   late final AyahTranslations ayahTranslations = AyahTranslations(this);
   late final Countries countries = Countries(this);
   late final Cities cities = Cities(this);
+  late final AdhkarCategories adhkarCategories = AdhkarCategories(this);
+  late final Adhkar adhkar = Adhkar(this);
   late final Index ayahsSurahNumber = Index(
     'ayahs_surah_number',
     'CREATE UNIQUE INDEX ayahs_surah_number ON ayahs (surah, number)',
   );
-  late final Index ayahsPage = Index('ayahs_page', 'CREATE INDEX ayahs_page ON ayahs (page)');
+  late final Index ayahsPage = Index(
+    'ayahs_page',
+    'CREATE INDEX ayahs_page ON ayahs (page)',
+  );
   late final Index citiesPopulation = Index(
     'cities_population',
     'CREATE INDEX cities_population ON cities (population DESC)',
@@ -2543,6 +3702,10 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
   late final Index citiesLatitude = Index(
     'cities_latitude',
     'CREATE INDEX cities_latitude ON cities (latitude)',
+  );
+  late final Index adhkarCategory = Index(
+    'adhkar_category',
+    'CREATE INDEX adhkar_category ON adhkar (category, position)',
   );
   Selectable<String> metaValue({required String key}) {
     return customSelect(
@@ -2582,12 +3745,17 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
       variables: [],
       readsFrom: {this.ayahs},
     ).map(
-      (QueryRow row) =>
-          SurahStartPagesResult(surah: row.read<int>('surah'), page: row.readNullable<int>('page')),
+      (QueryRow row) => SurahStartPagesResult(
+        surah: row.read<int>('surah'),
+        page: row.readNullable<int>('page'),
+      ),
     );
   }
 
-  Selectable<AyahsOfPageResult> ayahsOfPage({String? edition, required int page}) {
+  Selectable<AyahsOfPageResult> ayahsOfPage({
+    String? edition,
+    required int page,
+  }) {
     return customSelect(
       'SELECT"a"."id" AS "nested_0.id", "a"."surah" AS "nested_0.surah", "a"."number" AS "nested_0.number", "a"."text_uthmani" AS "nested_0.text_uthmani", "a"."text_search" AS "nested_0.text_search", "a"."juz" AS "nested_0.juz", "a"."hizb_quarter" AS "nested_0.hizb_quarter", "a"."page" AS "nested_0.page", "a"."sajda" AS "nested_0.sajda", t.content AS translation FROM ayahs AS a LEFT JOIN ayah_translations AS t ON t.ayah_id = a.id AND t.edition = ?1 WHERE a.page = ?2 ORDER BY a.id',
       variables: [Variable<String>(edition), Variable<int>(page)],
@@ -2636,20 +3804,28 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     );
   }
 
-  Selectable<TranslationsOfAyahResult> translationsOfAyah({required int ayahId}) {
+  Selectable<TranslationsOfAyahResult> translationsOfAyah({
+    required int ayahId,
+  }) {
     return customSelect(
       'SELECT"e"."id" AS "nested_0.id", "e"."language" AS "nested_0.language", "e"."name" AS "nested_0.name", "e"."translator" AS "nested_0.translator", t.content FROM ayah_translations AS t INNER JOIN translation_editions AS e ON e.id = t.edition WHERE t.ayah_id = ?1 ORDER BY e.language DESC',
       variables: [Variable<int>(ayahId)],
       readsFrom: {this.ayahTranslations, this.translationEditions},
     ).asyncMap(
       (QueryRow row) async => TranslationsOfAyahResult(
-        e: await this.translationEditions.mapFromRow(row, tablePrefix: 'nested_0'),
+        e: await this.translationEditions.mapFromRow(
+          row,
+          tablePrefix: 'nested_0',
+        ),
         content: row.read<String>('content'),
       ),
     );
   }
 
-  Selectable<SearchCitiesResult> searchCities({required String pattern, required int limit}) {
+  Selectable<SearchCitiesResult> searchCities({
+    required String pattern,
+    required int limit,
+  }) {
     return customSelect(
       'SELECT"c"."id" AS "nested_0.id", "c"."name" AS "nested_0.name", "c"."name_fr" AS "nested_0.name_fr", "c"."name_ar" AS "nested_0.name_ar", "c"."country_code" AS "nested_0.country_code", "c"."latitude" AS "nested_0.latitude", "c"."longitude" AS "nested_0.longitude", "c"."timezone" AS "nested_0.timezone", "c"."population" AS "nested_0.population", "c"."search_key" AS "nested_0.search_key","co"."code" AS "nested_1.code", "co"."name_en" AS "nested_1.name_en", "co"."name_fr" AS "nested_1.name_fr", "co"."name_ar" AS "nested_1.name_ar" FROM cities AS c INNER JOIN countries AS co ON co.code = c.country_code WHERE c.search_key LIKE ?1 ORDER BY c.population DESC LIMIT ?2',
       variables: [Variable<String>(pattern), Variable<int>(limit)],
@@ -2685,6 +3861,22 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     );
   }
 
+  Selectable<AdhkarCategory> allAdhkarCategories() {
+    return customSelect(
+      'SELECT * FROM adhkar_categories ORDER BY position',
+      variables: [],
+      readsFrom: {this.adhkarCategories},
+    ).asyncMap(this.adhkarCategories.mapFromRow);
+  }
+
+  Selectable<AdhkarData> adhkarOfCategory({required int category}) {
+    return customSelect(
+      'SELECT * FROM adhkar WHERE category = ?1 ORDER BY position',
+      variables: [Variable<int>(category)],
+      readsFrom: {this.adhkar},
+    ).asyncMap(this.adhkar.mapFromRow);
+  }
+
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -2697,10 +3889,13 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     ayahTranslations,
     countries,
     cities,
+    adhkarCategories,
+    adhkar,
     ayahsSurahNumber,
     ayahsPage,
     citiesPopulation,
     citiesLatitude,
+    adhkarCategory,
   ];
 }
 
@@ -2715,7 +3910,8 @@ typedef $MetaEntriesUpdateCompanionBuilder = MetaEntriesCompanion Function({
   Value<int> rowid,
 });
 
-class $MetaEntriesFilterComposer extends Composer<_$ContentDatabase, MetaEntries> {
+class $MetaEntriesFilterComposer
+    extends Composer<_$ContentDatabase, MetaEntries> {
   $MetaEntriesFilterComposer({
     required super.$db,
     required super.$table,
@@ -2723,14 +3919,19 @@ class $MetaEntriesFilterComposer extends Composer<_$ContentDatabase, MetaEntries
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get key =>
-      $composableBuilder(column: $table.key, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get key => $composableBuilder(
+    column: $table.key,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get value =>
-      $composableBuilder(column: $table.value, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get value => $composableBuilder(
+    column: $table.value,
+    builder: (column) => ColumnFilters(column),
+  );
 }
 
-class $MetaEntriesOrderingComposer extends Composer<_$ContentDatabase, MetaEntries> {
+class $MetaEntriesOrderingComposer
+    extends Composer<_$ContentDatabase, MetaEntries> {
   $MetaEntriesOrderingComposer({
     required super.$db,
     required super.$table,
@@ -2738,14 +3939,19 @@ class $MetaEntriesOrderingComposer extends Composer<_$ContentDatabase, MetaEntri
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get key =>
-      $composableBuilder(column: $table.key, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get key => $composableBuilder(
+    column: $table.key,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get value =>
-      $composableBuilder(column: $table.value, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get value => $composableBuilder(
+    column: $table.value,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
-class $MetaEntriesAnnotationComposer extends Composer<_$ContentDatabase, MetaEntries> {
+class $MetaEntriesAnnotationComposer
+    extends Composer<_$ContentDatabase, MetaEntries> {
   $MetaEntriesAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -2771,7 +3977,10 @@ class $MetaEntriesTableManager
           $MetaEntriesAnnotationComposer,
           $MetaEntriesCreateCompanionBuilder,
           $MetaEntriesUpdateCompanionBuilder,
-          (MetaEntry, BaseReferences<_$ContentDatabase, MetaEntries, MetaEntry>),
+          (
+            MetaEntry,
+            BaseReferences<_$ContentDatabase, MetaEntries, MetaEntry>,
+          ),
           MetaEntry,
           PrefetchHooks Function()
         > {
@@ -2780,24 +3989,36 @@ class $MetaEntriesTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $MetaEntriesFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $MetaEntriesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $MetaEntriesAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $MetaEntriesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $MetaEntriesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $MetaEntriesAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<String> key = const Value.absent(),
             Value<String> value = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) => MetaEntriesCompanion(key: key, value: value, rowid: rowid),
-          createCompanionCallback: ({
-            required String key,
-            required String value,
-            Value<int> rowid = const Value.absent(),
-          }) => MetaEntriesCompanion.insert(key: key, value: value, rowid: rowid),
+          createCompanionCallback:
+              ({
+                required String key,
+                required String value,
+                Value<int> rowid = const Value.absent(),
+              }) => MetaEntriesCompanion.insert(
+                key: key,
+                value: value,
+                rowid: rowid,
+              ),
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
                   e.readTable<MetaEntries, MetaEntry>(table),
-                  BaseReferences<_$ContentDatabase, MetaEntries, MetaEntry>(db, table, e),
+                  BaseReferences<_$ContentDatabase, MetaEntries, MetaEntry>(
+                    db,
+                    table,
+                    e,
+                  ),
                 ),
               )
               .toList(),
@@ -2841,11 +4062,16 @@ typedef $SurahsUpdateCompanionBuilder = SurahsCompanion Function({
   Value<int> firstAyahId,
 });
 
-final class $SurahsReferences extends BaseReferences<_$ContentDatabase, Surahs, Surah> {
+final class $SurahsReferences
+    extends BaseReferences<_$ContentDatabase, Surahs, Surah> {
   $SurahsReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<Ayahs, List<Ayah>> _ayahsRefsTable(_$ContentDatabase db) =>
-      MultiTypedResultKey.fromTable(db.ayahs, aliasName: 'surahs__id__ayahs__surah');
+  static MultiTypedResultKey<Ayahs, List<Ayah>> _ayahsRefsTable(
+    _$ContentDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.ayahs,
+    aliasName: 'surahs__id__ayahs__surah',
+  );
 
   $AyahsProcessedTableManager get ayahsRefs {
     final manager = $AyahsTableManager(
@@ -2854,7 +4080,9 @@ final class $SurahsReferences extends BaseReferences<_$ContentDatabase, Surahs, 
     ).filter((f) => f.surah.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_ayahsRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
@@ -2866,45 +4094,66 @@ class $SurahsFilterComposer extends Composer<_$ContentDatabase, Surahs> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameAr => $composableBuilder(
+    column: $table.nameAr,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get nameTranslit =>
-      $composableBuilder(column: $table.nameTranslit, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameTranslit => $composableBuilder(
+    column: $table.nameTranslit,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameEn => $composableBuilder(
+    column: $table.nameEn,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get revelationType =>
-      $composableBuilder(column: $table.revelationType, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get revelationType => $composableBuilder(
+    column: $table.revelationType,
+    builder: (column) => ColumnFilters(column),
+  );
 
   ColumnFilters<int> get revelationOrder => $composableBuilder(
     column: $table.revelationOrder,
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<int> get ayahCount =>
-      $composableBuilder(column: $table.ayahCount, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get ayahCount => $composableBuilder(
+    column: $table.ayahCount,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get firstAyahId =>
-      $composableBuilder(column: $table.firstAyahId, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get firstAyahId => $composableBuilder(
+    column: $table.firstAyahId,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  Expression<bool> ayahsRefs(Expression<bool> Function($AyahsFilterComposer f) f) {
+  Expression<bool> ayahsRefs(
+    Expression<bool> Function($AyahsFilterComposer f) f,
+  ) {
     final $AyahsFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.ayahs,
       getReferencedColumn: (t) => t.surah,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahsFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahsFilterComposer(
             $db: $db,
             $table: $db.ayahs,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -2919,17 +4168,25 @@ class $SurahsOrderingComposer extends Composer<_$ContentDatabase, Surahs> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+    column: $table.nameAr,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get nameTranslit =>
-      $composableBuilder(column: $table.nameTranslit, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameTranslit => $composableBuilder(
+    column: $table.nameTranslit,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+    column: $table.nameEn,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   ColumnOrderings<String> get revelationType => $composableBuilder(
     column: $table.revelationType,
@@ -2941,11 +4198,15 @@ class $SurahsOrderingComposer extends Composer<_$ContentDatabase, Surahs> {
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<int> get ayahCount =>
-      $composableBuilder(column: $table.ayahCount, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get ayahCount => $composableBuilder(
+    column: $table.ayahCount,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get firstAyahId =>
-      $composableBuilder(column: $table.firstAyahId, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get firstAyahId => $composableBuilder(
+    column: $table.firstAyahId,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $SurahsAnnotationComposer extends Composer<_$ContentDatabase, Surahs> {
@@ -2956,42 +4217,58 @@ class $SurahsAnnotationComposer extends Composer<_$ContentDatabase, Surahs> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<String> get nameAr =>
       $composableBuilder(column: $table.nameAr, builder: (column) => column);
 
-  GeneratedColumn<String> get nameTranslit =>
-      $composableBuilder(column: $table.nameTranslit, builder: (column) => column);
+  GeneratedColumn<String> get nameTranslit => $composableBuilder(
+    column: $table.nameTranslit,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
 
-  GeneratedColumn<String> get revelationType =>
-      $composableBuilder(column: $table.revelationType, builder: (column) => column);
+  GeneratedColumn<String> get revelationType => $composableBuilder(
+    column: $table.revelationType,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<int> get revelationOrder =>
-      $composableBuilder(column: $table.revelationOrder, builder: (column) => column);
+  GeneratedColumn<int> get revelationOrder => $composableBuilder(
+    column: $table.revelationOrder,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get ayahCount =>
       $composableBuilder(column: $table.ayahCount, builder: (column) => column);
 
-  GeneratedColumn<int> get firstAyahId =>
-      $composableBuilder(column: $table.firstAyahId, builder: (column) => column);
+  GeneratedColumn<int> get firstAyahId => $composableBuilder(
+    column: $table.firstAyahId,
+    builder: (column) => column,
+  );
 
-  Expression<T> ayahsRefs<T extends Object>(Expression<T> Function($AyahsAnnotationComposer a) f) {
+  Expression<T> ayahsRefs<T extends Object>(
+    Expression<T> Function($AyahsAnnotationComposer a) f,
+  ) {
     final $AyahsAnnotationComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.ayahs,
       getReferencedColumn: (t) => t.surah,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahsAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahsAnnotationComposer(
             $db: $db,
             $table: $db.ayahs,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -3018,9 +4295,12 @@ class $SurahsTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $SurahsFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $SurahsOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $SurahsAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $SurahsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $SurahsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $SurahsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -3062,7 +4342,12 @@ class $SurahsTableManager
                 firstAyahId: firstAyahId,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable<Surahs, Surah>(table), $SurahsReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<Surahs, Surah>(table),
+                  $SurahsReferences(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: ({ayahsRefs = false}) {
             return PrefetchHooks(
@@ -3075,7 +4360,8 @@ class $SurahsTableManager
                     await $_getPrefetchedData<Surah, Surahs, Ayah>(
                       currentTable: table,
                       referencedTable: $SurahsReferences._ayahsRefsTable(db),
-                      managerFromTypedResult: (p0) => $SurahsReferences(db, table, p0).ayahsRefs,
+                      managerFromTypedResult: (p0) =>
+                          $SurahsReferences(db, table, p0).ayahsRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
                           referencedItems.where((e) => e.surah == item.id),
                       typedResults: items,
@@ -3125,7 +4411,8 @@ typedef $AyahsUpdateCompanionBuilder = AyahsCompanion Function({
   Value<String?> sajda,
 });
 
-final class $AyahsReferences extends BaseReferences<_$ContentDatabase, Ayahs, Ayah> {
+final class $AyahsReferences
+    extends BaseReferences<_$ContentDatabase, Ayahs, Ayah> {
   $AyahsReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static Surahs _surahTable(_$ContentDatabase db) =>
@@ -3134,18 +4421,23 @@ final class $AyahsReferences extends BaseReferences<_$ContentDatabase, Ayahs, Ay
   $SurahsProcessedTableManager get surah {
     final $_column = $_itemColumn<int>('surah')!;
 
-    final manager = $SurahsTableManager($_db, $_db.surahs).filter((f) => f.id.sqlEquals($_column));
+    final manager = $SurahsTableManager(
+      $_db,
+      $_db.surahs,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_surahTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static MultiTypedResultKey<AyahTranslations, List<AyahTranslation>> _ayahTranslationsRefsTable(
-    _$ContentDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.ayahTranslations,
-    aliasName: 'ayahs__id__ayah_translations__ayah_id',
-  );
+  static MultiTypedResultKey<AyahTranslations, List<AyahTranslation>>
+  _ayahTranslationsRefsTable(_$ContentDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.ayahTranslations,
+        aliasName: 'ayahs__id__ayah_translations__ayah_id',
+      );
 
   $AyahTranslationsProcessedTableManager get ayahTranslationsRefs {
     final manager = $AyahTranslationsTableManager(
@@ -3153,8 +4445,12 @@ final class $AyahsReferences extends BaseReferences<_$ContentDatabase, Ayahs, Ay
       $_db.ayahTranslations,
     ).filter((f) => f.ayahId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_ayahTranslationsRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    final cache = $_typedResult.readTableOrNull(
+      _ayahTranslationsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
@@ -3166,29 +4462,45 @@ class $AyahsFilterComposer extends Composer<_$ContentDatabase, Ayahs> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get number =>
-      $composableBuilder(column: $table.number, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get number => $composableBuilder(
+    column: $table.number,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get textUthmani =>
-      $composableBuilder(column: $table.textUthmani, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get textUthmani => $composableBuilder(
+    column: $table.textUthmani,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get textSearch =>
-      $composableBuilder(column: $table.textSearch, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get textSearch => $composableBuilder(
+    column: $table.textSearch,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get juz =>
-      $composableBuilder(column: $table.juz, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get juz => $composableBuilder(
+    column: $table.juz,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get hizbQuarter =>
-      $composableBuilder(column: $table.hizbQuarter, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get hizbQuarter => $composableBuilder(
+    column: $table.hizbQuarter,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get page =>
-      $composableBuilder(column: $table.page, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get page => $composableBuilder(
+    column: $table.page,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get sajda =>
-      $composableBuilder(column: $table.sajda, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get sajda => $composableBuilder(
+    column: $table.sajda,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $SurahsFilterComposer get surah {
     final $SurahsFilterComposer composer = $composerBuilder(
@@ -3196,13 +4508,18 @@ class $AyahsFilterComposer extends Composer<_$ContentDatabase, Ayahs> {
       getCurrentColumn: (t) => t.surah,
       referencedTable: $db.surahs,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $SurahsFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $SurahsFilterComposer(
             $db: $db,
             $table: $db.surahs,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -3216,13 +4533,18 @@ class $AyahsFilterComposer extends Composer<_$ContentDatabase, Ayahs> {
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.ayahTranslations,
       getReferencedColumn: (t) => t.ayahId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahTranslationsFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahTranslationsFilterComposer(
             $db: $db,
             $table: $db.ayahTranslations,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -3237,29 +4559,45 @@ class $AyahsOrderingComposer extends Composer<_$ContentDatabase, Ayahs> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get number =>
-      $composableBuilder(column: $table.number, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get number => $composableBuilder(
+    column: $table.number,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get textUthmani =>
-      $composableBuilder(column: $table.textUthmani, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get textUthmani => $composableBuilder(
+    column: $table.textUthmani,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get textSearch =>
-      $composableBuilder(column: $table.textSearch, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get textSearch => $composableBuilder(
+    column: $table.textSearch,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get juz =>
-      $composableBuilder(column: $table.juz, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get juz => $composableBuilder(
+    column: $table.juz,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get hizbQuarter =>
-      $composableBuilder(column: $table.hizbQuarter, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get hizbQuarter => $composableBuilder(
+    column: $table.hizbQuarter,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get page =>
-      $composableBuilder(column: $table.page, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get page => $composableBuilder(
+    column: $table.page,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get sajda =>
-      $composableBuilder(column: $table.sajda, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get sajda => $composableBuilder(
+    column: $table.sajda,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $SurahsOrderingComposer get surah {
     final $SurahsOrderingComposer composer = $composerBuilder(
@@ -3267,13 +4605,18 @@ class $AyahsOrderingComposer extends Composer<_$ContentDatabase, Ayahs> {
       getCurrentColumn: (t) => t.surah,
       referencedTable: $db.surahs,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $SurahsOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $SurahsOrderingComposer(
             $db: $db,
             $table: $db.surahs,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -3288,22 +4631,29 @@ class $AyahsAnnotationComposer extends Composer<_$ContentDatabase, Ayahs> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<int> get number =>
       $composableBuilder(column: $table.number, builder: (column) => column);
 
-  GeneratedColumn<String> get textUthmani =>
-      $composableBuilder(column: $table.textUthmani, builder: (column) => column);
+  GeneratedColumn<String> get textUthmani => $composableBuilder(
+    column: $table.textUthmani,
+    builder: (column) => column,
+  );
 
-  GeneratedColumn<String> get textSearch =>
-      $composableBuilder(column: $table.textSearch, builder: (column) => column);
+  GeneratedColumn<String> get textSearch => $composableBuilder(
+    column: $table.textSearch,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get juz =>
       $composableBuilder(column: $table.juz, builder: (column) => column);
 
-  GeneratedColumn<int> get hizbQuarter =>
-      $composableBuilder(column: $table.hizbQuarter, builder: (column) => column);
+  GeneratedColumn<int> get hizbQuarter => $composableBuilder(
+    column: $table.hizbQuarter,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<int> get page =>
       $composableBuilder(column: $table.page, builder: (column) => column);
@@ -3317,13 +4667,18 @@ class $AyahsAnnotationComposer extends Composer<_$ContentDatabase, Ayahs> {
       getCurrentColumn: (t) => t.surah,
       referencedTable: $db.surahs,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $SurahsAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $SurahsAnnotationComposer(
             $db: $db,
             $table: $db.surahs,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -3337,13 +4692,18 @@ class $AyahsAnnotationComposer extends Composer<_$ContentDatabase, Ayahs> {
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.ayahTranslations,
       getReferencedColumn: (t) => t.ayahId,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahTranslationsAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahTranslationsAnnotationComposer(
             $db: $db,
             $table: $db.ayahTranslations,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -3370,9 +4730,12 @@ class $AyahsTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $AyahsFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $AyahsOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $AyahsAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $AyahsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $AyahsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $AyahsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -3418,55 +4781,71 @@ class $AyahsTableManager
                 sajda: sajda,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable<Ayahs, Ayah>(table), $AyahsReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<Ayahs, Ayah>(table),
+                  $AyahsReferences(db, table, e),
+                ),
+              )
               .toList(),
-          prefetchHooksCallback: ({surah = false, ayahTranslationsRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (ayahTranslationsRefs) db.ayahTranslations],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (surah) {
-                      state = state.withJoin(
-                        currentTable: table,
-                        currentColumn: table.surah,
-                        referencedTable: $AyahsReferences._surahTable(db),
-                        referencedColumn: $AyahsReferences._surahTable(db).id,
-                      ) as T;
-                    }
+          prefetchHooksCallback:
+              ({surah = false, ayahTranslationsRefs = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (ayahTranslationsRefs) db.ayahTranslations,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (surah) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.surah,
+                            referencedTable: $AyahsReferences._surahTable(db),
+                            referencedColumn: $AyahsReferences
+                                ._surahTable(db)
+                                .id,
+                          ) as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (ayahTranslationsRefs)
+                        await $_getPrefetchedData<Ayah, Ayahs, AyahTranslation>(
+                          currentTable: table,
+                          referencedTable: $AyahsReferences
+                              ._ayahTranslationsRefsTable(db),
+                          managerFromTypedResult: (p0) => $AyahsReferences(
+                            db,
+                            table,
+                            p0,
+                          ).ayahTranslationsRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.ayahId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                    ];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (ayahTranslationsRefs)
-                    await $_getPrefetchedData<Ayah, Ayahs, AyahTranslation>(
-                      currentTable: table,
-                      referencedTable: $AyahsReferences._ayahTranslationsRefsTable(db),
-                      managerFromTypedResult: (p0) =>
-                          $AyahsReferences(db, table, p0).ayahTranslationsRefs,
-                      referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.ayahId == item.id),
-                      typedResults: items,
-                    ),
-                ];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -3485,31 +4864,42 @@ typedef $AyahsProcessedTableManager =
       Ayah,
       PrefetchHooks Function({bool surah, bool ayahTranslationsRefs})
     >;
-typedef $TranslationEditionsCreateCompanionBuilder = TranslationEditionsCompanion Function({
-  required String id,
-  required String language,
-  required String name,
-  required String translator,
-  Value<int> rowid,
-});
-typedef $TranslationEditionsUpdateCompanionBuilder = TranslationEditionsCompanion Function({
-  Value<String> id,
-  Value<String> language,
-  Value<String> name,
-  Value<String> translator,
-  Value<int> rowid,
-});
+typedef $TranslationEditionsCreateCompanionBuilder =
+    TranslationEditionsCompanion Function({
+      required String id,
+      required String language,
+      required String name,
+      required String translator,
+      Value<int> rowid,
+    });
+typedef $TranslationEditionsUpdateCompanionBuilder =
+    TranslationEditionsCompanion Function({
+      Value<String> id,
+      Value<String> language,
+      Value<String> name,
+      Value<String> translator,
+      Value<int> rowid,
+    });
 
 final class $TranslationEditionsReferences
-    extends BaseReferences<_$ContentDatabase, TranslationEditions, TranslationEdition> {
-  $TranslationEditionsReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static MultiTypedResultKey<AyahTranslations, List<AyahTranslation>> _ayahTranslationsRefsTable(
-    _$ContentDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.ayahTranslations,
-    aliasName: 'translation_editions__id__ayah_translations__edition',
+    extends
+        BaseReferences<
+          _$ContentDatabase,
+          TranslationEditions,
+          TranslationEdition
+        > {
+  $TranslationEditionsReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
   );
+
+  static MultiTypedResultKey<AyahTranslations, List<AyahTranslation>>
+  _ayahTranslationsRefsTable(_$ContentDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.ayahTranslations,
+        aliasName: 'translation_editions__id__ayah_translations__edition',
+      );
 
   $AyahTranslationsProcessedTableManager get ayahTranslationsRefs {
     final manager = $AyahTranslationsTableManager(
@@ -3517,12 +4907,17 @@ final class $TranslationEditionsReferences
       $_db.ayahTranslations,
     ).filter((f) => f.edition.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_ayahTranslationsRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    final cache = $_typedResult.readTableOrNull(
+      _ayahTranslationsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
-class $TranslationEditionsFilterComposer extends Composer<_$ContentDatabase, TranslationEditions> {
+class $TranslationEditionsFilterComposer
+    extends Composer<_$ContentDatabase, TranslationEditions> {
   $TranslationEditionsFilterComposer({
     required super.$db,
     required super.$table,
@@ -3530,17 +4925,25 @@ class $TranslationEditionsFilterComposer extends Composer<_$ContentDatabase, Tra
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get language =>
-      $composableBuilder(column: $table.language, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get language => $composableBuilder(
+    column: $table.language,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get translator =>
-      $composableBuilder(column: $table.translator, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get translator => $composableBuilder(
+    column: $table.translator,
+    builder: (column) => ColumnFilters(column),
+  );
 
   Expression<bool> ayahTranslationsRefs(
     Expression<bool> Function($AyahTranslationsFilterComposer f) f,
@@ -3550,13 +4953,18 @@ class $TranslationEditionsFilterComposer extends Composer<_$ContentDatabase, Tra
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.ayahTranslations,
       getReferencedColumn: (t) => t.edition,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahTranslationsFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahTranslationsFilterComposer(
             $db: $db,
             $table: $db.ayahTranslations,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -3572,17 +4980,25 @@ class $TranslationEditionsOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get language =>
-      $composableBuilder(column: $table.language, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get language => $composableBuilder(
+    column: $table.language,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get translator =>
-      $composableBuilder(column: $table.translator, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get translator => $composableBuilder(
+    column: $table.translator,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $TranslationEditionsAnnotationComposer
@@ -3603,8 +5019,10 @@ class $TranslationEditionsAnnotationComposer
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
 
-  GeneratedColumn<String> get translator =>
-      $composableBuilder(column: $table.translator, builder: (column) => column);
+  GeneratedColumn<String> get translator => $composableBuilder(
+    column: $table.translator,
+    builder: (column) => column,
+  );
 
   Expression<T> ayahTranslationsRefs<T extends Object>(
     Expression<T> Function($AyahTranslationsAnnotationComposer a) f,
@@ -3614,13 +5032,18 @@ class $TranslationEditionsAnnotationComposer
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.ayahTranslations,
       getReferencedColumn: (t) => t.edition,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahTranslationsAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahTranslationsAnnotationComposer(
             $db: $db,
             $table: $db.ayahTranslations,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -3642,12 +5065,15 @@ class $TranslationEditionsTableManager
           TranslationEdition,
           PrefetchHooks Function({bool ayahTranslationsRefs})
         > {
-  $TranslationEditionsTableManager(_$ContentDatabase db, TranslationEditions table)
-    : super(
+  $TranslationEditionsTableManager(
+    _$ContentDatabase db,
+    TranslationEditions table,
+  ) : super(
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $TranslationEditionsFilterComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $TranslationEditionsFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
               $TranslationEditionsOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
@@ -3691,7 +5117,9 @@ class $TranslationEditionsTableManager
           prefetchHooksCallback: ({ayahTranslationsRefs = false}) {
             return PrefetchHooks(
               db: db,
-              explicitlyWatchedTables: [if (ayahTranslationsRefs) db.ayahTranslations],
+              explicitlyWatchedTables: [
+                if (ayahTranslationsRefs) db.ayahTranslations,
+              ],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
@@ -3702,11 +5130,14 @@ class $TranslationEditionsTableManager
                       AyahTranslation
                     >(
                       currentTable: table,
-                      referencedTable: $TranslationEditionsReferences._ayahTranslationsRefsTable(
-                        db,
-                      ),
+                      referencedTable: $TranslationEditionsReferences
+                          ._ayahTranslationsRefsTable(db),
                       managerFromTypedResult: (p0) =>
-                          $TranslationEditionsReferences(db, table, p0).ayahTranslationsRefs,
+                          $TranslationEditionsReferences(
+                            db,
+                            table,
+                            p0,
+                          ).ayahTranslationsRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
                           referencedItems.where((e) => e.edition == item.id),
                       typedResults: items,
@@ -3733,19 +5164,22 @@ typedef $TranslationEditionsProcessedTableManager =
       TranslationEdition,
       PrefetchHooks Function({bool ayahTranslationsRefs})
     >;
-typedef $AyahTranslationsCreateCompanionBuilder = AyahTranslationsCompanion Function({
-  required int ayahId,
-  required String edition,
-  required String content,
-});
-typedef $AyahTranslationsUpdateCompanionBuilder = AyahTranslationsCompanion Function({
-  Value<int> ayahId,
-  Value<String> edition,
-  Value<String> content,
-});
+typedef $AyahTranslationsCreateCompanionBuilder =
+    AyahTranslationsCompanion Function({
+      required int ayahId,
+      required String edition,
+      required String content,
+    });
+typedef $AyahTranslationsUpdateCompanionBuilder =
+    AyahTranslationsCompanion Function({
+      Value<int> ayahId,
+      Value<String> edition,
+      Value<String> content,
+    });
 
 final class $AyahTranslationsReferences
-    extends BaseReferences<_$ContentDatabase, AyahTranslations, AyahTranslation> {
+    extends
+        BaseReferences<_$ContentDatabase, AyahTranslations, AyahTranslation> {
   $AyahTranslationsReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static Ayahs _ayahIdTable(_$ContentDatabase db) =>
@@ -3754,14 +5188,20 @@ final class $AyahTranslationsReferences
   $AyahsProcessedTableManager get ayahId {
     final $_column = $_itemColumn<int>('ayah_id')!;
 
-    final manager = $AyahsTableManager($_db, $_db.ayahs).filter((f) => f.id.sqlEquals($_column));
+    final manager = $AyahsTableManager(
+      $_db,
+      $_db.ayahs,
+    ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_ayahIdTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 
-  static TranslationEditions _editionTable(_$ContentDatabase db) =>
-      db.translationEditions.createAlias('ayah_translations__edition__translation_editions__id');
+  static TranslationEditions _editionTable(_$ContentDatabase db) => db
+      .translationEditions
+      .createAlias('ayah_translations__edition__translation_editions__id');
 
   $TranslationEditionsProcessedTableManager get edition {
     final $_column = $_itemColumn<String>('edition')!;
@@ -3772,11 +5212,14 @@ final class $AyahTranslationsReferences
     ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_editionTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
-class $AyahTranslationsFilterComposer extends Composer<_$ContentDatabase, AyahTranslations> {
+class $AyahTranslationsFilterComposer
+    extends Composer<_$ContentDatabase, AyahTranslations> {
   $AyahTranslationsFilterComposer({
     required super.$db,
     required super.$table,
@@ -3784,8 +5227,10 @@ class $AyahTranslationsFilterComposer extends Composer<_$ContentDatabase, AyahTr
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get content =>
-      $composableBuilder(column: $table.content, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $AyahsFilterComposer get ayahId {
     final $AyahsFilterComposer composer = $composerBuilder(
@@ -3793,13 +5238,18 @@ class $AyahTranslationsFilterComposer extends Composer<_$ContentDatabase, AyahTr
       getCurrentColumn: (t) => t.ayahId,
       referencedTable: $db.ayahs,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahsFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahsFilterComposer(
             $db: $db,
             $table: $db.ayahs,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -3811,20 +5261,26 @@ class $AyahTranslationsFilterComposer extends Composer<_$ContentDatabase, AyahTr
       getCurrentColumn: (t) => t.edition,
       referencedTable: $db.translationEditions,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $TranslationEditionsFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $TranslationEditionsFilterComposer(
             $db: $db,
             $table: $db.translationEditions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $AyahTranslationsOrderingComposer extends Composer<_$ContentDatabase, AyahTranslations> {
+class $AyahTranslationsOrderingComposer
+    extends Composer<_$ContentDatabase, AyahTranslations> {
   $AyahTranslationsOrderingComposer({
     required super.$db,
     required super.$table,
@@ -3832,8 +5288,10 @@ class $AyahTranslationsOrderingComposer extends Composer<_$ContentDatabase, Ayah
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get content =>
-      $composableBuilder(column: $table.content, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get content => $composableBuilder(
+    column: $table.content,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $AyahsOrderingComposer get ayahId {
     final $AyahsOrderingComposer composer = $composerBuilder(
@@ -3841,13 +5299,18 @@ class $AyahTranslationsOrderingComposer extends Composer<_$ContentDatabase, Ayah
       getCurrentColumn: (t) => t.ayahId,
       referencedTable: $db.ayahs,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahsOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahsOrderingComposer(
             $db: $db,
             $table: $db.ayahs,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -3859,20 +5322,26 @@ class $AyahTranslationsOrderingComposer extends Composer<_$ContentDatabase, Ayah
       getCurrentColumn: (t) => t.edition,
       referencedTable: $db.translationEditions,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $TranslationEditionsOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $TranslationEditionsOrderingComposer(
             $db: $db,
             $table: $db.translationEditions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $AyahTranslationsAnnotationComposer extends Composer<_$ContentDatabase, AyahTranslations> {
+class $AyahTranslationsAnnotationComposer
+    extends Composer<_$ContentDatabase, AyahTranslations> {
   $AyahTranslationsAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -3889,13 +5358,18 @@ class $AyahTranslationsAnnotationComposer extends Composer<_$ContentDatabase, Ay
       getCurrentColumn: (t) => t.ayahId,
       referencedTable: $db.ayahs,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $AyahsAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AyahsAnnotationComposer(
             $db: $db,
             $table: $db.ayahs,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -3907,13 +5381,18 @@ class $AyahTranslationsAnnotationComposer extends Composer<_$ContentDatabase, Ay
       getCurrentColumn: (t) => t.edition,
       referencedTable: $db.translationEditions,
       getReferencedColumn: (t) => t.id,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $TranslationEditionsAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $TranslationEditionsAnnotationComposer(
             $db: $db,
             $table: $db.translationEditions,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -3940,22 +5419,32 @@ class $AyahTranslationsTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $AyahTranslationsFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $AyahTranslationsOrderingComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $AyahTranslationsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $AyahTranslationsOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $AyahTranslationsAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> ayahId = const Value.absent(),
-            Value<String> edition = const Value.absent(),
-            Value<String> content = const Value.absent(),
-          }) => AyahTranslationsCompanion(ayahId: ayahId, edition: edition, content: content),
+          updateCompanionCallback:
+              ({
+                Value<int> ayahId = const Value.absent(),
+                Value<String> edition = const Value.absent(),
+                Value<String> content = const Value.absent(),
+              }) => AyahTranslationsCompanion(
+                ayahId: ayahId,
+                edition: edition,
+                content: content,
+              ),
           createCompanionCallback:
-              ({required int ayahId, required String edition, required String content}) =>
-                  AyahTranslationsCompanion.insert(
-                    ayahId: ayahId,
-                    edition: edition,
-                    content: content,
-                  ),
+              ({
+                required int ayahId,
+                required String edition,
+                required String content,
+              }) => AyahTranslationsCompanion.insert(
+                ayahId: ayahId,
+                edition: edition,
+                content: content,
+              ),
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
@@ -3988,16 +5477,22 @@ class $AyahTranslationsTableManager
                       state = state.withJoin(
                         currentTable: table,
                         currentColumn: table.ayahId,
-                        referencedTable: $AyahTranslationsReferences._ayahIdTable(db),
-                        referencedColumn: $AyahTranslationsReferences._ayahIdTable(db).id,
+                        referencedTable: $AyahTranslationsReferences
+                            ._ayahIdTable(db),
+                        referencedColumn: $AyahTranslationsReferences
+                            ._ayahIdTable(db)
+                            .id,
                       ) as T;
                     }
                     if (edition) {
                       state = state.withJoin(
                         currentTable: table,
                         currentColumn: table.edition,
-                        referencedTable: $AyahTranslationsReferences._editionTable(db),
-                        referencedColumn: $AyahTranslationsReferences._editionTable(db).id,
+                        referencedTable: $AyahTranslationsReferences
+                            ._editionTable(db),
+                        referencedColumn: $AyahTranslationsReferences
+                            ._editionTable(db)
+                            .id,
                       ) as T;
                     }
 
@@ -4041,20 +5536,26 @@ typedef $CountriesUpdateCompanionBuilder = CountriesCompanion Function({
   Value<int> rowid,
 });
 
-final class $CountriesReferences extends BaseReferences<_$ContentDatabase, Countries, Country> {
+final class $CountriesReferences
+    extends BaseReferences<_$ContentDatabase, Countries, Country> {
   $CountriesReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<Cities, List<City>> _citiesRefsTable(_$ContentDatabase db) =>
-      MultiTypedResultKey.fromTable(db.cities, aliasName: 'countries__code__cities__country_code');
+  static MultiTypedResultKey<Cities, List<City>> _citiesRefsTable(
+    _$ContentDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.cities,
+    aliasName: 'countries__code__cities__country_code',
+  );
 
   $CitiesProcessedTableManager get citiesRefs {
-    final manager = $CitiesTableManager(
-      $_db,
-      $_db.cities,
-    ).filter((f) => f.countryCode.code.sqlEquals($_itemColumn<String>('code')!));
+    final manager = $CitiesTableManager($_db, $_db.cities).filter(
+      (f) => f.countryCode.code.sqlEquals($_itemColumn<String>('code')!),
+    );
 
     final cache = $_typedResult.readTableOrNull(_citiesRefsTable($_db));
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
   }
 }
 
@@ -4066,38 +5567,54 @@ class $CountriesFilterComposer extends Composer<_$ContentDatabase, Countries> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get code =>
-      $composableBuilder(column: $table.code, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameEn => $composableBuilder(
+    column: $table.nameEn,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get nameFr =>
-      $composableBuilder(column: $table.nameFr, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameFr => $composableBuilder(
+    column: $table.nameFr,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameAr => $composableBuilder(
+    column: $table.nameAr,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  Expression<bool> citiesRefs(Expression<bool> Function($CitiesFilterComposer f) f) {
+  Expression<bool> citiesRefs(
+    Expression<bool> Function($CitiesFilterComposer f) f,
+  ) {
     final $CitiesFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.code,
       referencedTable: $db.cities,
       getReferencedColumn: (t) => t.countryCode,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $CitiesFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $CitiesFilterComposer(
             $db: $db,
             $table: $db.cities,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 }
 
-class $CountriesOrderingComposer extends Composer<_$ContentDatabase, Countries> {
+class $CountriesOrderingComposer
+    extends Composer<_$ContentDatabase, Countries> {
   $CountriesOrderingComposer({
     required super.$db,
     required super.$table,
@@ -4105,20 +5622,29 @@ class $CountriesOrderingComposer extends Composer<_$ContentDatabase, Countries> 
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get code =>
-      $composableBuilder(column: $table.code, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+    column: $table.nameEn,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get nameFr =>
-      $composableBuilder(column: $table.nameFr, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameFr => $composableBuilder(
+    column: $table.nameFr,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+    column: $table.nameAr,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
-class $CountriesAnnotationComposer extends Composer<_$ContentDatabase, Countries> {
+class $CountriesAnnotationComposer
+    extends Composer<_$ContentDatabase, Countries> {
   $CountriesAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -4146,13 +5672,18 @@ class $CountriesAnnotationComposer extends Composer<_$ContentDatabase, Countries
       getCurrentColumn: (t) => t.code,
       referencedTable: $db.cities,
       getReferencedColumn: (t) => t.countryCode,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $CitiesAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $CitiesAnnotationComposer(
             $db: $db,
             $table: $db.cities,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -4179,9 +5710,12 @@ class $CountriesTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $CountriesFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $CountriesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $CountriesAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $CountriesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $CountriesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $CountriesAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> code = const Value.absent(),
@@ -4212,7 +5746,10 @@ class $CountriesTableManager
               ),
           withReferenceMapper: (p0) => p0
               .map(
-                (e) => (e.readTable<Countries, Country>(table), $CountriesReferences(db, table, e)),
+                (e) => (
+                  e.readTable<Countries, Country>(table),
+                  $CountriesReferences(db, table, e),
+                ),
               )
               .toList(),
           prefetchHooksCallback: ({citiesRefs = false}) {
@@ -4225,11 +5762,15 @@ class $CountriesTableManager
                   if (citiesRefs)
                     await $_getPrefetchedData<Country, Countries, City>(
                       currentTable: table,
-                      referencedTable: $CountriesReferences._citiesRefsTable(db),
+                      referencedTable: $CountriesReferences._citiesRefsTable(
+                        db,
+                      ),
                       managerFromTypedResult: (p0) =>
                           $CountriesReferences(db, table, p0).citiesRefs,
                       referencedItemsForCurrentItem: (item, referencedItems) =>
-                          referencedItems.where((e) => e.countryCode == item.code),
+                          referencedItems.where(
+                            (e) => e.countryCode == item.code,
+                          ),
                       typedResults: items,
                     ),
                 ];
@@ -4279,7 +5820,8 @@ typedef $CitiesUpdateCompanionBuilder = CitiesCompanion Function({
   Value<String> searchKey,
 });
 
-final class $CitiesReferences extends BaseReferences<_$ContentDatabase, Cities, City> {
+final class $CitiesReferences
+    extends BaseReferences<_$ContentDatabase, Cities, City> {
   $CitiesReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static Countries _countryCodeTable(_$ContentDatabase db) =>
@@ -4294,7 +5836,9 @@ final class $CitiesReferences extends BaseReferences<_$ContentDatabase, Cities, 
     ).filter((f) => f.code.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_countryCodeTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
   }
 }
 
@@ -4306,32 +5850,50 @@ class $CitiesFilterComposer extends Composer<_$ContentDatabase, Cities> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get nameFr =>
-      $composableBuilder(column: $table.nameFr, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameFr => $composableBuilder(
+    column: $table.nameFr,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameAr => $composableBuilder(
+    column: $table.nameAr,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<double> get latitude =>
-      $composableBuilder(column: $table.latitude, builder: (column) => ColumnFilters(column));
+  ColumnFilters<double> get latitude => $composableBuilder(
+    column: $table.latitude,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<double> get longitude =>
-      $composableBuilder(column: $table.longitude, builder: (column) => ColumnFilters(column));
+  ColumnFilters<double> get longitude => $composableBuilder(
+    column: $table.longitude,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get timezone =>
-      $composableBuilder(column: $table.timezone, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get timezone => $composableBuilder(
+    column: $table.timezone,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<int> get population =>
-      $composableBuilder(column: $table.population, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get population => $composableBuilder(
+    column: $table.population,
+    builder: (column) => ColumnFilters(column),
+  );
 
-  ColumnFilters<String> get searchKey =>
-      $composableBuilder(column: $table.searchKey, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get searchKey => $composableBuilder(
+    column: $table.searchKey,
+    builder: (column) => ColumnFilters(column),
+  );
 
   $CountriesFilterComposer get countryCode {
     final $CountriesFilterComposer composer = $composerBuilder(
@@ -4339,13 +5901,18 @@ class $CitiesFilterComposer extends Composer<_$ContentDatabase, Cities> {
       getCurrentColumn: (t) => t.countryCode,
       referencedTable: $db.countries,
       getReferencedColumn: (t) => t.code,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $CountriesFilterComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $CountriesFilterComposer(
             $db: $db,
             $table: $db.countries,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -4360,32 +5927,50 @@ class $CitiesOrderingComposer extends Composer<_$ContentDatabase, Cities> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get nameFr =>
-      $composableBuilder(column: $table.nameFr, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameFr => $composableBuilder(
+    column: $table.nameFr,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+    column: $table.nameAr,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<double> get latitude =>
-      $composableBuilder(column: $table.latitude, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<double> get latitude => $composableBuilder(
+    column: $table.latitude,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<double> get longitude =>
-      $composableBuilder(column: $table.longitude, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<double> get longitude => $composableBuilder(
+    column: $table.longitude,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get timezone =>
-      $composableBuilder(column: $table.timezone, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get timezone => $composableBuilder(
+    column: $table.timezone,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<int> get population =>
-      $composableBuilder(column: $table.population, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get population => $composableBuilder(
+    column: $table.population,
+    builder: (column) => ColumnOrderings(column),
+  );
 
-  ColumnOrderings<String> get searchKey =>
-      $composableBuilder(column: $table.searchKey, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get searchKey => $composableBuilder(
+    column: $table.searchKey,
+    builder: (column) => ColumnOrderings(column),
+  );
 
   $CountriesOrderingComposer get countryCode {
     final $CountriesOrderingComposer composer = $composerBuilder(
@@ -4393,13 +5978,18 @@ class $CitiesOrderingComposer extends Composer<_$ContentDatabase, Cities> {
       getCurrentColumn: (t) => t.countryCode,
       referencedTable: $db.countries,
       getReferencedColumn: (t) => t.code,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $CountriesOrderingComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $CountriesOrderingComposer(
             $db: $db,
             $table: $db.countries,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -4414,7 +6004,8 @@ class $CitiesAnnotationComposer extends Composer<_$ContentDatabase, Cities> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
@@ -4434,8 +6025,10 @@ class $CitiesAnnotationComposer extends Composer<_$ContentDatabase, Cities> {
   GeneratedColumn<String> get timezone =>
       $composableBuilder(column: $table.timezone, builder: (column) => column);
 
-  GeneratedColumn<int> get population =>
-      $composableBuilder(column: $table.population, builder: (column) => column);
+  GeneratedColumn<int> get population => $composableBuilder(
+    column: $table.population,
+    builder: (column) => column,
+  );
 
   GeneratedColumn<String> get searchKey =>
       $composableBuilder(column: $table.searchKey, builder: (column) => column);
@@ -4446,13 +6039,18 @@ class $CitiesAnnotationComposer extends Composer<_$ContentDatabase, Cities> {
       getCurrentColumn: (t) => t.countryCode,
       referencedTable: $db.countries,
       getReferencedColumn: (t) => t.code,
-      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
-          $CountriesAnnotationComposer(
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $CountriesAnnotationComposer(
             $db: $db,
             $table: $db.countries,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -4479,9 +6077,12 @@ class $CitiesTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () => $CitiesFilterComposer($db: db, $table: table),
-          createOrderingComposer: () => $CitiesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () => $CitiesAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              $CitiesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $CitiesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $CitiesAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -4531,7 +6132,12 @@ class $CitiesTableManager
                 searchKey: searchKey,
               ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable<Cities, City>(table), $CitiesReferences(db, table, e)))
+              .map(
+                (e) => (
+                  e.readTable<Cities, City>(table),
+                  $CitiesReferences(db, table, e),
+                ),
+              )
               .toList(),
           prefetchHooksCallback: ({countryCode = false}) {
             return PrefetchHooks(
@@ -4557,8 +6163,12 @@ class $CitiesTableManager
                       state = state.withJoin(
                         currentTable: table,
                         currentColumn: table.countryCode,
-                        referencedTable: $CitiesReferences._countryCodeTable(db),
-                        referencedColumn: $CitiesReferences._countryCodeTable(db).code,
+                        referencedTable: $CitiesReferences._countryCodeTable(
+                          db,
+                        ),
+                        referencedColumn: $CitiesReferences
+                            ._countryCodeTable(db)
+                            .code,
                       ) as T;
                     }
 
@@ -4587,19 +6197,701 @@ typedef $CitiesProcessedTableManager =
       City,
       PrefetchHooks Function({bool countryCode})
     >;
+typedef $AdhkarCategoriesCreateCompanionBuilder =
+    AdhkarCategoriesCompanion Function({
+      Value<int> id,
+      required int position,
+      required String titleAr,
+      required String titleEn,
+      Value<String?> titleFr,
+      required int itemCount,
+    });
+typedef $AdhkarCategoriesUpdateCompanionBuilder =
+    AdhkarCategoriesCompanion Function({
+      Value<int> id,
+      Value<int> position,
+      Value<String> titleAr,
+      Value<String> titleEn,
+      Value<String?> titleFr,
+      Value<int> itemCount,
+    });
+
+final class $AdhkarCategoriesReferences
+    extends
+        BaseReferences<_$ContentDatabase, AdhkarCategories, AdhkarCategory> {
+  $AdhkarCategoriesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<Adhkar, List<AdhkarData>> _adhkarRefsTable(
+    _$ContentDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.adhkar,
+    aliasName: 'adhkar_categories__id__adhkar__category',
+  );
+
+  $AdhkarProcessedTableManager get adhkarRefs {
+    final manager = $AdhkarTableManager(
+      $_db,
+      $_db.adhkar,
+    ).filter((f) => f.category.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_adhkarRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $AdhkarCategoriesFilterComposer
+    extends Composer<_$ContentDatabase, AdhkarCategories> {
+  $AdhkarCategoriesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get position => $composableBuilder(
+    column: $table.position,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get titleAr => $composableBuilder(
+    column: $table.titleAr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get titleEn => $composableBuilder(
+    column: $table.titleEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get titleFr => $composableBuilder(
+    column: $table.titleFr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get itemCount => $composableBuilder(
+    column: $table.itemCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> adhkarRefs(
+    Expression<bool> Function($AdhkarFilterComposer f) f,
+  ) {
+    final $AdhkarFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.adhkar,
+      getReferencedColumn: (t) => t.category,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AdhkarFilterComposer(
+            $db: $db,
+            $table: $db.adhkar,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $AdhkarCategoriesOrderingComposer
+    extends Composer<_$ContentDatabase, AdhkarCategories> {
+  $AdhkarCategoriesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get position => $composableBuilder(
+    column: $table.position,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get titleAr => $composableBuilder(
+    column: $table.titleAr,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get titleEn => $composableBuilder(
+    column: $table.titleEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get titleFr => $composableBuilder(
+    column: $table.titleFr,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get itemCount => $composableBuilder(
+    column: $table.itemCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $AdhkarCategoriesAnnotationComposer
+    extends Composer<_$ContentDatabase, AdhkarCategories> {
+  $AdhkarCategoriesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get position =>
+      $composableBuilder(column: $table.position, builder: (column) => column);
+
+  GeneratedColumn<String> get titleAr =>
+      $composableBuilder(column: $table.titleAr, builder: (column) => column);
+
+  GeneratedColumn<String> get titleEn =>
+      $composableBuilder(column: $table.titleEn, builder: (column) => column);
+
+  GeneratedColumn<String> get titleFr =>
+      $composableBuilder(column: $table.titleFr, builder: (column) => column);
+
+  GeneratedColumn<int> get itemCount =>
+      $composableBuilder(column: $table.itemCount, builder: (column) => column);
+
+  Expression<T> adhkarRefs<T extends Object>(
+    Expression<T> Function($AdhkarAnnotationComposer a) f,
+  ) {
+    final $AdhkarAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.adhkar,
+      getReferencedColumn: (t) => t.category,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AdhkarAnnotationComposer(
+            $db: $db,
+            $table: $db.adhkar,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $AdhkarCategoriesTableManager
+    extends
+        RootTableManager<
+          _$ContentDatabase,
+          AdhkarCategories,
+          AdhkarCategory,
+          $AdhkarCategoriesFilterComposer,
+          $AdhkarCategoriesOrderingComposer,
+          $AdhkarCategoriesAnnotationComposer,
+          $AdhkarCategoriesCreateCompanionBuilder,
+          $AdhkarCategoriesUpdateCompanionBuilder,
+          (AdhkarCategory, $AdhkarCategoriesReferences),
+          AdhkarCategory,
+          PrefetchHooks Function({bool adhkarRefs})
+        > {
+  $AdhkarCategoriesTableManager(_$ContentDatabase db, AdhkarCategories table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $AdhkarCategoriesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $AdhkarCategoriesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $AdhkarCategoriesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> position = const Value.absent(),
+                Value<String> titleAr = const Value.absent(),
+                Value<String> titleEn = const Value.absent(),
+                Value<String?> titleFr = const Value.absent(),
+                Value<int> itemCount = const Value.absent(),
+              }) => AdhkarCategoriesCompanion(
+                id: id,
+                position: position,
+                titleAr: titleAr,
+                titleEn: titleEn,
+                titleFr: titleFr,
+                itemCount: itemCount,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int position,
+                required String titleAr,
+                required String titleEn,
+                Value<String?> titleFr = const Value.absent(),
+                required int itemCount,
+              }) => AdhkarCategoriesCompanion.insert(
+                id: id,
+                position: position,
+                titleAr: titleAr,
+                titleEn: titleEn,
+                titleFr: titleFr,
+                itemCount: itemCount,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<AdhkarCategories, AdhkarCategory>(table),
+                  $AdhkarCategoriesReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({adhkarRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (adhkarRefs) db.adhkar],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (adhkarRefs)
+                    await $_getPrefetchedData<
+                      AdhkarCategory,
+                      AdhkarCategories,
+                      AdhkarData
+                    >(
+                      currentTable: table,
+                      referencedTable: $AdhkarCategoriesReferences
+                          ._adhkarRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $AdhkarCategoriesReferences(db, table, p0).adhkarRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.category == item.id),
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $AdhkarCategoriesProcessedTableManager =
+    ProcessedTableManager<
+      _$ContentDatabase,
+      AdhkarCategories,
+      AdhkarCategory,
+      $AdhkarCategoriesFilterComposer,
+      $AdhkarCategoriesOrderingComposer,
+      $AdhkarCategoriesAnnotationComposer,
+      $AdhkarCategoriesCreateCompanionBuilder,
+      $AdhkarCategoriesUpdateCompanionBuilder,
+      (AdhkarCategory, $AdhkarCategoriesReferences),
+      AdhkarCategory,
+      PrefetchHooks Function({bool adhkarRefs})
+    >;
+typedef $AdhkarCreateCompanionBuilder = AdhkarCompanion Function({
+  Value<int> id,
+  required int category,
+  required int position,
+  required String textAr,
+  Value<String?> transliteration,
+  Value<String?> textEn,
+  Value<String?> textFr,
+  required int repeatCount,
+});
+typedef $AdhkarUpdateCompanionBuilder = AdhkarCompanion Function({
+  Value<int> id,
+  Value<int> category,
+  Value<int> position,
+  Value<String> textAr,
+  Value<String?> transliteration,
+  Value<String?> textEn,
+  Value<String?> textFr,
+  Value<int> repeatCount,
+});
+
+final class $AdhkarReferences
+    extends BaseReferences<_$ContentDatabase, Adhkar, AdhkarData> {
+  $AdhkarReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static AdhkarCategories _categoryTable(_$ContentDatabase db) => db
+      .adhkarCategories
+      .createAlias('adhkar__category__adhkar_categories__id');
+
+  $AdhkarCategoriesProcessedTableManager get category {
+    final $_column = $_itemColumn<int>('category')!;
+
+    final manager = $AdhkarCategoriesTableManager(
+      $_db,
+      $_db.adhkarCategories,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_categoryTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $AdhkarFilterComposer extends Composer<_$ContentDatabase, Adhkar> {
+  $AdhkarFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get position => $composableBuilder(
+    column: $table.position,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get textAr => $composableBuilder(
+    column: $table.textAr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get transliteration => $composableBuilder(
+    column: $table.transliteration,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get textEn => $composableBuilder(
+    column: $table.textEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get textFr => $composableBuilder(
+    column: $table.textFr,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get repeatCount => $composableBuilder(
+    column: $table.repeatCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $AdhkarCategoriesFilterComposer get category {
+    final $AdhkarCategoriesFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.category,
+      referencedTable: $db.adhkarCategories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AdhkarCategoriesFilterComposer(
+            $db: $db,
+            $table: $db.adhkarCategories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $AdhkarOrderingComposer extends Composer<_$ContentDatabase, Adhkar> {
+  $AdhkarOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get position => $composableBuilder(
+    column: $table.position,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get textAr => $composableBuilder(
+    column: $table.textAr,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get transliteration => $composableBuilder(
+    column: $table.transliteration,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get textEn => $composableBuilder(
+    column: $table.textEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get textFr => $composableBuilder(
+    column: $table.textFr,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get repeatCount => $composableBuilder(
+    column: $table.repeatCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $AdhkarCategoriesOrderingComposer get category {
+    final $AdhkarCategoriesOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.category,
+      referencedTable: $db.adhkarCategories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AdhkarCategoriesOrderingComposer(
+            $db: $db,
+            $table: $db.adhkarCategories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $AdhkarAnnotationComposer extends Composer<_$ContentDatabase, Adhkar> {
+  $AdhkarAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get position =>
+      $composableBuilder(column: $table.position, builder: (column) => column);
+
+  GeneratedColumn<String> get textAr =>
+      $composableBuilder(column: $table.textAr, builder: (column) => column);
+
+  GeneratedColumn<String> get transliteration => $composableBuilder(
+    column: $table.transliteration,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get textEn =>
+      $composableBuilder(column: $table.textEn, builder: (column) => column);
+
+  GeneratedColumn<String> get textFr =>
+      $composableBuilder(column: $table.textFr, builder: (column) => column);
+
+  GeneratedColumn<int> get repeatCount => $composableBuilder(
+    column: $table.repeatCount,
+    builder: (column) => column,
+  );
+
+  $AdhkarCategoriesAnnotationComposer get category {
+    final $AdhkarCategoriesAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.category,
+      referencedTable: $db.adhkarCategories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $AdhkarCategoriesAnnotationComposer(
+            $db: $db,
+            $table: $db.adhkarCategories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $AdhkarTableManager
+    extends
+        RootTableManager<
+          _$ContentDatabase,
+          Adhkar,
+          AdhkarData,
+          $AdhkarFilterComposer,
+          $AdhkarOrderingComposer,
+          $AdhkarAnnotationComposer,
+          $AdhkarCreateCompanionBuilder,
+          $AdhkarUpdateCompanionBuilder,
+          (AdhkarData, $AdhkarReferences),
+          AdhkarData,
+          PrefetchHooks Function({bool category})
+        > {
+  $AdhkarTableManager(_$ContentDatabase db, Adhkar table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $AdhkarFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $AdhkarOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $AdhkarAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<int> category = const Value.absent(),
+                Value<int> position = const Value.absent(),
+                Value<String> textAr = const Value.absent(),
+                Value<String?> transliteration = const Value.absent(),
+                Value<String?> textEn = const Value.absent(),
+                Value<String?> textFr = const Value.absent(),
+                Value<int> repeatCount = const Value.absent(),
+              }) => AdhkarCompanion(
+                id: id,
+                category: category,
+                position: position,
+                textAr: textAr,
+                transliteration: transliteration,
+                textEn: textEn,
+                textFr: textFr,
+                repeatCount: repeatCount,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required int category,
+                required int position,
+                required String textAr,
+                Value<String?> transliteration = const Value.absent(),
+                Value<String?> textEn = const Value.absent(),
+                Value<String?> textFr = const Value.absent(),
+                required int repeatCount,
+              }) => AdhkarCompanion.insert(
+                id: id,
+                category: category,
+                position: position,
+                textAr: textAr,
+                transliteration: transliteration,
+                textEn: textEn,
+                textFr: textFr,
+                repeatCount: repeatCount,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<Adhkar, AdhkarData>(table),
+                  $AdhkarReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({category = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (category) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.category,
+                        referencedTable: $AdhkarReferences._categoryTable(db),
+                        referencedColumn: $AdhkarReferences
+                            ._categoryTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $AdhkarProcessedTableManager =
+    ProcessedTableManager<
+      _$ContentDatabase,
+      Adhkar,
+      AdhkarData,
+      $AdhkarFilterComposer,
+      $AdhkarOrderingComposer,
+      $AdhkarAnnotationComposer,
+      $AdhkarCreateCompanionBuilder,
+      $AdhkarUpdateCompanionBuilder,
+      (AdhkarData, $AdhkarReferences),
+      AdhkarData,
+      PrefetchHooks Function({bool category})
+    >;
 
 class $ContentDatabaseManager {
   final _$ContentDatabase _db;
   $ContentDatabaseManager(this._db);
-  $MetaEntriesTableManager get metaEntries => $MetaEntriesTableManager(_db, _db.metaEntries);
+  $MetaEntriesTableManager get metaEntries =>
+      $MetaEntriesTableManager(_db, _db.metaEntries);
   $SurahsTableManager get surahs => $SurahsTableManager(_db, _db.surahs);
   $AyahsTableManager get ayahs => $AyahsTableManager(_db, _db.ayahs);
   $TranslationEditionsTableManager get translationEditions =>
       $TranslationEditionsTableManager(_db, _db.translationEditions);
   $AyahTranslationsTableManager get ayahTranslations =>
       $AyahTranslationsTableManager(_db, _db.ayahTranslations);
-  $CountriesTableManager get countries => $CountriesTableManager(_db, _db.countries);
+  $CountriesTableManager get countries =>
+      $CountriesTableManager(_db, _db.countries);
   $CitiesTableManager get cities => $CitiesTableManager(_db, _db.cities);
+  $AdhkarCategoriesTableManager get adhkarCategories =>
+      $AdhkarCategoriesTableManager(_db, _db.adhkarCategories);
+  $AdhkarTableManager get adhkar => $AdhkarTableManager(_db, _db.adhkar);
 }
 
 class SurahStartPagesResult {

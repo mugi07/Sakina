@@ -1041,6 +1041,60 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Ô Allah, prie sur Muhammad'**
   String get phraseSalawat;
+
+  /// No description provided for @adhkarEssentials.
+  ///
+  /// In fr, this message translates to:
+  /// **'Essentiels'**
+  String get adhkarEssentials;
+
+  /// No description provided for @adhkarAllChapters.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tous les chapitres'**
+  String get adhkarAllChapters;
+
+  /// No description provided for @adhkarSearchHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher un chapitre…'**
+  String get adhkarSearchHint;
+
+  /// No description provided for @repeatTimes.
+  ///
+  /// In fr, this message translates to:
+  /// **'{count, plural, =1{1 fois} other{{count} fois}}'**
+  String repeatTimes(int count);
+
+  /// No description provided for @adhkarDone.
+  ///
+  /// In fr, this message translates to:
+  /// **'Terminé'**
+  String get adhkarDone;
+
+  /// No description provided for @adhkarTapHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Touchez une invocation à chaque récitation.'**
+  String get adhkarTapHint;
+
+  /// No description provided for @translationEnglishPending.
+  ///
+  /// In fr, this message translates to:
+  /// **'Traduction française à venir — en anglais :'**
+  String get translationEnglishPending;
+
+  /// No description provided for @restart.
+  ///
+  /// In fr, this message translates to:
+  /// **'Recommencer'**
+  String get restart;
+
+  /// No description provided for @adhkarProgress.
+  ///
+  /// In fr, this message translates to:
+  /// **'{done} / {total}'**
+  String adhkarProgress(int done, int total);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -22,7 +22,10 @@ class SourceCache {
       stdout.writeln('  ↓ $fileName');
       final client = http.Client();
       try {
-        final response = await client.send(http.Request('GET', Uri.parse(url)));
+        final request = http.Request('GET', Uri.parse(url))
+          ..headers['User-Agent'] =
+              'Mozilla/5.0 (compatible; SakinaContentPipeline/1.0; +https://github.com/mugi07/Sakina)';
+        final response = await client.send(request);
         if (response.statusCode != 200) {
           throw HttpException('HTTP ${response.statusCode} pour $url');
         }

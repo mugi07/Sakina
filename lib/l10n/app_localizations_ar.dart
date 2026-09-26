@@ -603,4 +603,44 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get phraseSalawat => 'اللهم صلّ على محمد';
+
+  @override
+  String get adhkarEssentials => 'الأساسية';
+
+  @override
+  String get adhkarAllChapters => 'كل الأبواب';
+
+  @override
+  String get adhkarSearchHint => 'ابحث عن باب…';
+
+  @override
+  String repeatTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مرة',
+      many: '$count مرة',
+      few: '$count مرات',
+      two: 'مرتان',
+      one: 'مرة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adhkarDone => 'تم';
+
+  @override
+  String get adhkarTapHint => 'المس الذكر عند كل قراءة.';
+
+  @override
+  String get translationEnglishPending => '';
+
+  @override
+  String get restart => 'البدء من جديد';
+
+  @override
+  String adhkarProgress(int done, int total) {
+    return '$done / $total';
+  }
 }

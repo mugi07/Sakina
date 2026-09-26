@@ -16,6 +16,7 @@ import 'package:crypto/crypto.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqlite3/sqlite3.dart';
 
+import 'src/adhkar_source.dart';
 import 'src/downloads.dart';
 import 'src/geonames_source.dart';
 import 'src/hadith_source.dart';
@@ -53,6 +54,8 @@ Future<void> main(List<String> args) async {
       final quran = await buildQuran(cache, db);
       stdout.writeln('Villes (GeoNames)…');
       final places = await buildCities(cache, db);
+      stdout.writeln('Adhkar (Hisn al-Muslim)…');
+      final adhkar = await buildAdhkar(cache, db);
       cache.verifyLock(update: updateLock);
       tanzilNotice = quran.tanzilNotice;
       return (
@@ -61,7 +64,9 @@ Future<void> main(List<String> args) async {
           'tanzil_notice': quran.tanzilNotice,
           'sources': jsonEncode(_sources),
         },
-        summary: '6236 versets · ${places.cities} villes · ${places.countries} pays',
+        summary:
+            '6236 versets · ${places.cities} villes · ${places.countries} pays · '
+            '${adhkar.items} adhkar',
       );
     },
   );
@@ -135,12 +140,15 @@ Future<void> _buildDatabase({
     );
     final sizeMb = (out.lengthSync() / (1024 * 1024)).toStringAsFixed(1);
     stdout.writeln('✓ ${p.basename(out.path)} : $sizeMb Mo · ${result.summary} · version $version\n');
-  } catch (_) {
+  } catch (e, st) {
+    // Nettoyage au mieux, sans masquer l'erreur d'origine.
     try {
       db.close();
     } catch (_) {}
-    if (tmp.existsSync()) tmp.deleteSync();
-    rethrow;
+    try {
+      if (tmp.existsSync()) tmp.deleteSync();
+    } catch (_) {}
+    Error.throwWithStackTrace(e, st);
   }
 }
 
@@ -169,6 +177,12 @@ const _sources = [
     'author': 'hadith-api (Fawaz Ahmed)',
     'license': 'Domaine public (Unlicense)',
     'url': 'https://github.com/fawazahmed0/hadith-api',
+  },
+  {
+    'title': 'Adhkar — Hisn al-Muslim (arabe, translittération, anglais)',
+    'author': "Sa'id ibn Ali al-Qahtani, via hisnmuslim.com",
+    'license': "Diffusion gratuite autorisée par l'auteur",
+    'url': 'https://www.hisnmuslim.com',
   },
   {
     'title': 'Villes et pays',

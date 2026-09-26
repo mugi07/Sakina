@@ -134,6 +134,21 @@ void main() {
     await _unmount(tester, db);
   });
 
+  testWidgets('Adhkar : matin et soir, compteur de répétitions', (tester) async {
+    final db = await _pumpApp(tester, settingsJson: '{"language":"en","onboardingDone":true}');
+    await tester.tap(find.text('Adhkar').last);
+    await _settle(tester);
+    expect(find.text('Essentials'), findsOneWidget);
+    await tester.tap(find.text('أذكار الصباح والمساء').first);
+    await _settle(tester);
+    expect(find.textContaining('Recite Ayat-Al-Kursiy'), findsOneWidget);
+    expect(find.textContaining('0 / 1'), findsWidgets);
+    await tester.tap(find.textContaining('Recite Ayat-Al-Kursiy'));
+    await tester.pump();
+    expect(find.text('Done'), findsOneWidget);
+    await _unmount(tester, db);
+  });
+
   testWidgets('en arabe, l\'interface passe de droite à gauche', (tester) async {
     final db = await _pumpApp(tester, settingsJson: '{"language":"ar","onboardingDone":true}');
     expect(find.text('الرئيسية'), findsOneWidget);

@@ -8,6 +8,7 @@ Fichier généré par `tool/content_pipeline/build_content_db.dart`. Ne pas modi
 | Traduction française | Muhammad Hamidullah (via Tanzil) | Usage non commercial | https://tanzil.net/trans/ |
 | Traduction anglaise | Saheeh International (via Tanzil) | Usage non commercial | https://tanzil.net/trans/ |
 | Hadiths (an-Nawawi, Qudsi, Bukhari, Muslim, Malik) en arabe, français, anglais | hadith-api (Fawaz Ahmed) | Domaine public (Unlicense) | https://github.com/fawazahmed0/hadith-api |
+| Adhkar — Hisn al-Muslim (arabe, translittération, anglais) | Sa'id ibn Ali al-Qahtani, via hisnmuslim.com | Diffusion gratuite autorisée par l'auteur | https://www.hisnmuslim.com |
 | Villes et pays | GeoNames | Creative Commons Attribution 4.0 | https://www.geonames.org |
 | Déclinaison magnétique (boussole Qibla) | NOAA — World Magnetic Model 2025 | Domaine public | https://www.ncei.noaa.gov/products/world-magnetic-model |
 | Police IBM Plex Sans Arabic | IBM | SIL Open Font License 1.1 | https://github.com/IBM/plex |

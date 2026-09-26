@@ -371,5 +371,31 @@
   "phraseAllahuakbar": "Allah est le plus grand",
   "phraseLailaha": "Il n'y a de divinité qu'Allah",
   "phraseAstaghfirullah": "Je demande pardon à Allah",
-  "phraseSalawat": "Ô Allah, prie sur Muhammad"
+  "phraseSalawat": "Ô Allah, prie sur Muhammad",
+  "adhkarEssentials": "Essentiels",
+  "adhkarAllChapters": "Tous les chapitres",
+  "adhkarSearchHint": "Rechercher un chapitre…",
+  "repeatTimes": "{count, plural, =1{1 fois} other{{count} fois}}",
+  "@repeatTimes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adhkarDone": "Terminé",
+  "adhkarTapHint": "Touchez une invocation à chaque récitation.",
+  "translationEnglishPending": "Traduction française à venir — en anglais :",
+  "restart": "Recommencer",
+  "adhkarProgress": "{done} / {total}",
+  "@adhkarProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

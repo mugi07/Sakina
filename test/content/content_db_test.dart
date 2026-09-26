@@ -97,6 +97,26 @@ void main() {
     expect((mecca['name_fr'], mecca['name_ar']), ('La Mecque', 'مكة المكرمة'));
   });
 
+  test('adhkar : chapitres complets, répétitions valides', () {
+    expect(count('SELECT count(*) FROM adhkar_categories'), greaterThanOrEqualTo(130));
+    expect(count('SELECT count(*) FROM adhkar'), greaterThanOrEqualTo(260));
+    expect(count("SELECT count(*) FROM adhkar WHERE repeat_count < 1 OR text_ar = ''"), 0);
+    expect(
+      count(
+        'SELECT count(*) FROM adhkar_categories c '
+        'WHERE c.item_count != (SELECT count(*) FROM adhkar a WHERE a.category = c.id)',
+      ),
+      0,
+    );
+    // Matin et soir : premier chapitre, avec des invocations à répéter 100 fois.
+    final first = db.select('SELECT id FROM adhkar_categories ORDER BY position LIMIT 1').first;
+    expect(first['id'], 27);
+    expect(
+      count('SELECT count(*) FROM adhkar WHERE category = 27 AND repeat_count = 100'),
+      greaterThan(0),
+    );
+  });
+
   test('sources et avis Tanzil présents', () {
     expect(meta('tanzil_notice'), contains('Tanzil'));
     expect(jsonDecode(meta('sources')), isNotEmpty);

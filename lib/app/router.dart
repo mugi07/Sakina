@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/providers.dart';
-import '../core/widgets/coming_soon.dart';
+import '../features/adhkar/presentation/adhkar_screens.dart';
 import '../features/hadith/presentation/hadith_screens.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/location/presentation/location_picker_screen.dart';
@@ -80,10 +80,16 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
           routes: [
             GoRoute(
               path: '/adhkar',
-              builder: (context, _) => ComingSoonScreen(
-                title: AppLocalizations.of(context).navAdhkar,
-                icon: Icons.self_improvement,
-              ),
+              builder: (_, _) => const AdhkarHomeScreen(),
+              routes: [
+                GoRoute(path: 'tasbih', builder: (_, _) => const TasbihScreen()),
+                GoRoute(
+                  path: ':category',
+                  builder: (_, state) => AdhkarCategoryScreen(
+                    categoryId: int.tryParse(state.pathParameters['category']!) ?? 27,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

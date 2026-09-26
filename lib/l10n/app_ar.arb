@@ -157,5 +157,14 @@
   "phraseAllahuakbar": "الله أكبر",
   "phraseLailaha": "لا إله إلا الله",
   "phraseAstaghfirullah": "أستغفر الله",
-  "phraseSalawat": "اللهم صلّ على محمد"
+  "phraseSalawat": "اللهم صلّ على محمد",
+  "adhkarEssentials": "الأساسية",
+  "adhkarAllChapters": "كل الأبواب",
+  "adhkarSearchHint": "ابحث عن باب…",
+  "repeatTimes": "{count, plural, =1{مرة واحدة} =2{مرتان} few{{count} مرات} many{{count} مرة} other{{count} مرة}}",
+  "adhkarDone": "تم",
+  "adhkarTapHint": "المس الذكر عند كل قراءة.",
+  "translationEnglishPending": "",
+  "restart": "البدء من جديد",
+  "adhkarProgress": "{done} / {total}"
 }

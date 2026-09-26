@@ -598,4 +598,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phraseSalawat => 'O Allah, send blessings upon Muhammad';
+
+  @override
+  String get adhkarEssentials => 'Essentials';
+
+  @override
+  String get adhkarAllChapters => 'All chapters';
+
+  @override
+  String get adhkarSearchHint => 'Search a chapter…';
+
+  @override
+  String repeatTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count times',
+      one: 'once',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get adhkarDone => 'Done';
+
+  @override
+  String get adhkarTapHint => 'Tap a remembrance each time you recite it.';
+
+  @override
+  String get translationEnglishPending => '';
+
+  @override
+  String get restart => 'Start over';
+
+  @override
+  String adhkarProgress(int done, int total) {
+    return '$done / $total';
+  }
 }

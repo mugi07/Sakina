@@ -63,3 +63,7 @@ citiesInBox:
   INNER JOIN countries co ON co.code = c.country_code
   WHERE c.latitude BETWEEN :minLat AND :maxLat
     AND c.longitude BETWEEN :minLng AND :maxLng;
+
+allAdhkarCategories: SELECT * FROM adhkar_categories ORDER BY position;
+
+adhkarOfCategory: SELECT * FROM adhkar WHERE category = :category ORDER BY position;
