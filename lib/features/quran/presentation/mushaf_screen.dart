@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 import '../../../core/database/content_database.dart';
 import '../../../core/providers.dart';
@@ -14,11 +15,11 @@ import 'widgets/mushaf_page.dart';
 import 'widgets/recitation_bar.dart';
 import 'widgets/translation_page.dart';
 
-/// Lecteur du Coran page par page (604 pages du mushaf de Médine).
+/// Lecteur du Coran (604 pages du mushaf de Médine) en défilement vertical
+/// continu, du début à la fin.
 ///
-/// Chaque langue a ses propres pages : l'arabe se tourne de droite à gauche
-/// comme un mushaf, les traductions de gauche à droite. Changer de langue
-/// garde la même page.
+/// Chaque langue a ses propres pages (arabe, français, anglais) ; changer de
+/// langue garde la même page. La récitation fait défiler jusqu'au verset lu.
 class MushafScreen extends ConsumerStatefulWidget {
   const MushafScreen({required this.initialPage, super.key});
 
@@ -31,18 +32,26 @@ class MushafScreen extends ConsumerStatefulWidget {
 class _MushafScreenState extends ConsumerState<MushafScreen> {
   late int _page = widget.initialPage.clamp(1, mushafPageCount);
   late QuranLanguage _language = ref.read(settingsProvider).quranLanguage;
-  late PageController _controller = PageController(initialPage: _page - 1);
+  ScrollController _scroll = ScrollController();
+  ListController _list = ListController();
+  double _viewportHeight = 0;
+
+  /// Page à atteindre dès que la liste est construite (ouverture, langue).
+  int? _pendingJump;
   int? _selectedAyahId;
 
   @override
   void initState() {
     super.initState();
+    _pendingJump = _page;
+    _scroll.addListener(_onScroll);
     _saveLastPage();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _scroll.dispose();
+    _list.dispose();
     super.dispose();
   }
 
@@ -50,14 +59,75 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
     () => ref.read(settingsProvider.notifier).update((s) => s.copyWith(lastReadPage: _page)),
   );
 
+  bool _pageUpdateScheduled = false;
+
+  /// Le défilement est signalé avant la mise en page : la plage visible
+  /// n'est à jour qu'après l'image suivante.
+  void _onScroll() {
+    if (_pageUpdateScheduled) return;
+    _pageUpdateScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _pageUpdateScheduled = false;
+      if (mounted) _updateCurrentPage();
+    });
+  }
+
+  /// Page courante : la première visible, sauf si elle n'occupe plus que le
+  /// haut de l'écran (la suivante prend alors le relais).
+  void _updateCurrentPage() {
+    if (!_list.isAttached || !_scroll.hasClients) return;
+    final range = _list.visibleRange;
+    if (range == null) return;
+    var index = range.$1;
+    if (index + 1 < mushafPageCount && range.$2 > index) {
+      if (_itemStart(index + 1) - _scroll.offset < _viewportHeight * 0.4) index++;
+    }
+    final page = index + 1;
+    if (page != _page) {
+      setState(() => _page = page);
+      _saveLastPage();
+    }
+  }
+
+  /// Position du début d'une page dans la liste (somme des hauteurs des
+  /// pages précédentes, mesurées ou estimées).
+  double _itemStart(int index) {
+    var offset = 0.0;
+    for (var i = 0; i < index; i++) {
+      offset += _list.extentForIndex(i).$1;
+    }
+    return offset;
+  }
+
+  void _jumpTo(int page) {
+    if (!_list.isAttached || !_scroll.hasClients) {
+      _pendingJump = page;
+      return;
+    }
+    _list.jumpToItem(index: page - 1, scrollController: _scroll, alignment: 0);
+    // Les hauteurs estimées sont corrigées à la mise en page : on recale
+    // une fois la page cible mesurée, puis on met le titre à jour.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_list.isAttached || !_scroll.hasClients) return;
+      _list.jumpToItem(index: page - 1, scrollController: _scroll, alignment: 0);
+      _onScroll();
+    });
+  }
+
   void _setLanguage(QuranLanguage language) {
     if (language == _language) return;
-    final old = _controller;
+    final oldScroll = _scroll;
+    final oldList = _list;
     setState(() {
       _language = language;
-      _controller = PageController(initialPage: _page - 1);
+      _scroll = ScrollController()..addListener(_onScroll);
+      _list = ListController();
+      _pendingJump = _page;
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) => old.dispose());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      oldScroll.dispose();
+      oldList.dispose();
+    });
     ref.read(settingsProvider.notifier).update((s) => s.copyWith(quranLanguage: language));
   }
 
@@ -96,7 +166,7 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
       },
     );
     input.dispose();
-    if (page != null && _controller.hasClients) _controller.jumpToPage(page - 1);
+    if (page != null) _jumpTo(page);
   }
 
   @override
@@ -108,13 +178,18 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
     final edition = _language.edition;
     final recitation = ref.watch(recitationProvider);
 
-    // La récitation tourne les pages d'elle-même.
+    // La récitation fait défiler jusqu'à la page du verset lu.
     ref.listen(recitationProvider.select((s) => s.page), (_, page) {
-      if (page != null && page != _page && _controller.hasClients) {
-        _controller.animateToPage(
-          page - 1,
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
+      if (page == null || !_list.isAttached || !_scroll.hasClients) return;
+      final range = _list.visibleRange;
+      final visible = range != null && page - 1 >= range.$1 && page - 1 <= range.$2;
+      if (!visible || page != _page) {
+        _list.animateToItem(
+          index: page - 1,
+          scrollController: _scroll,
+          alignment: 0,
+          duration: (_) => const Duration(milliseconds: 450),
+          curve: (_) => Curves.easeInOut,
         );
       }
     });
@@ -167,32 +242,48 @@ class _MushafScreenState extends ConsumerState<MushafScreen> {
       ),
       body: SafeArea(
         top: false,
-        child: Directionality(
-          // L'arabe se feuillette vers la gauche (page suivante à gauche).
-          textDirection: edition == null ? TextDirection.rtl : TextDirection.ltr,
-          child: PageView.builder(
-            key: ValueKey(_language),
-            controller: _controller,
-            itemCount: mushafPageCount,
-            onPageChanged: (i) {
-              setState(() => _page = i + 1);
-              _saveLastPage();
-            },
-            itemBuilder: (context, i) => edition == null
-                ? MushafPage(
-                    page: i + 1,
-                    selectedAyahId: _selectedAyahId,
-                    playingAyahId: recitation.ayahId,
-                    onAyahTap: _onAyahTap,
-                  )
-                : TranslationPage(
-                    page: i + 1,
-                    edition: edition,
-                    selectedAyahId: _selectedAyahId,
-                    playingAyahId: recitation.ayahId,
-                    onAyahTap: _onAyahTap,
-                  ),
-          ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            _viewportHeight = constraints.maxHeight;
+            final reference = ref
+                .watch(pageAyahsProvider((page: referenceMushafPage, edition: null)))
+                .value;
+            if (reference == null) return const Center(child: CircularProgressIndicator());
+            final fontSize =
+                uniformMushafFontSize(reference, constraints.biggest) *
+                ref.watch(settingsProvider.select((s) => s.arabicFontScale));
+
+            if (_pendingJump != null) {
+              final target = _pendingJump!;
+              _pendingJump = null;
+              WidgetsBinding.instance.addPostFrameCallback((_) => _jumpTo(target));
+            }
+
+            return SuperListView.builder(
+              key: ValueKey(_language),
+              controller: _scroll,
+              listController: _list,
+              itemCount: mushafPageCount,
+              // Estimation avant mesure : une page arabe ≈ un écran, une page
+              // traduite est plus longue.
+              extentEstimation: (_, _) => constraints.maxHeight * (edition == null ? 1.0 : 2.2),
+              itemBuilder: (context, i) => edition == null
+                  ? MushafPageBlock(
+                      page: i + 1,
+                      fontSize: fontSize,
+                      selectedAyahId: _selectedAyahId,
+                      playingAyahId: recitation.ayahId,
+                      onAyahTap: _onAyahTap,
+                    )
+                  : TranslationPageBlock(
+                      page: i + 1,
+                      edition: edition,
+                      selectedAyahId: _selectedAyahId,
+                      playingAyahId: recitation.ayahId,
+                      onAyahTap: _onAyahTap,
+                    ),
+            );
+          },
         ),
       ),
       bottomNavigationBar: recitation.active ? const RecitationBar() : null,

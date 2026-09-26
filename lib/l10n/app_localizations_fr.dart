@@ -720,4 +720,52 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pause => 'Pause';
+
+  @override
+  String eventName(String event) {
+    String _temp0 = intl.Intl.selectLogic(event, {
+      'newYear': 'Nouvel an hégirien',
+      'ashura': 'Achoura',
+      'mawlid': 'Mawlid (naissance du Prophète ﷺ, date traditionnelle)',
+      'israMiraj': 'Isra\' et Mi\'raj (date traditionnelle)',
+      'ramadanStart': 'Début du Ramadan',
+      'lastTenNights': 'Dix dernières nuits du Ramadan',
+      'eidAlFitr': 'Aïd al-Fitr',
+      'dhulHijjahTenDays': 'Dix premiers jours de Dhou al-hijja',
+      'arafah': 'Jour de \'Arafa',
+      'eidAlAdha': 'Aïd al-Adha',
+      'other': 'Événement',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get upcomingEvents => 'Prochains événements';
+
+  @override
+  String inDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'Dans $days jours',
+      one: 'Demain',
+      zero: 'Aujourd\'hui',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get fastingRecommended => 'Jeûne recommandé';
+
+  @override
+  String get whiteDays => 'Jours blancs (13, 14, 15) : jeûne recommandé';
+
+  @override
+  String get eventsThisMonth => 'Ce mois-ci';
+
+  @override
+  String get asmaSearchHint => 'Rechercher un nom…';
+
+  @override
+  String get asmaReviewNote => 'Liste rapportée par at-Tirmidhi. Les traductions sont indicatives.';
 }

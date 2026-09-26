@@ -727,4 +727,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pause => 'إيقاف مؤقت';
+
+  @override
+  String eventName(String event) {
+    String _temp0 = intl.Intl.selectLogic(event, {
+      'newYear': 'رأس السنة الهجرية',
+      'ashura': 'يوم عاشوراء',
+      'mawlid': 'المولد النبوي (التاريخ المشهور)',
+      'israMiraj': 'الإسراء والمعراج (التاريخ المشهور)',
+      'ramadanStart': 'بداية رمضان',
+      'lastTenNights': 'العشر الأواخر من رمضان',
+      'eidAlFitr': 'عيد الفطر',
+      'dhulHijjahTenDays': 'العشر الأوائل من ذي الحجة',
+      'arafah': 'يوم عرفة',
+      'eidAlAdha': 'عيد الأضحى',
+      'other': 'مناسبة',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get upcomingEvents => 'المناسبات القادمة';
+
+  @override
+  String inDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'بعد $days يوم',
+      many: 'بعد $days يومًا',
+      few: 'بعد $days أيام',
+      two: 'بعد يومين',
+      one: 'غدًا',
+      zero: 'اليوم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get fastingRecommended => 'يُستحب الصيام';
+
+  @override
+  String get whiteDays => 'الأيام البيض (13، 14، 15): يُستحب صيامها';
+
+  @override
+  String get eventsThisMonth => 'هذا الشهر';
+
+  @override
+  String get asmaSearchHint => 'ابحث عن اسم…';
+
+  @override
+  String get asmaReviewNote => 'القائمة كما رواها الترمذي.';
 }

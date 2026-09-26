@@ -15,6 +15,32 @@ class HijriDate {
   final int month;
   final int day;
 
+  /// Jour grégorien correspondant, avec le même décalage manuel que
+  /// [HijriDate.fromGregorian] (les deux conversions sont réciproques).
+  DateTime toGregorian({int adjustmentDays = 0}) {
+    final g = HijriCalendar().hijriToGregorian(year, month, day);
+    return DateTime(g.year, g.month, g.day - adjustmentDays);
+  }
+
+  /// Nombre de jours (29 ou 30) du mois hégirien, selon Umm al-Qura.
+  static int daysInMonth(int year, int month) => HijriCalendar().getDaysInMonth(year, month);
+
+  /// Premier jour du mois, [months] mois plus tard (ou plus tôt).
+  HijriDate addMonths(int months) {
+    final index = year * 12 + (month - 1) + months;
+    return HijriDate(index ~/ 12, index % 12 + 1, 1);
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is HijriDate && other.year == year && other.month == month && other.day == day;
+
+  @override
+  int get hashCode => Object.hash(year, month, day);
+
+  @override
+  String toString() => '$year-$month-$day AH';
+
   String monthName(String languageCode) =>
       (_monthNames[languageCode] ?? _monthNames['en']!)[month - 1];
 

@@ -428,5 +428,27 @@
   "audioNeedsInternet": "Connexion internet nécessaire pour la première écoute de ce verset.",
   "previous": "Précédent",
   "next": "Suivant",
-  "pause": "Pause"
+  "pause": "Pause",
+  "eventName": "{event, select, newYear{Nouvel an hégirien} ashura{Achoura} mawlid{Mawlid (naissance du Prophète ﷺ, date traditionnelle)} israMiraj{Isra' et Mi'raj (date traditionnelle)} ramadanStart{Début du Ramadan} lastTenNights{Dix dernières nuits du Ramadan} eidAlFitr{Aïd al-Fitr} dhulHijjahTenDays{Dix premiers jours de Dhou al-hijja} arafah{Jour de 'Arafa} eidAlAdha{Aïd al-Adha} other{Événement}}",
+  "@eventName": {
+    "placeholders": {
+      "event": {
+        "type": "String"
+      }
+    }
+  },
+  "upcomingEvents": "Prochains événements",
+  "inDays": "{days, plural, =0{Aujourd'hui} =1{Demain} other{Dans {days} jours}}",
+  "@inDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "fastingRecommended": "Jeûne recommandé",
+  "whiteDays": "Jours blancs (13, 14, 15) : jeûne recommandé",
+  "eventsThisMonth": "Ce mois-ci",
+  "asmaSearchHint": "Rechercher un nom…",
+  "asmaReviewNote": "Liste rapportée par at-Tirmidhi. Les traductions sont indicatives."
 }

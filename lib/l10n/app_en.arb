@@ -190,5 +190,13 @@
   "audioNeedsInternet": "An internet connection is needed the first time you play this verse.",
   "previous": "Previous",
   "next": "Next",
-  "pause": "Pause"
+  "pause": "Pause",
+  "eventName": "{event, select, newYear{Islamic New Year} ashura{Day of Ashura} mawlid{Mawlid (birth of the Prophet ﷺ, traditional date)} israMiraj{Isra and Mi'raj (traditional date)} ramadanStart{Start of Ramadan} lastTenNights{Last ten nights of Ramadan} eidAlFitr{Eid al-Fitr} dhulHijjahTenDays{First ten days of Dhul-Hijjah} arafah{Day of Arafah} eidAlAdha{Eid al-Adha} other{Event}}",
+  "upcomingEvents": "Upcoming events",
+  "inDays": "{days, plural, =0{Today} =1{Tomorrow} other{In {days} days}}",
+  "fastingRecommended": "Fasting recommended",
+  "whiteDays": "White days (13, 14, 15): fasting recommended",
+  "eventsThisMonth": "This month",
+  "asmaSearchHint": "Search a name…",
+  "asmaReviewNote": "List narrated by at-Tirmidhi. Translations are indicative."
 }

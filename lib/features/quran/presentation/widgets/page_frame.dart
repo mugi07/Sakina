@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Cadre commun aux pages (arabe et traductions) : en-tête, contenu, numéro.
+/// Hauteur naturelle : les pages s'enchaînent dans un défilement vertical.
 class PageFrame extends StatelessWidget {
   const PageFrame({required this.header, required this.footer, required this.child, super.key});
 
@@ -19,12 +20,18 @@ class PageFrame extends StatelessWidget {
         border: Border.all(color: scheme.tertiary.withValues(alpha: 0.7), width: 1.5),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           header,
           Divider(height: 8, color: scheme.tertiary.withValues(alpha: 0.4)),
-          Expanded(child: child),
+          child,
           const SizedBox(height: 4),
-          Text(footer, style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 13)),
+          Text(
+            footer,
+            textAlign: TextAlign.center,
+            style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 13),
+          ),
         ],
       ),
     );
@@ -51,3 +58,8 @@ class PageHeaderRow extends StatelessWidget {
     );
   }
 }
+
+/// Place prise par le cadre autour du contenu (marges, bordures, en-tête,
+/// séparateur, numéro de page), pour calculer la taille du texte arabe.
+const pageFrameHorizontalInset = 8 + 8 + 14 + 14 + 3.0;
+const pageFrameVerticalInset = 4 + 8 + 6 + 4 + 3 + 20 + 8 + 4 + 20.0;

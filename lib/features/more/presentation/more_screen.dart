@@ -9,11 +9,11 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    Widget soon(IconData icon, String title) => ListTile(
-      enabled: false,
+    Widget entry(IconData icon, String title, String location) => ListTile(
       leading: Icon(icon),
       title: Text(title),
-      trailing: Chip(label: Text(l.comingSoon), visualDensity: VisualDensity.compact),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () => context.go(location),
     );
 
     return Scaffold(
@@ -32,8 +32,8 @@ class MoreScreen extends StatelessWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.go('/more/tasbih'),
           ),
-          soon(Icons.star_outline, l.asmaUlHusna),
-          soon(Icons.calendar_month_outlined, l.hijriCalendar),
+          entry(Icons.star_outline, l.asmaUlHusna, '/more/names'),
+          entry(Icons.calendar_month_outlined, l.hijriCalendar, '/more/calendar'),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.settings_outlined),

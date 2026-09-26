@@ -190,5 +190,13 @@
   "audioNeedsInternet": "يلزم الاتصال بالإنترنت عند أول استماع لهذه الآية.",
   "previous": "السابق",
   "next": "التالي",
-  "pause": "إيقاف مؤقت"
+  "pause": "إيقاف مؤقت",
+  "eventName": "{event, select, newYear{رأس السنة الهجرية} ashura{يوم عاشوراء} mawlid{المولد النبوي (التاريخ المشهور)} israMiraj{الإسراء والمعراج (التاريخ المشهور)} ramadanStart{بداية رمضان} lastTenNights{العشر الأواخر من رمضان} eidAlFitr{عيد الفطر} dhulHijjahTenDays{العشر الأوائل من ذي الحجة} arafah{يوم عرفة} eidAlAdha{عيد الأضحى} other{مناسبة}}",
+  "upcomingEvents": "المناسبات القادمة",
+  "inDays": "{days, plural, =0{اليوم} =1{غدًا} =2{بعد يومين} few{بعد {days} أيام} many{بعد {days} يومًا} other{بعد {days} يوم}}",
+  "fastingRecommended": "يُستحب الصيام",
+  "whiteDays": "الأيام البيض (13، 14، 15): يُستحب صيامها",
+  "eventsThisMonth": "هذا الشهر",
+  "asmaSearchHint": "ابحث عن اسم…",
+  "asmaReviewNote": "القائمة كما رواها الترمذي."
 }

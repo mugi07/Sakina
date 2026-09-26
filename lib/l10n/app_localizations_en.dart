@@ -717,4 +717,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pause => 'Pause';
+
+  @override
+  String eventName(String event) {
+    String _temp0 = intl.Intl.selectLogic(event, {
+      'newYear': 'Islamic New Year',
+      'ashura': 'Day of Ashura',
+      'mawlid': 'Mawlid (birth of the Prophet ﷺ, traditional date)',
+      'israMiraj': 'Isra and Mi\'raj (traditional date)',
+      'ramadanStart': 'Start of Ramadan',
+      'lastTenNights': 'Last ten nights of Ramadan',
+      'eidAlFitr': 'Eid al-Fitr',
+      'dhulHijjahTenDays': 'First ten days of Dhul-Hijjah',
+      'arafah': 'Day of Arafah',
+      'eidAlAdha': 'Eid al-Adha',
+      'other': 'Event',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get upcomingEvents => 'Upcoming events';
+
+  @override
+  String inDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'In $days days',
+      one: 'Tomorrow',
+      zero: 'Today',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get fastingRecommended => 'Fasting recommended';
+
+  @override
+  String get whiteDays => 'White days (13, 14, 15): fasting recommended';
+
+  @override
+  String get eventsThisMonth => 'This month';
+
+  @override
+  String get asmaSearchHint => 'Search a name…';
+
+  @override
+  String get asmaReviewNote => 'List narrated by at-Tirmidhi. Translations are indicative.';
 }

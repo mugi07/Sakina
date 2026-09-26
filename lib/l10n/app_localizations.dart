@@ -1239,6 +1239,54 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Pause'**
   String get pause;
+
+  /// No description provided for @eventName.
+  ///
+  /// In fr, this message translates to:
+  /// **'{event, select, newYear{Nouvel an hégirien} ashura{Achoura} mawlid{Mawlid (naissance du Prophète ﷺ, date traditionnelle)} israMiraj{Isra\' et Mi\'raj (date traditionnelle)} ramadanStart{Début du Ramadan} lastTenNights{Dix dernières nuits du Ramadan} eidAlFitr{Aïd al-Fitr} dhulHijjahTenDays{Dix premiers jours de Dhou al-hijja} arafah{Jour de \'Arafa} eidAlAdha{Aïd al-Adha} other{Événement}}'**
+  String eventName(String event);
+
+  /// No description provided for @upcomingEvents.
+  ///
+  /// In fr, this message translates to:
+  /// **'Prochains événements'**
+  String get upcomingEvents;
+
+  /// No description provided for @inDays.
+  ///
+  /// In fr, this message translates to:
+  /// **'{days, plural, =0{Aujourd\'hui} =1{Demain} other{Dans {days} jours}}'**
+  String inDays(int days);
+
+  /// No description provided for @fastingRecommended.
+  ///
+  /// In fr, this message translates to:
+  /// **'Jeûne recommandé'**
+  String get fastingRecommended;
+
+  /// No description provided for @whiteDays.
+  ///
+  /// In fr, this message translates to:
+  /// **'Jours blancs (13, 14, 15) : jeûne recommandé'**
+  String get whiteDays;
+
+  /// No description provided for @eventsThisMonth.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ce mois-ci'**
+  String get eventsThisMonth;
+
+  /// No description provided for @asmaSearchHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rechercher un nom…'**
+  String get asmaSearchHint;
+
+  /// No description provided for @asmaReviewNote.
+  ///
+  /// In fr, this message translates to:
+  /// **'Liste rapportée par at-Tirmidhi. Les traductions sont indicatives.'**
+  String get asmaReviewNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

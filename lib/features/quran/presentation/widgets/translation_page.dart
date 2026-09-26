@@ -9,9 +9,9 @@ import '../../domain/page_layout.dart';
 import 'page_frame.dart';
 
 /// Une page du mushaf dans une seule langue de traduction (mêmes versets
-/// que la page arabe), de gauche à droite.
-class TranslationPage extends ConsumerWidget {
-  const TranslationPage({
+/// que la page arabe), dans le défilement continu ; hauteur naturelle.
+class TranslationPageBlock extends ConsumerWidget {
+  const TranslationPageBlock({
     required this.page,
     required this.edition,
     required this.onAyahTap,
@@ -33,7 +33,7 @@ class TranslationPage extends ConsumerWidget {
     final surahs = ref.watch(surahByIdProvider).value;
     final basmala = ref.watch(basmalaTranslationProvider(edition)).value;
     if (rows == null || surahs == null || basmala == null) {
-      return const Center(child: CircularProgressIndicator());
+      return const SizedBox(height: 600);
     }
     final scheme = Theme.of(context).colorScheme;
     final first = rows.first.a;
@@ -46,8 +46,9 @@ class TranslationPage extends ConsumerWidget {
           end: '${l.juzLabel(first.juz)} · ${l.hizbLabel(hizbOfQuarter(first.hizbQuarter))}',
         ),
         footer: '${l.pageLabel(page)} / $mushafPageCount',
-        child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             for (final block in buildPageBlocks(rows))
               switch (block) {

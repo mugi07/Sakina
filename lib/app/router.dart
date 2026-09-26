@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../core/providers.dart';
 import '../features/adhkar/presentation/adhkar_screens.dart';
+import '../features/asma_husna/presentation/asma_husna_screen.dart';
+import '../features/calendar/presentation/hijri_calendar_screen.dart';
 import '../features/hadith/presentation/hadith_screens.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/location/presentation/location_picker_screen.dart';
@@ -104,6 +106,8 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
                 GoRoute(path: 'settings', builder: (_, _) => const SettingsScreen()),
                 GoRoute(path: 'sources', builder: (_, _) => const SourcesScreen()),
                 GoRoute(path: 'tasbih', builder: (_, _) => const TasbihScreen()),
+                GoRoute(path: 'names', builder: (_, _) => const AsmaHusnaScreen()),
+                GoRoute(path: 'calendar', builder: (_, _) => const HijriCalendarScreen()),
                 GoRoute(
                   path: 'hadith',
                   builder: (_, _) => const HadithBooksScreen(),

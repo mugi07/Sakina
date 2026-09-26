@@ -1,28 +1,34 @@
-import 'dart:math' as math;
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../app/theme/app_theme.dart';
 import '../../../../core/database/content_database.dart';
-import '../../../../core/providers.dart';
 import '../../application/quran_providers.dart';
 import '../../domain/page_layout.dart';
 import '../../domain/quran_text.dart';
 import 'mushaf_typography.dart';
 import 'page_frame.dart';
 
-/// Page de référence (Al-Baqara 6-16, une page pleine ordinaire) : sa taille
-/// de police sert de plafond, pour garder une taille uniforme d'une page à
-/// l'autre comme dans un mushaf imprimé.
-const _referencePage = 3;
+/// Page de référence (Al-Baqara 6-16, une page pleine ordinaire).
+const referenceMushafPage = 3;
 
-/// Une page du mushaf en arabe : texte continu et justifié, en-têtes de
-/// sourate, et taille ajustée pour que la page tienne entière à l'écran.
-class MushafPage extends ConsumerStatefulWidget {
-  const MushafPage({
+/// Taille du texte arabe, la même pour tout le mushaf : celle qui fait tenir
+/// la page de référence dans la hauteur de l'écran (une page ≈ un écran).
+double uniformMushafFontSize(List<AyahsOfPageResult> referenceRows, Size viewport) {
+  final content = Size(
+    viewport.width - pageFrameHorizontalInset,
+    viewport.height - pageFrameVerticalInset,
+  );
+  return fitFontSize('ref$referenceMushafPage', buildPageBlocks(referenceRows), content);
+}
+
+/// Une page du mushaf en arabe, dans le défilement continu : texte justifié,
+/// en-têtes de sourate, médaillons de versets ; hauteur naturelle.
+class MushafPageBlock extends ConsumerStatefulWidget {
+  const MushafPageBlock({
     required this.page,
+    required this.fontSize,
     required this.onAyahTap,
     this.selectedAyahId,
     this.playingAyahId,
@@ -30,6 +36,7 @@ class MushafPage extends ConsumerStatefulWidget {
   });
 
   final int page;
+  final double fontSize;
   final int? selectedAyahId;
 
   /// Verset en cours de récitation (surligné en doré).
@@ -37,10 +44,10 @@ class MushafPage extends ConsumerStatefulWidget {
   final ValueChanged<AyahsOfPageResult> onAyahTap;
 
   @override
-  ConsumerState<MushafPage> createState() => _MushafPageState();
+  ConsumerState<MushafPageBlock> createState() => _MushafPageBlockState();
 }
 
-class _MushafPageState extends ConsumerState<MushafPage> {
+class _MushafPageBlockState extends ConsumerState<MushafPageBlock> {
   final _recognizers = <int, TapGestureRecognizer>{};
 
   @override
@@ -57,20 +64,53 @@ class _MushafPageState extends ConsumerState<MushafPage> {
   @override
   Widget build(BuildContext context) {
     final rows = ref.watch(pageAyahsProvider((page: widget.page, edition: null))).value;
-    final reference = ref.watch(pageAyahsProvider((page: _referencePage, edition: null))).value;
     final surahs = ref.watch(surahByIdProvider).value;
     final basmala = ref.watch(basmalaProvider).value;
-    final scale = ref.watch(settingsProvider.select((s) => s.arabicFontScale));
-    if (rows == null || reference == null || surahs == null || basmala == null) {
-      return const Center(child: CircularProgressIndicator());
+    if (rows == null || surahs == null || basmala == null) {
+      // Réserve environ une page pendant le chargement.
+      return SizedBox(height: widget.fontSize * 30);
     }
 
     final scheme = Theme.of(context).colorScheme;
-    final blocks = buildPageBlocks(rows);
     for (final row in rows) {
       _recognizerFor(row);
     }
     final first = rows.first.a;
+    final m = MushafMetrics(widget.fontSize);
+
+    final children = <Widget>[];
+    for (final block in buildPageBlocks(rows)) {
+      if (children.isNotEmpty) children.add(SizedBox(height: m.blockGap));
+      switch (block) {
+        case SurahHeaderBlock():
+          children.add(
+            _SurahBanner(
+              name: 'سُورَةُ ${surahs[block.surah]!.nameAr}',
+              basmala: block.showsBasmala ? basmala : null,
+              metrics: m,
+            ),
+          );
+        case AyahRunBlock():
+          children.add(
+            Text.rich(
+              ayahRunSpan(
+                block,
+                fontSize: widget.fontSize,
+                textColor: scheme.onSurface,
+                markColor: scheme.tertiary,
+                selectedAyahId: widget.selectedAyahId,
+                highlightColor: scheme.primary.withValues(alpha: 0.14),
+                playingAyahId: widget.playingAyahId,
+                playingColor: scheme.tertiary.withValues(alpha: 0.22),
+                recognizers: _recognizers,
+              ),
+              textAlign: TextAlign.justify,
+              textDirection: TextDirection.rtl,
+              textScaler: TextScaler.noScaling,
+            ),
+          );
+      }
+    }
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -82,62 +122,10 @@ class _MushafPageState extends ConsumerState<MushafPage> {
               'الحزب ${toArabicIndicDigits(hizbOfQuarter(first.hizbQuarter))}',
         ),
         footer: toArabicIndicDigits(widget.page),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final size = constraints.biggest;
-            final pageFit = fitFontSize('p${widget.page}', blocks, size);
-            final referenceFit = fitFontSize('p$_referencePage', buildPageBlocks(reference), size);
-            final fontSize = math.min(pageFit, referenceFit) * scale;
-            final m = MushafMetrics(fontSize);
-
-            final children = <Widget>[];
-            for (final block in blocks) {
-              if (children.isNotEmpty) children.add(SizedBox(height: m.blockGap));
-              switch (block) {
-                case SurahHeaderBlock():
-                  children.add(
-                    _SurahBanner(
-                      name: 'سُورَةُ ${surahs[block.surah]!.nameAr}',
-                      basmala: block.showsBasmala ? basmala : null,
-                      metrics: m,
-                    ),
-                  );
-                case AyahRunBlock():
-                  children.add(
-                    Text.rich(
-                      ayahRunSpan(
-                        block,
-                        fontSize: fontSize,
-                        textColor: scheme.onSurface,
-                        markColor: scheme.tertiary,
-                        selectedAyahId: widget.selectedAyahId,
-                        highlightColor: scheme.primary.withValues(alpha: 0.14),
-                        playingAyahId: widget.playingAyahId,
-                        playingColor: scheme.tertiary.withValues(alpha: 0.22),
-                        recognizers: _recognizers,
-                      ),
-                      textAlign: TextAlign.justify,
-                      textDirection: TextDirection.rtl,
-                      textScaler: TextScaler.noScaling,
-                    ),
-                  );
-              }
-            }
-
-            // Les deux premières pages (Al-Fatiha, début d'Al-Baqara) sont
-            // centrées, comme dans le mushaf imprimé.
-            final centered = widget.page <= 2;
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: size.height),
-                child: Column(
-                  mainAxisAlignment: centered ? MainAxisAlignment.center : MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: children,
-                ),
-              ),
-            );
-          },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: children,
         ),
       ),
     );

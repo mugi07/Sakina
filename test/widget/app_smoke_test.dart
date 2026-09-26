@@ -121,14 +121,14 @@ void main() {
     await tester.tap(find.text('Al-Faatiha'));
     await _settle(tester);
     // Mushaf arabe : page 1, sans traduction.
-    expect(find.byType(MushafPage), findsOneWidget);
+    expect(find.byType(MushafPageBlock), findsWidgets);
     expect(find.text('Page 1'), findsOneWidget);
     expect(find.textContaining("Au nom d'Allah"), findsNothing);
 
     await tester.tap(find.text('Français'));
     await _settle(tester);
     // Même page, en français uniquement.
-    expect(find.byType(MushafPage), findsNothing);
+    expect(find.byType(MushafPageBlock), findsNothing);
     expect(find.textContaining("Au nom d'Allah"), findsOneWidget);
     expect(find.text('Page 1'), findsOneWidget);
     await _unmount(tester, db);
