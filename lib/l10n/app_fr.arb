@@ -71,7 +71,7 @@
       }
     }
   },
-  "qiblaHint": "Repérez le nord, puis tournez de cet angle dans le sens des aiguilles d'une montre. La boussole en direct arrive bientôt.",
+  "qiblaHint": "Repérez le nord, puis tournez de cet angle dans le sens des aiguilles d'une montre. Ou ouvrez la boussole.",
   "locationTitle": "Choisir un lieu",
   "searchCityHint": "Rechercher une ville…",
   "useMyLocation": "Utiliser ma position actuelle",
@@ -290,5 +290,36 @@
   "dayColumn": "Jour",
   "previousMonth": "Mois précédent",
   "nextMonth": "Mois suivant",
-  "exactAlarmsDenied": "Les notifications peuvent arriver en retard : autorisez « Alarmes et rappels » pour l'heure exacte."
+  "exactAlarmsDenied": "Les notifications peuvent arriver en retard : autorisez « Alarmes et rappels » pour l'heure exacte.",
+  "openCompass": "Ouvrir la boussole",
+  "qiblaCompassTitle": "Boussole Qibla",
+  "qiblaAligned": "Vous êtes face à la Qibla",
+  "turnRight": "Tournez vers la droite : {deg}°",
+  "@turnRight": {
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      }
+    }
+  },
+  "turnLeft": "Tournez vers la gauche : {deg}°",
+  "@turnLeft": {
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      }
+    }
+  },
+  "compassUnavailable": "Boussole indisponible sur cet appareil. Utilisez l'angle ci-dessus avec une boussole classique.",
+  "calibrateTip": "Précision faible : faites des mouvements en forme de 8 avec le téléphone pour calibrer la boussole.",
+  "metalWarning": "Tenez le téléphone à plat, loin des objets métalliques, des aimants et des appareils électriques.",
+  "declinationNote": "Déclinaison magnétique corrigée : {deg}°",
+  "@declinationNote": {
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      }
+    }
+  },
+  "compassNeedsLocation": "Autorisez la localisation pour activer la boussole."
 }

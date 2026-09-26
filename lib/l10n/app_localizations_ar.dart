@@ -129,7 +129,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get qiblaHint =>
-      'حدّد اتجاه الشمال، ثم استدر بهذه الزاوية في اتجاه عقارب الساعة. البوصلة المباشرة قادمة قريبًا.';
+      'حدّد اتجاه الشمال، ثم استدر بهذه الزاوية في اتجاه عقارب الساعة. أو افتح البوصلة.';
 
   @override
   String get locationTitle => 'اختيار الموقع';
@@ -482,4 +482,42 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get exactAlarmsDenied =>
       'قد تتأخر التنبيهات: اسمح بـ«المنبّهات والتذكيرات» للحصول على الوقت الدقيق.';
+
+  @override
+  String get openCompass => 'فتح البوصلة';
+
+  @override
+  String get qiblaCompassTitle => 'بوصلة القبلة';
+
+  @override
+  String get qiblaAligned => 'أنت متّجه نحو القبلة';
+
+  @override
+  String turnRight(String deg) {
+    return 'استدر إلى اليمين: $deg°';
+  }
+
+  @override
+  String turnLeft(String deg) {
+    return 'استدر إلى اليسار: $deg°';
+  }
+
+  @override
+  String get compassUnavailable =>
+      'البوصلة غير متوفرة على هذا الجهاز. استخدم الزاوية أعلاه مع بوصلة عادية.';
+
+  @override
+  String get calibrateTip => 'الدقة ضعيفة: حرّك الهاتف على شكل الرقم 8 لمعايرة البوصلة.';
+
+  @override
+  String get metalWarning =>
+      'أمسك الهاتف أفقيًا بعيدًا عن الأجسام المعدنية والمغناطيس والأجهزة الكهربائية.';
+
+  @override
+  String declinationNote(String deg) {
+    return 'تم تصحيح الانحراف المغناطيسي: $deg°';
+  }
+
+  @override
+  String get compassNeedsLocation => 'اسمح بالوصول إلى الموقع لتفعيل البوصلة.';
 }

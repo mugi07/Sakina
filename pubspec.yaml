@@ -28,6 +28,7 @@ dependencies:
   timezone: ^0.11.1
   flutter_local_notifications: ^22.3.1
   flutter_compass: ^0.8.1
+  geomag: ^0.3.0
 
 dev_dependencies:
   flutter_test:

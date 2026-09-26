@@ -10,6 +10,7 @@ import '../features/more/presentation/more_screen.dart';
 import '../features/onboarding/presentation/welcome_screen.dart';
 import '../features/prayer_times/presentation/monthly_timetable_screen.dart';
 import '../features/prayer_times/presentation/prayer_times_screen.dart';
+import '../features/qibla/presentation/qibla_compass_screen.dart';
 import '../features/quran/domain/page_layout.dart';
 import '../features/quran/presentation/mushaf_screen.dart';
 import '../features/quran/presentation/quran_index_screen.dart';
@@ -66,7 +67,10 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
             GoRoute(
               path: '/prayer',
               builder: (_, _) => const PrayerTimesScreen(),
-              routes: [GoRoute(path: 'month', builder: (_, _) => const MonthlyTimetableScreen())],
+              routes: [
+                GoRoute(path: 'month', builder: (_, _) => const MonthlyTimetableScreen()),
+                GoRoute(path: 'qibla', builder: (_, _) => const QiblaCompassScreen()),
+              ],
             ),
           ],
         ),

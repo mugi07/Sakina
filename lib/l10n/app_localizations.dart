@@ -313,7 +313,7 @@ abstract class AppLocalizations {
   /// No description provided for @qiblaHint.
   ///
   /// In fr, this message translates to:
-  /// **'Repérez le nord, puis tournez de cet angle dans le sens des aiguilles d\'une montre. La boussole en direct arrive bientôt.'**
+  /// **'Repérez le nord, puis tournez de cet angle dans le sens des aiguilles d\'une montre. Ou ouvrez la boussole.'**
   String get qiblaHint;
 
   /// No description provided for @locationTitle.
@@ -849,6 +849,66 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Les notifications peuvent arriver en retard : autorisez « Alarmes et rappels » pour l\'heure exacte.'**
   String get exactAlarmsDenied;
+
+  /// No description provided for @openCompass.
+  ///
+  /// In fr, this message translates to:
+  /// **'Ouvrir la boussole'**
+  String get openCompass;
+
+  /// No description provided for @qiblaCompassTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Boussole Qibla'**
+  String get qiblaCompassTitle;
+
+  /// No description provided for @qiblaAligned.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vous êtes face à la Qibla'**
+  String get qiblaAligned;
+
+  /// No description provided for @turnRight.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tournez vers la droite : {deg}°'**
+  String turnRight(String deg);
+
+  /// No description provided for @turnLeft.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tournez vers la gauche : {deg}°'**
+  String turnLeft(String deg);
+
+  /// No description provided for @compassUnavailable.
+  ///
+  /// In fr, this message translates to:
+  /// **'Boussole indisponible sur cet appareil. Utilisez l\'angle ci-dessus avec une boussole classique.'**
+  String get compassUnavailable;
+
+  /// No description provided for @calibrateTip.
+  ///
+  /// In fr, this message translates to:
+  /// **'Précision faible : faites des mouvements en forme de 8 avec le téléphone pour calibrer la boussole.'**
+  String get calibrateTip;
+
+  /// No description provided for @metalWarning.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tenez le téléphone à plat, loin des objets métalliques, des aimants et des appareils électriques.'**
+  String get metalWarning;
+
+  /// No description provided for @declinationNote.
+  ///
+  /// In fr, this message translates to:
+  /// **'Déclinaison magnétique corrigée : {deg}°'**
+  String declinationNote(String deg);
+
+  /// No description provided for @compassNeedsLocation.
+  ///
+  /// In fr, this message translates to:
+  /// **'Autorisez la localisation pour activer la boussole.'**
+  String get compassNeedsLocation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

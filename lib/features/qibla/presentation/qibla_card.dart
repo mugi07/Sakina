@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 
 import '../../../core/geo/geo_math.dart';
@@ -58,6 +59,12 @@ class QiblaCard extends StatelessWidget {
                   Text(l.qiblaDistance(NumberFormat.decimalPattern(locale).format(km.round()))),
                   const SizedBox(height: 8),
                   Text(l.qiblaHint, style: TextStyle(fontSize: 12, color: scheme.onSurfaceVariant)),
+                  const SizedBox(height: 8),
+                  FilledButton.tonalIcon(
+                    onPressed: () => context.go('/prayer/qibla'),
+                    icon: const Icon(Icons.explore_outlined),
+                    label: Text(l.openCompass),
+                  ),
                 ],
               ),
             ),

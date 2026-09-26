@@ -7,7 +7,6 @@ import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 void main() {
-
   const casablanca = SavedLocation(
     latitude: 33.5883,
     longitude: -7.6114,

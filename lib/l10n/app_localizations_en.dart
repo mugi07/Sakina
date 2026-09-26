@@ -129,8 +129,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get qiblaHint =>
-      'Find north, then turn clockwise by this angle. A live compass is coming soon.';
+  String get qiblaHint => 'Find north, then turn clockwise by this angle. Or open the compass.';
 
   @override
   String get locationTitle => 'Choose a location';
@@ -480,4 +479,43 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get exactAlarmsDenied =>
       'Notifications may arrive late: allow “Alarms & reminders” for exact timing.';
+
+  @override
+  String get openCompass => 'Open compass';
+
+  @override
+  String get qiblaCompassTitle => 'Qibla compass';
+
+  @override
+  String get qiblaAligned => 'You are facing the Qibla';
+
+  @override
+  String turnRight(String deg) {
+    return 'Turn right: $deg°';
+  }
+
+  @override
+  String turnLeft(String deg) {
+    return 'Turn left: $deg°';
+  }
+
+  @override
+  String get compassUnavailable =>
+      'No compass on this device. Use the angle above with a regular compass.';
+
+  @override
+  String get calibrateTip =>
+      'Low accuracy: move your phone in a figure-8 to calibrate the compass.';
+
+  @override
+  String get metalWarning =>
+      'Hold the phone flat, away from metal objects, magnets and electrical devices.';
+
+  @override
+  String declinationNote(String deg) {
+    return 'Magnetic declination corrected: $deg°';
+  }
+
+  @override
+  String get compassNeedsLocation => 'Allow location access to enable the compass.';
 }

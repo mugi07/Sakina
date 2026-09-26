@@ -36,7 +36,7 @@
   "qiblaTitle": "Qibla direction",
   "qiblaBearing": "{degrees}° from north",
   "qiblaDistance": "{km} km to the Kaaba",
-  "qiblaHint": "Find north, then turn clockwise by this angle. A live compass is coming soon.",
+  "qiblaHint": "Find north, then turn clockwise by this angle. Or open the compass.",
   "locationTitle": "Choose a location",
   "searchCityHint": "Search for a city…",
   "useMyLocation": "Use my current location",
@@ -125,5 +125,15 @@
   "dayColumn": "Day",
   "previousMonth": "Previous month",
   "nextMonth": "Next month",
-  "exactAlarmsDenied": "Notifications may arrive late: allow “Alarms & reminders” for exact timing."
+  "exactAlarmsDenied": "Notifications may arrive late: allow “Alarms & reminders” for exact timing.",
+  "openCompass": "Open compass",
+  "qiblaCompassTitle": "Qibla compass",
+  "qiblaAligned": "You are facing the Qibla",
+  "turnRight": "Turn right: {deg}°",
+  "turnLeft": "Turn left: {deg}°",
+  "compassUnavailable": "No compass on this device. Use the angle above with a regular compass.",
+  "calibrateTip": "Low accuracy: move your phone in a figure-8 to calibrate the compass.",
+  "metalWarning": "Hold the phone flat, away from metal objects, magnets and electrical devices.",
+  "declinationNote": "Magnetic declination corrected: {deg}°",
+  "compassNeedsLocation": "Allow location access to enable the compass."
 }

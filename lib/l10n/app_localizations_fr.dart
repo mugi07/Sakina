@@ -130,7 +130,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get qiblaHint =>
-      'Repérez le nord, puis tournez de cet angle dans le sens des aiguilles d\'une montre. La boussole en direct arrive bientôt.';
+      'Repérez le nord, puis tournez de cet angle dans le sens des aiguilles d\'une montre. Ou ouvrez la boussole.';
 
   @override
   String get locationTitle => 'Choisir un lieu';
@@ -482,4 +482,43 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get exactAlarmsDenied =>
       'Les notifications peuvent arriver en retard : autorisez « Alarmes et rappels » pour l\'heure exacte.';
+
+  @override
+  String get openCompass => 'Ouvrir la boussole';
+
+  @override
+  String get qiblaCompassTitle => 'Boussole Qibla';
+
+  @override
+  String get qiblaAligned => 'Vous êtes face à la Qibla';
+
+  @override
+  String turnRight(String deg) {
+    return 'Tournez vers la droite : $deg°';
+  }
+
+  @override
+  String turnLeft(String deg) {
+    return 'Tournez vers la gauche : $deg°';
+  }
+
+  @override
+  String get compassUnavailable =>
+      'Boussole indisponible sur cet appareil. Utilisez l\'angle ci-dessus avec une boussole classique.';
+
+  @override
+  String get calibrateTip =>
+      'Précision faible : faites des mouvements en forme de 8 avec le téléphone pour calibrer la boussole.';
+
+  @override
+  String get metalWarning =>
+      'Tenez le téléphone à plat, loin des objets métalliques, des aimants et des appareils électriques.';
+
+  @override
+  String declinationNote(String deg) {
+    return 'Déclinaison magnétique corrigée : $deg°';
+  }
+
+  @override
+  String get compassNeedsLocation => 'Autorisez la localisation pour activer la boussole.';
 }
