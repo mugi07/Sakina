@@ -44,6 +44,7 @@ final adhanInputsProvider = Provider<Object>((ref) {
         s.adhanReminderMinutes,
         s.adhkarReminders,
         s.language,
+        s.hijriAdjustment,
         khatma,
       ),
     ),

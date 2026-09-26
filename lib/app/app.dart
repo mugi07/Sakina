@@ -11,6 +11,7 @@ import '../core/settings/app_settings.dart';
 import '../features/khatma/application/khatma_controller.dart';
 import '../features/prayer_times/application/adhan_notifications.dart';
 import '../features/prayer_times/application/prayer_providers.dart';
+import '../features/widgets/prayer_widget.dart';
 import '../l10n/app_localizations.dart';
 import 'router.dart';
 import 'theme/app_theme.dart';
@@ -69,6 +70,20 @@ class _SakinaAppState extends ConsumerState<SakinaApp> {
           );
     } on Exception catch (e) {
       debugPrint('Programmation des notifications impossible : $e');
+    }
+    try {
+      await syncPrayerWidget(
+        buildPrayerWidgetData(
+          calculator: ref.read(prayerCalculatorProvider),
+          location: settings.location,
+          l: lookupAppLocalizations(locale),
+          locale: locale.toLanguageTag(),
+          hijriAdjustment: settings.hijriAdjustment,
+          now: DateTime.now(),
+        ),
+      );
+    } on Exception catch (e) {
+      debugPrint('Mise à jour du widget impossible : $e');
     }
   }
 

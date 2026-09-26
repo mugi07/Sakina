@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../widgets/prayer_widget.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
@@ -34,6 +35,16 @@ class MoreScreen extends StatelessWidget {
           ),
           entry(Icons.star_outline, l.asmaUlHusna, '/more/names'),
           entry(Icons.calendar_month_outlined, l.hijriCalendar, '/more/calendar'),
+          FutureBuilder<bool>(
+            future: canPinPrayerWidget(),
+            builder: (context, snapshot) => snapshot.data ?? false
+                ? ListTile(
+                    leading: const Icon(Icons.widgets_outlined),
+                    title: Text(l.addWidget),
+                    onTap: pinPrayerWidget,
+                  )
+                : const SizedBox.shrink(),
+          ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.settings_outlined),
