@@ -84,4 +84,20 @@ void main() {
     expect(a.map((n) => n.id), b.map((n) => n.id));
     expect(a.every((n) => n.id > 0 && n.id < 0x7fffffff), isTrue);
   });
+
+  test("rappels d'adhkar : 30 min après le Fajr et après le Asr, même sans adhan", () {
+    final schedule = buildAdhanSchedule(
+      calculator: calculator,
+      now: now,
+      muted: const {},
+      prayers: false,
+      adhkarReminders: true,
+      days: 2,
+    );
+    expect(schedule.map((n) => n.kind).toSet(), {AdhanKind.morningAdhkar, AdhanKind.eveningAdhkar});
+    for (final n in schedule) {
+      expect(n.fireAt.difference(n.prayerTime), adhkarReminderDelay);
+      expect(n.salah, n.kind == AdhanKind.morningAdhkar ? Salah.fajr : Salah.asr);
+    }
+  });
 }

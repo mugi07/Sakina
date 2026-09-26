@@ -17,9 +17,7 @@ class HadithBooks extends Table with TableInfo<HadithBooks, HadithBook> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL PRIMARY KEY',
   );
-  static const VerificationMeta _positionMeta = const VerificationMeta(
-    'position',
-  );
+  static const VerificationMeta _positionMeta = const VerificationMeta('position');
   late final GeneratedColumn<int> position = GeneratedColumn<int>(
     'position',
     aliasedName,
@@ -55,9 +53,7 @@ class HadithBooks extends Table with TableInfo<HadithBooks, HadithBook> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _hadithCountMeta = const VerificationMeta(
-    'hadithCount',
-  );
+  static const VerificationMeta _hadithCountMeta = const VerificationMeta('hadithCount');
   late final GeneratedColumn<int> hadithCount = GeneratedColumn<int>(
     'hadith_count',
     aliasedName,
@@ -67,14 +63,7 @@ class HadithBooks extends Table with TableInfo<HadithBooks, HadithBook> {
     $customConstraints: 'NOT NULL',
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    position,
-    nameAr,
-    nameFr,
-    nameEn,
-    hadithCount,
-  ];
+  List<GeneratedColumn> get $columns => [id, position, nameAr, nameFr, nameEn, hadithCount];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -101,36 +90,24 @@ class HadithBooks extends Table with TableInfo<HadithBooks, HadithBook> {
       context.missing(_positionMeta);
     }
     if (data.containsKey('name_ar')) {
-      context.handle(
-        _nameArMeta,
-        nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta),
-      );
+      context.handle(_nameArMeta, nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
     } else if (isInserting) {
       context.missing(_nameArMeta);
     }
     if (data.containsKey('name_fr')) {
-      context.handle(
-        _nameFrMeta,
-        nameFr.isAcceptableOrUnknown(data['name_fr']!, _nameFrMeta),
-      );
+      context.handle(_nameFrMeta, nameFr.isAcceptableOrUnknown(data['name_fr']!, _nameFrMeta));
     } else if (isInserting) {
       context.missing(_nameFrMeta);
     }
     if (data.containsKey('name_en')) {
-      context.handle(
-        _nameEnMeta,
-        nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta),
-      );
+      context.handle(_nameEnMeta, nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
     } else if (isInserting) {
       context.missing(_nameEnMeta);
     }
     if (data.containsKey('hadith_count')) {
       context.handle(
         _hadithCountMeta,
-        hadithCount.isAcceptableOrUnknown(
-          data['hadith_count']!,
-          _hadithCountMeta,
-        ),
+        hadithCount.isAcceptableOrUnknown(data['hadith_count']!, _hadithCountMeta),
       );
     } else if (isInserting) {
       context.missing(_hadithCountMeta);
@@ -144,10 +121,7 @@ class HadithBooks extends Table with TableInfo<HadithBooks, HadithBook> {
   HadithBook map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return HadithBook(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}id'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       position: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}position'],
@@ -218,10 +192,7 @@ class HadithBook extends DataClass implements Insertable<HadithBook> {
     );
   }
 
-  factory HadithBook.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory HadithBook.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return HadithBook(
       id: serializer.fromJson<String>(json['id']),
@@ -267,9 +238,7 @@ class HadithBook extends DataClass implements Insertable<HadithBook> {
       nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
       nameFr: data.nameFr.present ? data.nameFr.value : this.nameFr,
       nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      hadithCount: data.hadithCount.present
-          ? data.hadithCount.value
-          : this.hadithCount,
+      hadithCount: data.hadithCount.present ? data.hadithCount.value : this.hadithCount,
     );
   }
 
@@ -287,8 +256,7 @@ class HadithBook extends DataClass implements Insertable<HadithBook> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, position, nameAr, nameFr, nameEn, hadithCount);
+  int get hashCode => Object.hash(id, position, nameAr, nameFr, nameEn, hadithCount);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -414,8 +382,7 @@ class HadithBooksCompanion extends UpdateCompanion<HadithBook> {
   }
 }
 
-class HadithSections extends Table
-    with TableInfo<HadithSections, HadithSection> {
+class HadithSections extends Table with TableInfo<HadithSections, HadithSection> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -447,9 +414,7 @@ class HadithSections extends Table
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _hadithCountMeta = const VerificationMeta(
-    'hadithCount',
-  );
+  static const VerificationMeta _hadithCountMeta = const VerificationMeta('hadithCount');
   late final GeneratedColumn<int> hadithCount = GeneratedColumn<int>(
     'hadith_count',
     aliasedName,
@@ -473,36 +438,24 @@ class HadithSections extends Table
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('book')) {
-      context.handle(
-        _bookMeta,
-        book.isAcceptableOrUnknown(data['book']!, _bookMeta),
-      );
+      context.handle(_bookMeta, book.isAcceptableOrUnknown(data['book']!, _bookMeta));
     } else if (isInserting) {
       context.missing(_bookMeta);
     }
     if (data.containsKey('number')) {
-      context.handle(
-        _numberMeta,
-        number.isAcceptableOrUnknown(data['number']!, _numberMeta),
-      );
+      context.handle(_numberMeta, number.isAcceptableOrUnknown(data['number']!, _numberMeta));
     } else if (isInserting) {
       context.missing(_numberMeta);
     }
     if (data.containsKey('name_en')) {
-      context.handle(
-        _nameEnMeta,
-        nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta),
-      );
+      context.handle(_nameEnMeta, nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
     } else if (isInserting) {
       context.missing(_nameEnMeta);
     }
     if (data.containsKey('hadith_count')) {
       context.handle(
         _hadithCountMeta,
-        hadithCount.isAcceptableOrUnknown(
-          data['hadith_count']!,
-          _hadithCountMeta,
-        ),
+        hadithCount.isAcceptableOrUnknown(data['hadith_count']!, _hadithCountMeta),
       );
     } else if (isInserting) {
       context.missing(_hadithCountMeta);
@@ -516,10 +469,7 @@ class HadithSections extends Table
   HadithSection map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return HadithSection(
-      book: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}book'],
-      )!,
+      book: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}book'])!,
       number: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
         data['${effectivePrefix}number'],
@@ -578,10 +528,7 @@ class HadithSection extends DataClass implements Insertable<HadithSection> {
     );
   }
 
-  factory HadithSection.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory HadithSection.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return HadithSection(
       book: serializer.fromJson<String>(json['book']),
@@ -601,25 +548,19 @@ class HadithSection extends DataClass implements Insertable<HadithSection> {
     };
   }
 
-  HadithSection copyWith({
-    String? book,
-    int? number,
-    String? nameEn,
-    int? hadithCount,
-  }) => HadithSection(
-    book: book ?? this.book,
-    number: number ?? this.number,
-    nameEn: nameEn ?? this.nameEn,
-    hadithCount: hadithCount ?? this.hadithCount,
-  );
+  HadithSection copyWith({String? book, int? number, String? nameEn, int? hadithCount}) =>
+      HadithSection(
+        book: book ?? this.book,
+        number: number ?? this.number,
+        nameEn: nameEn ?? this.nameEn,
+        hadithCount: hadithCount ?? this.hadithCount,
+      );
   HadithSection copyWithCompanion(HadithSectionsCompanion data) {
     return HadithSection(
       book: data.book.present ? data.book.value : this.book,
       number: data.number.present ? data.number.value : this.number,
       nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      hadithCount: data.hadithCount.present
-          ? data.hadithCount.value
-          : this.hadithCount,
+      hadithCount: data.hadithCount.present ? data.hadithCount.value : this.hadithCount,
     );
   }
 
@@ -756,9 +697,7 @@ class Hadiths extends Table with TableInfo<Hadiths, Hadith> {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  static const VerificationMeta _sectionMeta = const VerificationMeta(
-    'section',
-  );
+  static const VerificationMeta _sectionMeta = const VerificationMeta('section');
   late final GeneratedColumn<int> section = GeneratedColumn<int>(
     'section',
     aliasedName,
@@ -804,78 +743,45 @@ class Hadiths extends Table with TableInfo<Hadiths, Hadith> {
     $customConstraints: '',
   );
   @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    book,
-    number,
-    section,
-    textAr,
-    textFr,
-    textEn,
-    grades,
-  ];
+  List<GeneratedColumn> get $columns => [id, book, number, section, textAr, textFr, textEn, grades];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'hadiths';
   @override
-  VerificationContext validateIntegrity(
-    Insertable<Hadith> instance, {
-    bool isInserting = false,
-  }) {
+  VerificationContext validateIntegrity(Insertable<Hadith> instance, {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('book')) {
-      context.handle(
-        _bookMeta,
-        book.isAcceptableOrUnknown(data['book']!, _bookMeta),
-      );
+      context.handle(_bookMeta, book.isAcceptableOrUnknown(data['book']!, _bookMeta));
     } else if (isInserting) {
       context.missing(_bookMeta);
     }
     if (data.containsKey('number')) {
-      context.handle(
-        _numberMeta,
-        number.isAcceptableOrUnknown(data['number']!, _numberMeta),
-      );
+      context.handle(_numberMeta, number.isAcceptableOrUnknown(data['number']!, _numberMeta));
     } else if (isInserting) {
       context.missing(_numberMeta);
     }
     if (data.containsKey('section')) {
-      context.handle(
-        _sectionMeta,
-        section.isAcceptableOrUnknown(data['section']!, _sectionMeta),
-      );
+      context.handle(_sectionMeta, section.isAcceptableOrUnknown(data['section']!, _sectionMeta));
     } else if (isInserting) {
       context.missing(_sectionMeta);
     }
     if (data.containsKey('text_ar')) {
-      context.handle(
-        _textArMeta,
-        textAr.isAcceptableOrUnknown(data['text_ar']!, _textArMeta),
-      );
+      context.handle(_textArMeta, textAr.isAcceptableOrUnknown(data['text_ar']!, _textArMeta));
     }
     if (data.containsKey('text_fr')) {
-      context.handle(
-        _textFrMeta,
-        textFr.isAcceptableOrUnknown(data['text_fr']!, _textFrMeta),
-      );
+      context.handle(_textFrMeta, textFr.isAcceptableOrUnknown(data['text_fr']!, _textFrMeta));
     }
     if (data.containsKey('text_en')) {
-      context.handle(
-        _textEnMeta,
-        textEn.isAcceptableOrUnknown(data['text_en']!, _textEnMeta),
-      );
+      context.handle(_textEnMeta, textEn.isAcceptableOrUnknown(data['text_en']!, _textEnMeta));
     }
     if (data.containsKey('grades')) {
-      context.handle(
-        _gradesMeta,
-        grades.isAcceptableOrUnknown(data['grades']!, _gradesMeta),
-      );
+      context.handle(_gradesMeta, grades.isAcceptableOrUnknown(data['grades']!, _gradesMeta));
     }
     return context;
   }
@@ -886,14 +792,8 @@ class Hadiths extends Table with TableInfo<Hadiths, Hadith> {
   Hadith map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Hadith(
-      id: attachedDatabase.typeMapping.read(
-        DriftSqlType.int,
-        data['${effectivePrefix}id'],
-      )!,
-      book: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}book'],
-      )!,
+      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      book: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}book'])!,
       number: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}number'],
@@ -977,25 +877,14 @@ class Hadith extends DataClass implements Insertable<Hadith> {
       book: Value(book),
       number: Value(number),
       section: Value(section),
-      textAr: textAr == null && nullToAbsent
-          ? const Value.absent()
-          : Value(textAr),
-      textFr: textFr == null && nullToAbsent
-          ? const Value.absent()
-          : Value(textFr),
-      textEn: textEn == null && nullToAbsent
-          ? const Value.absent()
-          : Value(textEn),
-      grades: grades == null && nullToAbsent
-          ? const Value.absent()
-          : Value(grades),
+      textAr: textAr == null && nullToAbsent ? const Value.absent() : Value(textAr),
+      textFr: textFr == null && nullToAbsent ? const Value.absent() : Value(textFr),
+      textEn: textEn == null && nullToAbsent ? const Value.absent() : Value(textEn),
+      grades: grades == null && nullToAbsent ? const Value.absent() : Value(grades),
     );
   }
 
-  factory Hadith.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory Hadith.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Hadith(
       id: serializer.fromJson<int>(json['id']),
@@ -1071,8 +960,7 @@ class Hadith extends DataClass implements Insertable<Hadith> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, book, number, section, textAr, textFr, textEn, grades);
+  int get hashCode => Object.hash(id, book, number, section, textAr, textFr, textEn, grades);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1281,18 +1169,9 @@ class HadithSearch extends Table
   HadithSearchData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return HadithSearchData(
-      ar: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}ar'],
-      )!,
-      fr: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}fr'],
-      )!,
-      en: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}en'],
-      )!,
+      ar: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}ar'])!,
+      fr: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}fr'])!,
+      en: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}en'])!,
     );
   }
 
@@ -1308,16 +1187,11 @@ class HadithSearch extends Table
       'fts5(ar, fr, en, content = \'\', detail = \'none\', tokenize = \'unicode61 remove_diacritics 2\')';
 }
 
-class HadithSearchData extends DataClass
-    implements Insertable<HadithSearchData> {
+class HadithSearchData extends DataClass implements Insertable<HadithSearchData> {
   final String ar;
   final String fr;
   final String en;
-  const HadithSearchData({
-    required this.ar,
-    required this.fr,
-    required this.en,
-  });
+  const HadithSearchData({required this.ar, required this.fr, required this.en});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1331,10 +1205,7 @@ class HadithSearchData extends DataClass
     return HadithSearchCompanion(ar: Value(ar), fr: Value(fr), en: Value(en));
   }
 
-  factory HadithSearchData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory HadithSearchData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return HadithSearchData(
       ar: serializer.fromJson<String>(json['ar']),
@@ -1498,18 +1369,12 @@ class HadithMeta extends Table with TableInfo<HadithMeta, HadithMetaData> {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('key')) {
-      context.handle(
-        _keyMeta,
-        key.isAcceptableOrUnknown(data['key']!, _keyMeta),
-      );
+      context.handle(_keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
     } else if (isInserting) {
       context.missing(_keyMeta);
     }
     if (data.containsKey('value')) {
-      context.handle(
-        _valueMeta,
-        value.isAcceptableOrUnknown(data['value']!, _valueMeta),
-      );
+      context.handle(_valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
     } else if (isInserting) {
       context.missing(_valueMeta);
     }
@@ -1522,10 +1387,7 @@ class HadithMeta extends Table with TableInfo<HadithMeta, HadithMetaData> {
   HadithMetaData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return HadithMetaData(
-      key: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}key'],
-      )!,
+      key: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}key'])!,
       value: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}value'],
@@ -1558,10 +1420,7 @@ class HadithMetaData extends DataClass implements Insertable<HadithMetaData> {
     return HadithMetaCompanion(key: Value(key), value: Value(value));
   }
 
-  factory HadithMetaData.fromJson(
-    Map<String, dynamic> json, {
-    ValueSerializer? serializer,
-  }) {
+  factory HadithMetaData.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return HadithMetaData(
       key: serializer.fromJson<String>(json['key']),
@@ -1600,9 +1459,7 @@ class HadithMetaData extends DataClass implements Insertable<HadithMetaData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is HadithMetaData &&
-          other.key == this.key &&
-          other.value == this.value);
+      (other is HadithMetaData && other.key == this.key && other.value == this.value);
 }
 
 class HadithMetaCompanion extends UpdateCompanion<HadithMetaData> {
@@ -1632,11 +1489,7 @@ class HadithMetaCompanion extends UpdateCompanion<HadithMetaData> {
     });
   }
 
-  HadithMetaCompanion copyWith({
-    Value<String>? key,
-    Value<String>? value,
-    Value<int>? rowid,
-  }) {
+  HadithMetaCompanion copyWith({Value<String>? key, Value<String>? value, Value<int>? rowid}) {
     return HadithMetaCompanion(
       key: key ?? this.key,
       value: value ?? this.value,
@@ -1702,10 +1555,7 @@ abstract class _$HadithDatabase extends GeneratedDatabase {
     ).asyncMap(this.hadithSections.mapFromRow);
   }
 
-  Selectable<Hadith> hadithsOfSection({
-    required String book,
-    required int section,
-  }) {
+  Selectable<Hadith> hadithsOfSection({required String book, required int section}) {
     return customSelect(
       'SELECT * FROM hadiths WHERE book = ?1 AND section = ?2 ORDER BY number',
       variables: [Variable<String>(book), Variable<int>(section)],
@@ -1729,10 +1579,7 @@ abstract class _$HadithDatabase extends GeneratedDatabase {
     ).asyncMap(this.hadiths.mapFromRow);
   }
 
-  Selectable<Hadith> searchHadiths({
-    required String query,
-    required int limit,
-  }) {
+  Selectable<Hadith> searchHadiths({required String query, required int limit}) {
     return customSelect(
       'SELECT h.* FROM hadith_search AS s INNER JOIN hadiths AS h ON h.id = s."rowid" WHERE hadith_search MATCH ?1 ORDER BY h.id LIMIT ?2',
       variables: [Variable<String>(query), Variable<int>(limit)],
@@ -1778,12 +1625,12 @@ final class $HadithBooksReferences
     extends BaseReferences<_$HadithDatabase, HadithBooks, HadithBook> {
   $HadithBooksReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<HadithSections, List<HadithSection>>
-  _hadithSectionsRefsTable(_$HadithDatabase db) =>
-      MultiTypedResultKey.fromTable(
-        db.hadithSections,
-        aliasName: 'hadith_books__id__hadith_sections__book',
-      );
+  static MultiTypedResultKey<HadithSections, List<HadithSection>> _hadithSectionsRefsTable(
+    _$HadithDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.hadithSections,
+    aliasName: 'hadith_books__id__hadith_sections__book',
+  );
 
   $HadithSectionsProcessedTableManager get hadithSectionsRefs {
     final manager = $HadithSectionsTableManager(
@@ -1792,17 +1639,11 @@ final class $HadithBooksReferences
     ).filter((f) => f.book.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_hadithSectionsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 
-  static MultiTypedResultKey<Hadiths, List<Hadith>> _hadithsRefsTable(
-    _$HadithDatabase db,
-  ) => MultiTypedResultKey.fromTable(
-    db.hadiths,
-    aliasName: 'hadith_books__id__hadiths__book',
-  );
+  static MultiTypedResultKey<Hadiths, List<Hadith>> _hadithsRefsTable(_$HadithDatabase db) =>
+      MultiTypedResultKey.fromTable(db.hadiths, aliasName: 'hadith_books__id__hadiths__book');
 
   $HadithsProcessedTableManager get hadithsRefs {
     final manager = $HadithsTableManager(
@@ -1811,14 +1652,11 @@ final class $HadithBooksReferences
     ).filter((f) => f.book.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_hadithsRefsTable($_db));
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: cache),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
-class $HadithBooksFilterComposer
-    extends Composer<_$HadithDatabase, HadithBooks> {
+class $HadithBooksFilterComposer extends Composer<_$HadithDatabase, HadithBooks> {
   $HadithBooksFilterComposer({
     required super.$db,
     required super.$table,
@@ -1826,35 +1664,23 @@ class $HadithBooksFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get position => $composableBuilder(
-    column: $table.position,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get position =>
+      $composableBuilder(column: $table.position, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get nameAr => $composableBuilder(
-    column: $table.nameAr,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get nameFr => $composableBuilder(
-    column: $table.nameFr,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get nameFr =>
+      $composableBuilder(column: $table.nameFr, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get nameEn => $composableBuilder(
-    column: $table.nameEn,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get hadithCount => $composableBuilder(
-    column: $table.hadithCount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get hadithCount =>
+      $composableBuilder(column: $table.hadithCount, builder: (column) => ColumnFilters(column));
 
   Expression<bool> hadithSectionsRefs(
     Expression<bool> Function($HadithSectionsFilterComposer f) f,
@@ -1864,51 +1690,38 @@ class $HadithBooksFilterComposer
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.hadithSections,
       getReferencedColumn: (t) => t.book,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithSectionsFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithSectionsFilterComposer(
             $db: $db,
             $table: $db.hadithSections,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 
-  Expression<bool> hadithsRefs(
-    Expression<bool> Function($HadithsFilterComposer f) f,
-  ) {
+  Expression<bool> hadithsRefs(Expression<bool> Function($HadithsFilterComposer f) f) {
     final $HadithsFilterComposer composer = $composerBuilder(
       composer: this,
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.hadiths,
       getReferencedColumn: (t) => t.book,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithsFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithsFilterComposer(
             $db: $db,
             $table: $db.hadiths,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
   }
 }
 
-class $HadithBooksOrderingComposer
-    extends Composer<_$HadithDatabase, HadithBooks> {
+class $HadithBooksOrderingComposer extends Composer<_$HadithDatabase, HadithBooks> {
   $HadithBooksOrderingComposer({
     required super.$db,
     required super.$table,
@@ -1916,39 +1729,26 @@ class $HadithBooksOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get position => $composableBuilder(
-    column: $table.position,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get position =>
+      $composableBuilder(column: $table.position, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-    column: $table.nameAr,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get nameFr => $composableBuilder(
-    column: $table.nameFr,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get nameFr =>
+      $composableBuilder(column: $table.nameFr, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-    column: $table.nameEn,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get hadithCount => $composableBuilder(
-    column: $table.hadithCount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get hadithCount =>
+      $composableBuilder(column: $table.hadithCount, builder: (column) => ColumnOrderings(column));
 }
 
-class $HadithBooksAnnotationComposer
-    extends Composer<_$HadithDatabase, HadithBooks> {
+class $HadithBooksAnnotationComposer extends Composer<_$HadithDatabase, HadithBooks> {
   $HadithBooksAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -1971,10 +1771,8 @@ class $HadithBooksAnnotationComposer
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
 
-  GeneratedColumn<int> get hadithCount => $composableBuilder(
-    column: $table.hadithCount,
-    builder: (column) => column,
-  );
+  GeneratedColumn<int> get hadithCount =>
+      $composableBuilder(column: $table.hadithCount, builder: (column) => column);
 
   Expression<T> hadithSectionsRefs<T extends Object>(
     Expression<T> Function($HadithSectionsAnnotationComposer a) f,
@@ -1984,18 +1782,13 @@ class $HadithBooksAnnotationComposer
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.hadithSections,
       getReferencedColumn: (t) => t.book,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithSectionsAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithSectionsAnnotationComposer(
             $db: $db,
             $table: $db.hadithSections,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -2009,18 +1802,13 @@ class $HadithBooksAnnotationComposer
       getCurrentColumn: (t) => t.id,
       referencedTable: $db.hadiths,
       getReferencedColumn: (t) => t.book,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithsAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithsAnnotationComposer(
             $db: $db,
             $table: $db.hadiths,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return f(composer);
@@ -2047,12 +1835,9 @@ class $HadithBooksTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $HadithBooksFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $HadithBooksOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $HadithBooksAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () => $HadithBooksFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $HadithBooksOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $HadithBooksAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> id = const Value.absent(),
@@ -2097,59 +1882,40 @@ class $HadithBooksTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback:
-              ({hadithSectionsRefs = false, hadithsRefs = false}) {
-                return PrefetchHooks(
-                  db: db,
-                  explicitlyWatchedTables: [
-                    if (hadithSectionsRefs) db.hadithSections,
-                    if (hadithsRefs) db.hadiths,
-                  ],
-                  addJoins: null,
-                  getPrefetchedDataCallback: (items) async {
-                    return [
-                      if (hadithSectionsRefs)
-                        await $_getPrefetchedData<
-                          HadithBook,
-                          HadithBooks,
-                          HadithSection
-                        >(
-                          currentTable: table,
-                          referencedTable: $HadithBooksReferences
-                              ._hadithSectionsRefsTable(db),
-                          managerFromTypedResult: (p0) =>
-                              $HadithBooksReferences(
-                                db,
-                                table,
-                                p0,
-                              ).hadithSectionsRefs,
-                          referencedItemsForCurrentItem: (
-                            item,
-                            referencedItems,
-                          ) => referencedItems.where((e) => e.book == item.id),
-                          typedResults: items,
-                        ),
-                      if (hadithsRefs)
-                        await $_getPrefetchedData<
-                          HadithBook,
-                          HadithBooks,
-                          Hadith
-                        >(
-                          currentTable: table,
-                          referencedTable: $HadithBooksReferences
-                              ._hadithsRefsTable(db),
-                          managerFromTypedResult: (p0) =>
-                              $HadithBooksReferences(db, table, p0).hadithsRefs,
-                          referencedItemsForCurrentItem: (
-                            item,
-                            referencedItems,
-                          ) => referencedItems.where((e) => e.book == item.id),
-                          typedResults: items,
-                        ),
-                    ];
-                  },
-                );
+          prefetchHooksCallback: ({hadithSectionsRefs = false, hadithsRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (hadithSectionsRefs) db.hadithSections,
+                if (hadithsRefs) db.hadiths,
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (hadithSectionsRefs)
+                    await $_getPrefetchedData<HadithBook, HadithBooks, HadithSection>(
+                      currentTable: table,
+                      referencedTable: $HadithBooksReferences._hadithSectionsRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $HadithBooksReferences(db, table, p0).hadithSectionsRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.book == item.id),
+                      typedResults: items,
+                    ),
+                  if (hadithsRefs)
+                    await $_getPrefetchedData<HadithBook, HadithBooks, Hadith>(
+                      currentTable: table,
+                      referencedTable: $HadithBooksReferences._hadithsRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $HadithBooksReferences(db, table, p0).hadithsRefs,
+                      referencedItemsForCurrentItem: (item, referencedItems) =>
+                          referencedItems.where((e) => e.book == item.id),
+                      typedResults: items,
+                    ),
+                ];
               },
+            );
+          },
         ),
       );
 }
@@ -2168,20 +1934,18 @@ typedef $HadithBooksProcessedTableManager =
       HadithBook,
       PrefetchHooks Function({bool hadithSectionsRefs, bool hadithsRefs})
     >;
-typedef $HadithSectionsCreateCompanionBuilder =
-    HadithSectionsCompanion Function({
-      required String book,
-      required int number,
-      required String nameEn,
-      required int hadithCount,
-    });
-typedef $HadithSectionsUpdateCompanionBuilder =
-    HadithSectionsCompanion Function({
-      Value<String> book,
-      Value<int> number,
-      Value<String> nameEn,
-      Value<int> hadithCount,
-    });
+typedef $HadithSectionsCreateCompanionBuilder = HadithSectionsCompanion Function({
+  required String book,
+  required int number,
+  required String nameEn,
+  required int hadithCount,
+});
+typedef $HadithSectionsUpdateCompanionBuilder = HadithSectionsCompanion Function({
+  Value<String> book,
+  Value<int> number,
+  Value<String> nameEn,
+  Value<int> hadithCount,
+});
 
 final class $HadithSectionsReferences
     extends BaseReferences<_$HadithDatabase, HadithSections, HadithSection> {
@@ -2199,14 +1963,11 @@ final class $HadithSectionsReferences
     ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_bookTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 }
 
-class $HadithSectionsFilterComposer
-    extends Composer<_$HadithDatabase, HadithSections> {
+class $HadithSectionsFilterComposer extends Composer<_$HadithDatabase, HadithSections> {
   $HadithSectionsFilterComposer({
     required super.$db,
     required super.$table,
@@ -2214,20 +1975,14 @@ class $HadithSectionsFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get number => $composableBuilder(
-    column: $table.number,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get number =>
+      $composableBuilder(column: $table.number, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get nameEn => $composableBuilder(
-    column: $table.nameEn,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get hadithCount => $composableBuilder(
-    column: $table.hadithCount,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get hadithCount =>
+      $composableBuilder(column: $table.hadithCount, builder: (column) => ColumnFilters(column));
 
   $HadithBooksFilterComposer get book {
     final $HadithBooksFilterComposer composer = $composerBuilder(
@@ -2235,26 +1990,20 @@ class $HadithSectionsFilterComposer
       getCurrentColumn: (t) => t.book,
       referencedTable: $db.hadithBooks,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithBooksFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithBooksFilterComposer(
             $db: $db,
             $table: $db.hadithBooks,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $HadithSectionsOrderingComposer
-    extends Composer<_$HadithDatabase, HadithSections> {
+class $HadithSectionsOrderingComposer extends Composer<_$HadithDatabase, HadithSections> {
   $HadithSectionsOrderingComposer({
     required super.$db,
     required super.$table,
@@ -2262,20 +2011,14 @@ class $HadithSectionsOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get number => $composableBuilder(
-    column: $table.number,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get number =>
+      $composableBuilder(column: $table.number, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-    column: $table.nameEn,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get hadithCount => $composableBuilder(
-    column: $table.hadithCount,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get hadithCount =>
+      $composableBuilder(column: $table.hadithCount, builder: (column) => ColumnOrderings(column));
 
   $HadithBooksOrderingComposer get book {
     final $HadithBooksOrderingComposer composer = $composerBuilder(
@@ -2283,26 +2026,20 @@ class $HadithSectionsOrderingComposer
       getCurrentColumn: (t) => t.book,
       referencedTable: $db.hadithBooks,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithBooksOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithBooksOrderingComposer(
             $db: $db,
             $table: $db.hadithBooks,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
   }
 }
 
-class $HadithSectionsAnnotationComposer
-    extends Composer<_$HadithDatabase, HadithSections> {
+class $HadithSectionsAnnotationComposer extends Composer<_$HadithDatabase, HadithSections> {
   $HadithSectionsAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -2316,10 +2053,8 @@ class $HadithSectionsAnnotationComposer
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
 
-  GeneratedColumn<int> get hadithCount => $composableBuilder(
-    column: $table.hadithCount,
-    builder: (column) => column,
-  );
+  GeneratedColumn<int> get hadithCount =>
+      $composableBuilder(column: $table.hadithCount, builder: (column) => column);
 
   $HadithBooksAnnotationComposer get book {
     final $HadithBooksAnnotationComposer composer = $composerBuilder(
@@ -2327,18 +2062,13 @@ class $HadithSectionsAnnotationComposer
       getCurrentColumn: (t) => t.book,
       referencedTable: $db.hadithBooks,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithBooksAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithBooksAnnotationComposer(
             $db: $db,
             $table: $db.hadithBooks,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -2365,10 +2095,8 @@ class $HadithSectionsTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $HadithSectionsFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $HadithSectionsOrderingComposer($db: db, $table: table),
+          createFilteringComposer: () => $HadithSectionsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $HadithSectionsOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $HadithSectionsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
@@ -2427,12 +2155,8 @@ class $HadithSectionsTableManager
                       state = state.withJoin(
                         currentTable: table,
                         currentColumn: table.book,
-                        referencedTable: $HadithSectionsReferences._bookTable(
-                          db,
-                        ),
-                        referencedColumn: $HadithSectionsReferences
-                            ._bookTable(db)
-                            .id,
+                        referencedTable: $HadithSectionsReferences._bookTable(db),
+                        referencedColumn: $HadithSectionsReferences._bookTable(db).id,
                       ) as T;
                     }
 
@@ -2482,8 +2206,7 @@ typedef $HadithsUpdateCompanionBuilder = HadithsCompanion Function({
   Value<String?> grades,
 });
 
-final class $HadithsReferences
-    extends BaseReferences<_$HadithDatabase, Hadiths, Hadith> {
+final class $HadithsReferences extends BaseReferences<_$HadithDatabase, Hadiths, Hadith> {
   $HadithsReferences(super.$_db, super.$_table, super.$_typedResult);
 
   static HadithBooks _bookTable(_$HadithDatabase db) =>
@@ -2498,9 +2221,7 @@ final class $HadithsReferences
     ).filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_bookTable($_db));
     if (item == null) return manager;
-    return ProcessedTableManager(
-      manager.$state.copyWith(prefetchedData: [item]),
-    );
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
   }
 }
 
@@ -2512,40 +2233,26 @@ class $HadithsFilterComposer extends Composer<_$HadithDatabase, Hadiths> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<double> get number => $composableBuilder(
-    column: $table.number,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<double> get number =>
+      $composableBuilder(column: $table.number, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get section => $composableBuilder(
-    column: $table.section,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<int> get section =>
+      $composableBuilder(column: $table.section, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get textAr => $composableBuilder(
-    column: $table.textAr,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get textAr =>
+      $composableBuilder(column: $table.textAr, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get textFr => $composableBuilder(
-    column: $table.textFr,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get textFr =>
+      $composableBuilder(column: $table.textFr, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get textEn => $composableBuilder(
-    column: $table.textEn,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get textEn =>
+      $composableBuilder(column: $table.textEn, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get grades => $composableBuilder(
-    column: $table.grades,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get grades =>
+      $composableBuilder(column: $table.grades, builder: (column) => ColumnFilters(column));
 
   $HadithBooksFilterComposer get book {
     final $HadithBooksFilterComposer composer = $composerBuilder(
@@ -2553,18 +2260,13 @@ class $HadithsFilterComposer extends Composer<_$HadithDatabase, Hadiths> {
       getCurrentColumn: (t) => t.book,
       referencedTable: $db.hadithBooks,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithBooksFilterComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithBooksFilterComposer(
             $db: $db,
             $table: $db.hadithBooks,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -2579,40 +2281,26 @@ class $HadithsOrderingComposer extends Composer<_$HadithDatabase, Hadiths> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<double> get number => $composableBuilder(
-    column: $table.number,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<double> get number =>
+      $composableBuilder(column: $table.number, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get section => $composableBuilder(
-    column: $table.section,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<int> get section =>
+      $composableBuilder(column: $table.section, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get textAr => $composableBuilder(
-    column: $table.textAr,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get textAr =>
+      $composableBuilder(column: $table.textAr, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get textFr => $composableBuilder(
-    column: $table.textFr,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get textFr =>
+      $composableBuilder(column: $table.textFr, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get textEn => $composableBuilder(
-    column: $table.textEn,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get textEn =>
+      $composableBuilder(column: $table.textEn, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get grades => $composableBuilder(
-    column: $table.grades,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get grades =>
+      $composableBuilder(column: $table.grades, builder: (column) => ColumnOrderings(column));
 
   $HadithBooksOrderingComposer get book {
     final $HadithBooksOrderingComposer composer = $composerBuilder(
@@ -2620,18 +2308,13 @@ class $HadithsOrderingComposer extends Composer<_$HadithDatabase, Hadiths> {
       getCurrentColumn: (t) => t.book,
       referencedTable: $db.hadithBooks,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithBooksOrderingComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithBooksOrderingComposer(
             $db: $db,
             $table: $db.hadithBooks,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -2646,8 +2329,7 @@ class $HadithsAnnotationComposer extends Composer<_$HadithDatabase, Hadiths> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
 
   GeneratedColumn<double> get number =>
       $composableBuilder(column: $table.number, builder: (column) => column);
@@ -2673,18 +2355,13 @@ class $HadithsAnnotationComposer extends Composer<_$HadithDatabase, Hadiths> {
       getCurrentColumn: (t) => t.book,
       referencedTable: $db.hadithBooks,
       getReferencedColumn: (t) => t.id,
-      builder:
-          (
-            joinBuilder, {
-            $addJoinBuilderToRootComposer,
-            $removeJoinBuilderFromRootComposer,
-          }) => $HadithBooksAnnotationComposer(
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $HadithBooksAnnotationComposer(
             $db: $db,
             $table: $db.hadithBooks,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
-            $removeJoinBuilderFromRootComposer:
-                $removeJoinBuilderFromRootComposer,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
           ),
     );
     return composer;
@@ -2711,12 +2388,9 @@ class $HadithsTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $HadithsFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $HadithsOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $HadithsAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () => $HadithsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $HadithsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $HadithsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -2758,12 +2432,7 @@ class $HadithsTableManager
                 grades: grades,
               ),
           withReferenceMapper: (p0) => p0
-              .map(
-                (e) => (
-                  e.readTable<Hadiths, Hadith>(table),
-                  $HadithsReferences(db, table, e),
-                ),
-              )
+              .map((e) => (e.readTable<Hadiths, Hadith>(table), $HadithsReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: ({book = false}) {
             return PrefetchHooks(
@@ -2832,8 +2501,7 @@ typedef $HadithSearchUpdateCompanionBuilder = HadithSearchCompanion Function({
   Value<int> rowid,
 });
 
-class $HadithSearchFilterComposer
-    extends Composer<_$HadithDatabase, HadithSearch> {
+class $HadithSearchFilterComposer extends Composer<_$HadithDatabase, HadithSearch> {
   $HadithSearchFilterComposer({
     required super.$db,
     required super.$table,
@@ -2841,24 +2509,17 @@ class $HadithSearchFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get ar => $composableBuilder(
-    column: $table.ar,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get ar =>
+      $composableBuilder(column: $table.ar, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get fr => $composableBuilder(
-    column: $table.fr,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get fr =>
+      $composableBuilder(column: $table.fr, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get en => $composableBuilder(
-    column: $table.en,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get en =>
+      $composableBuilder(column: $table.en, builder: (column) => ColumnFilters(column));
 }
 
-class $HadithSearchOrderingComposer
-    extends Composer<_$HadithDatabase, HadithSearch> {
+class $HadithSearchOrderingComposer extends Composer<_$HadithDatabase, HadithSearch> {
   $HadithSearchOrderingComposer({
     required super.$db,
     required super.$table,
@@ -2866,24 +2527,17 @@ class $HadithSearchOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get ar => $composableBuilder(
-    column: $table.ar,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get ar =>
+      $composableBuilder(column: $table.ar, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get fr => $composableBuilder(
-    column: $table.fr,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get fr =>
+      $composableBuilder(column: $table.fr, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get en => $composableBuilder(
-    column: $table.en,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get en =>
+      $composableBuilder(column: $table.en, builder: (column) => ColumnOrderings(column));
 }
 
-class $HadithSearchAnnotationComposer
-    extends Composer<_$HadithDatabase, HadithSearch> {
+class $HadithSearchAnnotationComposer extends Composer<_$HadithDatabase, HadithSearch> {
   $HadithSearchAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -2912,10 +2566,7 @@ class $HadithSearchTableManager
           $HadithSearchAnnotationComposer,
           $HadithSearchCreateCompanionBuilder,
           $HadithSearchUpdateCompanionBuilder,
-          (
-            HadithSearchData,
-            BaseReferences<_$HadithDatabase, HadithSearch, HadithSearchData>,
-          ),
+          (HadithSearchData, BaseReferences<_$HadithDatabase, HadithSearch, HadithSearchData>),
           HadithSearchData,
           PrefetchHooks Function()
         > {
@@ -2924,10 +2575,8 @@ class $HadithSearchTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $HadithSearchFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $HadithSearchOrderingComposer($db: db, $table: table),
+          createFilteringComposer: () => $HadithSearchFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $HadithSearchOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
               $HadithSearchAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
@@ -2936,27 +2585,17 @@ class $HadithSearchTableManager
             Value<String> en = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) => HadithSearchCompanion(ar: ar, fr: fr, en: en, rowid: rowid),
-          createCompanionCallback:
-              ({
-                required String ar,
-                required String fr,
-                required String en,
-                Value<int> rowid = const Value.absent(),
-              }) => HadithSearchCompanion.insert(
-                ar: ar,
-                fr: fr,
-                en: en,
-                rowid: rowid,
-              ),
+          createCompanionCallback: ({
+            required String ar,
+            required String fr,
+            required String en,
+            Value<int> rowid = const Value.absent(),
+          }) => HadithSearchCompanion.insert(ar: ar, fr: fr, en: en, rowid: rowid),
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
                   e.readTable<HadithSearch, HadithSearchData>(table),
-                  BaseReferences<
-                    _$HadithDatabase,
-                    HadithSearch,
-                    HadithSearchData
-                  >(db, table, e),
+                  BaseReferences<_$HadithDatabase, HadithSearch, HadithSearchData>(db, table, e),
                 ),
               )
               .toList(),
@@ -2975,10 +2614,7 @@ typedef $HadithSearchProcessedTableManager =
       $HadithSearchAnnotationComposer,
       $HadithSearchCreateCompanionBuilder,
       $HadithSearchUpdateCompanionBuilder,
-      (
-        HadithSearchData,
-        BaseReferences<_$HadithDatabase, HadithSearch, HadithSearchData>,
-      ),
+      (HadithSearchData, BaseReferences<_$HadithDatabase, HadithSearch, HadithSearchData>),
       HadithSearchData,
       PrefetchHooks Function()
     >;
@@ -3001,19 +2637,14 @@ class $HadithMetaFilterComposer extends Composer<_$HadithDatabase, HadithMeta> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get key => $composableBuilder(
-    column: $table.key,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get key =>
+      $composableBuilder(column: $table.key, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get value => $composableBuilder(
-    column: $table.value,
-    builder: (column) => ColumnFilters(column),
-  );
+  ColumnFilters<String> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => ColumnFilters(column));
 }
 
-class $HadithMetaOrderingComposer
-    extends Composer<_$HadithDatabase, HadithMeta> {
+class $HadithMetaOrderingComposer extends Composer<_$HadithDatabase, HadithMeta> {
   $HadithMetaOrderingComposer({
     required super.$db,
     required super.$table,
@@ -3021,19 +2652,14 @@ class $HadithMetaOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get key => $composableBuilder(
-    column: $table.key,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get key =>
+      $composableBuilder(column: $table.key, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get value => $composableBuilder(
-    column: $table.value,
-    builder: (column) => ColumnOrderings(column),
-  );
+  ColumnOrderings<String> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => ColumnOrderings(column));
 }
 
-class $HadithMetaAnnotationComposer
-    extends Composer<_$HadithDatabase, HadithMeta> {
+class $HadithMetaAnnotationComposer extends Composer<_$HadithDatabase, HadithMeta> {
   $HadithMetaAnnotationComposer({
     required super.$db,
     required super.$table,
@@ -3059,10 +2685,7 @@ class $HadithMetaTableManager
           $HadithMetaAnnotationComposer,
           $HadithMetaCreateCompanionBuilder,
           $HadithMetaUpdateCompanionBuilder,
-          (
-            HadithMetaData,
-            BaseReferences<_$HadithDatabase, HadithMeta, HadithMetaData>,
-          ),
+          (HadithMetaData, BaseReferences<_$HadithDatabase, HadithMeta, HadithMetaData>),
           HadithMetaData,
           PrefetchHooks Function()
         > {
@@ -3071,36 +2694,24 @@ class $HadithMetaTableManager
         TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              $HadithMetaFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $HadithMetaOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $HadithMetaAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () => $HadithMetaFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $HadithMetaOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $HadithMetaAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<String> key = const Value.absent(),
             Value<String> value = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) => HadithMetaCompanion(key: key, value: value, rowid: rowid),
-          createCompanionCallback:
-              ({
-                required String key,
-                required String value,
-                Value<int> rowid = const Value.absent(),
-              }) => HadithMetaCompanion.insert(
-                key: key,
-                value: value,
-                rowid: rowid,
-              ),
+          createCompanionCallback: ({
+            required String key,
+            required String value,
+            Value<int> rowid = const Value.absent(),
+          }) => HadithMetaCompanion.insert(key: key, value: value, rowid: rowid),
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
                   e.readTable<HadithMeta, HadithMetaData>(table),
-                  BaseReferences<_$HadithDatabase, HadithMeta, HadithMetaData>(
-                    db,
-                    table,
-                    e,
-                  ),
+                  BaseReferences<_$HadithDatabase, HadithMeta, HadithMetaData>(db, table, e),
                 ),
               )
               .toList(),
@@ -3119,10 +2730,7 @@ typedef $HadithMetaProcessedTableManager =
       $HadithMetaAnnotationComposer,
       $HadithMetaCreateCompanionBuilder,
       $HadithMetaUpdateCompanionBuilder,
-      (
-        HadithMetaData,
-        BaseReferences<_$HadithDatabase, HadithMeta, HadithMetaData>,
-      ),
+      (HadithMetaData, BaseReferences<_$HadithDatabase, HadithMeta, HadithMetaData>),
       HadithMetaData,
       PrefetchHooks Function()
     >;
@@ -3130,13 +2738,10 @@ typedef $HadithMetaProcessedTableManager =
 class $HadithDatabaseManager {
   final _$HadithDatabase _db;
   $HadithDatabaseManager(this._db);
-  $HadithBooksTableManager get hadithBooks =>
-      $HadithBooksTableManager(_db, _db.hadithBooks);
+  $HadithBooksTableManager get hadithBooks => $HadithBooksTableManager(_db, _db.hadithBooks);
   $HadithSectionsTableManager get hadithSections =>
       $HadithSectionsTableManager(_db, _db.hadithSections);
   $HadithsTableManager get hadiths => $HadithsTableManager(_db, _db.hadiths);
-  $HadithSearchTableManager get hadithSearch =>
-      $HadithSearchTableManager(_db, _db.hadithSearch);
-  $HadithMetaTableManager get hadithMeta =>
-      $HadithMetaTableManager(_db, _db.hadithMeta);
+  $HadithSearchTableManager get hadithSearch => $HadithSearchTableManager(_db, _db.hadithSearch);
+  $HadithMetaTableManager get hadithMeta => $HadithMetaTableManager(_db, _db.hadithMeta);
 }

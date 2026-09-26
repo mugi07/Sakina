@@ -397,5 +397,13 @@
         "type": "int"
       }
     }
-  }
+  },
+  "verseOfTheDay": "Verset du jour",
+  "morningAdhkar": "Adhkar du matin",
+  "eveningAdhkar": "Adhkar du soir",
+  "adhkarReminderBodyMorning": "Prenez quelques minutes pour les invocations du matin.",
+  "adhkarReminderBodyEvening": "Prenez quelques minutes pour les invocations du soir.",
+  "adhkarReminders": "Rappel des adhkar du matin et du soir",
+  "adhkarRemindersHint": "30 min après le Fajr et après le Asr",
+  "share": "Partager"
 }

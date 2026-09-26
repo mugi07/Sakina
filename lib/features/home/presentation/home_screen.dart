@@ -11,6 +11,7 @@ import '../../prayer_times/presentation/widgets/location_header.dart';
 import '../../prayer_times/presentation/widgets/next_prayer_card.dart';
 import '../../quran/application/quran_providers.dart';
 import '../../quran/presentation/quran_index_screen.dart';
+import 'widgets/daily_cards.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -49,10 +50,14 @@ class HomeScreen extends ConsumerWidget {
             if (settings.location != null) const LocationHeader(),
             const SizedBox(height: 8),
             const NextPrayerCard(),
+            const SizedBox(height: 12),
+            const AdhkarShortcutCard(),
             if (settings.lastReadPage != null) ...[
               const SizedBox(height: 16),
               _ContinueReadingCard(page: settings.lastReadPage!),
             ],
+            const SizedBox(height: 16),
+            VerseOfTheDayCard(day: today),
             const SizedBox(height: 16),
             HadithOfTheDayCard(day: today),
           ],

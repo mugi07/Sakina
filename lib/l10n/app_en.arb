@@ -166,5 +166,13 @@
   "adhkarTapHint": "Tap a remembrance each time you recite it.",
   "translationEnglishPending": "",
   "restart": "Start over",
-  "adhkarProgress": "{done} / {total}"
+  "adhkarProgress": "{done} / {total}",
+  "verseOfTheDay": "Verse of the day",
+  "morningAdhkar": "Morning adhkar",
+  "eveningAdhkar": "Evening adhkar",
+  "adhkarReminderBodyMorning": "Take a few minutes for the morning remembrances.",
+  "adhkarReminderBodyEvening": "Take a few minutes for the evening remembrances.",
+  "adhkarReminders": "Morning and evening adhkar reminders",
+  "adhkarRemindersHint": "30 min after Fajr and after Asr",
+  "share": "Share"
 }

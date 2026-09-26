@@ -643,4 +643,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String adhkarProgress(int done, int total) {
     return '$done / $total';
   }
+
+  @override
+  String get verseOfTheDay => 'آية اليوم';
+
+  @override
+  String get morningAdhkar => 'أذكار الصباح';
+
+  @override
+  String get eveningAdhkar => 'أذكار المساء';
+
+  @override
+  String get adhkarReminderBodyMorning => 'خصّص دقائق لأذكار الصباح.';
+
+  @override
+  String get adhkarReminderBodyEvening => 'خصّص دقائق لأذكار المساء.';
+
+  @override
+  String get adhkarReminders => 'تذكير بأذكار الصباح والمساء';
+
+  @override
+  String get adhkarRemindersHint => 'بعد الفجر وبعد العصر بـ 30 دقيقة';
+
+  @override
+  String get share => 'مشاركة';
 }

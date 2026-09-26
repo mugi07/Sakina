@@ -309,6 +309,16 @@ class _AdhanSettingsState extends ConsumerState<_AdhanSettings> {
             onChanged: (v) => controller.update((s) => s.copyWith(adhanReminderMinutes: v)),
           ),
         ],
+        SwitchListTile(
+          secondary: const Icon(Icons.wb_twilight_outlined),
+          title: Text(l.adhkarReminders),
+          subtitle: Text(l.adhkarRemindersHint),
+          value: settings.adhkarReminders,
+          onChanged: (v) {
+            controller.update((s) => s.copyWith(adhkarReminders: v));
+            if (v) _requestPermission();
+          },
+        ),
       ],
     );
   }

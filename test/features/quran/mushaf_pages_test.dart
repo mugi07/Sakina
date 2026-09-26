@@ -5,6 +5,7 @@ import 'package:drift/native.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sakina/core/database/content_database.dart';
+import 'package:sakina/features/home/presentation/widgets/daily_cards.dart';
 import 'package:sakina/features/quran/domain/page_layout.dart';
 import 'package:sakina/features/quran/presentation/widgets/mushaf_typography.dart';
 
@@ -63,6 +64,24 @@ void main() {
       expect(fr.first.translation, startsWith("Au nom d'Allah"));
       expect(ar.every((r) => r.translation == null), isTrue);
     });
+  });
+
+  test('verset du jour : chaque référence existe, avec sa traduction', () async {
+    for (final (surah, number) in dailyVerses) {
+      final row = await db
+          .ayahByReference(surah: surah, number: number, edition: 'fr.hamidullah')
+          .getSingleOrNull();
+      expect(row, isNotNull, reason: '$surah:$number');
+      expect(row!.translation, isNotEmpty, reason: '$surah:$number');
+    }
+    expect(
+      verseOfTheDayReference(DateTime(2026, 9, 26)),
+      verseOfTheDayReference(DateTime(2026, 9, 26, 23)),
+    );
+    expect(
+      verseOfTheDayReference(DateTime(2026, 9, 26)),
+      isNot(verseOfTheDayReference(DateTime(2026, 9, 27))),
+    );
   });
 
   group('index', () {

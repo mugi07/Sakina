@@ -1095,6 +1095,54 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'{done} / {total}'**
   String adhkarProgress(int done, int total);
+
+  /// No description provided for @verseOfTheDay.
+  ///
+  /// In fr, this message translates to:
+  /// **'Verset du jour'**
+  String get verseOfTheDay;
+
+  /// No description provided for @morningAdhkar.
+  ///
+  /// In fr, this message translates to:
+  /// **'Adhkar du matin'**
+  String get morningAdhkar;
+
+  /// No description provided for @eveningAdhkar.
+  ///
+  /// In fr, this message translates to:
+  /// **'Adhkar du soir'**
+  String get eveningAdhkar;
+
+  /// No description provided for @adhkarReminderBodyMorning.
+  ///
+  /// In fr, this message translates to:
+  /// **'Prenez quelques minutes pour les invocations du matin.'**
+  String get adhkarReminderBodyMorning;
+
+  /// No description provided for @adhkarReminderBodyEvening.
+  ///
+  /// In fr, this message translates to:
+  /// **'Prenez quelques minutes pour les invocations du soir.'**
+  String get adhkarReminderBodyEvening;
+
+  /// No description provided for @adhkarReminders.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rappel des adhkar du matin et du soir'**
+  String get adhkarReminders;
+
+  /// No description provided for @adhkarRemindersHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'30 min après le Fajr et après le Asr'**
+  String get adhkarRemindersHint;
+
+  /// No description provided for @share.
+  ///
+  /// In fr, this message translates to:
+  /// **'Partager'**
+  String get share;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

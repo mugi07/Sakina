@@ -166,5 +166,13 @@
   "adhkarTapHint": "المس الذكر عند كل قراءة.",
   "translationEnglishPending": "",
   "restart": "البدء من جديد",
-  "adhkarProgress": "{done} / {total}"
+  "adhkarProgress": "{done} / {total}",
+  "verseOfTheDay": "آية اليوم",
+  "morningAdhkar": "أذكار الصباح",
+  "eveningAdhkar": "أذكار المساء",
+  "adhkarReminderBodyMorning": "خصّص دقائق لأذكار الصباح.",
+  "adhkarReminderBodyEvening": "خصّص دقائق لأذكار المساء.",
+  "adhkarReminders": "تذكير بأذكار الصباح والمساء",
+  "adhkarRemindersHint": "بعد الفجر وبعد العصر بـ 30 دقيقة",
+  "share": "مشاركة"
 }

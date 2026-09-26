@@ -67,3 +67,10 @@ citiesInBox:
 allAdhkarCategories: SELECT * FROM adhkar_categories ORDER BY position;
 
 adhkarOfCategory: SELECT * FROM adhkar WHERE category = :category ORDER BY position;
+
+-- Un verset par sa référence (sourate:verset), avec une traduction ('' : aucune).
+ayahByReference:
+  SELECT a.**, t.content AS translation
+  FROM ayahs a
+  LEFT JOIN ayah_translations t ON t.ayah_id = a.id AND t.edition = :edition
+  WHERE a.surah = :surah AND a.number = :number;

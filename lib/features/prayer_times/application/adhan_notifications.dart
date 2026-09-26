@@ -105,13 +105,15 @@ class AdhanNotifications {
     if (!_supported) return 0;
     await _ensureInitialized();
     await _plugin.cancelAllPendingNotifications();
-    if (calculator == null || !settings.adhanEnabled) return 0;
+    if (calculator == null || (!settings.adhanEnabled && !settings.adhkarReminders)) return 0;
 
     final schedule = buildAdhanSchedule(
       calculator: calculator,
       now: DateTime.now(),
       muted: {for (final name in settings.adhanMuted) ?Salah.values.asNameMap()[name]},
       reminderMinutes: settings.adhanReminderMinutes,
+      prayers: settings.adhanEnabled,
+      adhkarReminders: settings.adhkarReminders,
       maxCount: Platform.isIOS ? 60 : 120,
     );
 
@@ -137,10 +139,18 @@ class AdhanNotifications {
         androidScheduleMode: exact
             ? AndroidScheduleMode.exactAllowWhileIdle
             : AndroidScheduleMode.inexactAllowWhileIdle,
-        title: n.isReminder
-            ? l.reminderTitle(name, settings.adhanReminderMinutes)
-            : l.adhanTitle(name, formatTime(n.prayerTime, locale)),
-        body: n.isReminder ? l.reminderBody : l.adhanBody(name),
+        title: switch (n.kind) {
+          AdhanKind.prayer => l.adhanTitle(name, formatTime(n.prayerTime, locale)),
+          AdhanKind.reminder => l.reminderTitle(name, settings.adhanReminderMinutes),
+          AdhanKind.morningAdhkar => l.morningAdhkar,
+          AdhanKind.eveningAdhkar => l.eveningAdhkar,
+        },
+        body: switch (n.kind) {
+          AdhanKind.prayer => l.adhanBody(name),
+          AdhanKind.reminder => l.reminderBody,
+          AdhanKind.morningAdhkar => l.adhkarReminderBodyMorning,
+          AdhanKind.eveningAdhkar => l.adhkarReminderBodyEvening,
+        },
       );
     }
     return schedule.length;
