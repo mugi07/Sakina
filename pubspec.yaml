@@ -34,6 +34,7 @@ dependencies:
   just_audio_background: ^0.0.1-beta.17
   super_sliver_list: ^0.4.1
   home_widget: ^0.10.0
+  quick_actions: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +48,7 @@ dev_dependencies:
   crypto: ^3.0.7
   http: ^1.6.0
   xml: ^7.0.1
+  flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: true
@@ -69,3 +71,14 @@ flutter:
     - family: AmiriQuran
       fonts:
         - asset: assets/fonts/AmiriQuran-Regular.ttf
+
+# Icône de l'app, générée par `python tool/icon/make_icons.py` puis
+# `dart run flutter_launcher_icons`.
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "tool/icon/app_icon.png"
+  remove_alpha_ios: true
+  adaptive_icon_background: "tool/icon/app_icon_background.png"
+  adaptive_icon_foreground: "tool/icon/app_icon_foreground.png"
+  adaptive_icon_monochrome: "tool/icon/app_icon_monochrome.png"

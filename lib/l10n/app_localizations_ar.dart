@@ -504,7 +504,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get compassUnavailable =>
-      'البوصلة غير متوفرة على هذا الجهاز. استخدم الزاوية أعلاه مع بوصلة عادية.';
+      'البوصلة غير متوفرة على هذا الجهاز. استخدم الشمس (أدناه) أو الزاوية أعلاه مع بوصلة عادية.';
 
   @override
   String get calibrateTip => 'الدقة ضعيفة: حرّك الهاتف على شكل الرقم 8 لمعايرة البوصلة.';
@@ -924,4 +924,63 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get widgetNoLocation => 'افتح سكينة لاختيار مدينتك.';
+
+  @override
+  String get findQibla => 'تحديد القبلة';
+
+  @override
+  String get sunMethodTitle => 'بدون بوصلة: بواسطة الشمس';
+
+  @override
+  String sunFaceRight(String deg) {
+    return 'استقبل الشمس، ثم استدر $deg° إلى اليمين.';
+  }
+
+  @override
+  String sunFaceLeft(String deg) {
+    return 'استقبل الشمس، ثم استدر $deg° إلى اليسار.';
+  }
+
+  @override
+  String get sunFaceAhead => 'استقبل الشمس: القبلة أمامك مباشرة.';
+
+  @override
+  String get sunTooHigh => 'الشمس مرتفعة جدًا ولا تصلح علامةً الآن. أعد المحاولة بعد قليل.';
+
+  @override
+  String sunBelowHorizon(String time) {
+    return 'الشمس غائبة. تعمل هذه الطريقة من جديد ابتداءً من $time.';
+  }
+
+  @override
+  String get sunCompassCheck =>
+      'للتحقق: يجب أن تشير الشمس المرسومة على البوصلة إلى الشمس الحقيقية، وإلا فقم بمعايرة البوصلة.';
+
+  @override
+  String kaabaTransit(String date, String time) {
+    return 'في $date الساعة $time تمرّ الشمس فوق الكعبة تمامًا: استقبلها تكن مستقبلًا القبلة.';
+  }
+
+  @override
+  String get qibla => 'القبلة';
+
+  @override
+  String get testNotification => 'تجربة الإشعار';
+
+  @override
+  String get testNotificationHint => 'يُرسل إشعارًا بعد بضع ثوانٍ للتحقق من الصوت والعرض.';
+
+  @override
+  String get testNotificationTitle => 'سكينة: إشعار تجريبي';
+
+  @override
+  String get testNotificationBody => 'الإشعارات تعمل. سيصلك تنبيه عند دخول وقت كل صلاة.';
+
+  @override
+  String testNotificationScheduled(int seconds) {
+    return 'إشعار تجريبي بعد $seconds ثوانٍ: يمكنك قفل الهاتف.';
+  }
+
+  @override
+  String get testNotificationSent => 'تم إرسال الإشعار التجريبي.';
 }

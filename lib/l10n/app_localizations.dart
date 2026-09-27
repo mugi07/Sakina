@@ -883,7 +883,7 @@ abstract class AppLocalizations {
   /// No description provided for @compassUnavailable.
   ///
   /// In fr, this message translates to:
-  /// **'Boussole indisponible sur cet appareil. Utilisez l\'angle ci-dessus avec une boussole classique.'**
+  /// **'Boussole indisponible sur cet appareil. Utilisez le soleil (ci-dessous) ou l\'angle ci-dessus avec une boussole classique.'**
   String get compassUnavailable;
 
   /// No description provided for @calibrateTip.
@@ -1473,6 +1473,102 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Ouvrez Sakinah pour choisir votre ville.'**
   String get widgetNoLocation;
+
+  /// No description provided for @findQibla.
+  ///
+  /// In fr, this message translates to:
+  /// **'Trouver la Qibla'**
+  String get findQibla;
+
+  /// No description provided for @sunMethodTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sans boussole : avec le soleil'**
+  String get sunMethodTitle;
+
+  /// No description provided for @sunFaceRight.
+  ///
+  /// In fr, this message translates to:
+  /// **'Faites face au soleil, puis tournez de {deg}° vers la droite.'**
+  String sunFaceRight(String deg);
+
+  /// No description provided for @sunFaceLeft.
+  ///
+  /// In fr, this message translates to:
+  /// **'Faites face au soleil, puis tournez de {deg}° vers la gauche.'**
+  String sunFaceLeft(String deg);
+
+  /// No description provided for @sunFaceAhead.
+  ///
+  /// In fr, this message translates to:
+  /// **'Faites face au soleil : la Qibla est droit devant vous.'**
+  String get sunFaceAhead;
+
+  /// No description provided for @sunTooHigh.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le soleil est trop haut pour servir de repère. Réessayez un peu plus tard.'**
+  String get sunTooHigh;
+
+  /// No description provided for @sunBelowHorizon.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le soleil est couché. Cette méthode fonctionne à nouveau à partir de {time}.'**
+  String sunBelowHorizon(String time);
+
+  /// No description provided for @sunCompassCheck.
+  ///
+  /// In fr, this message translates to:
+  /// **'Vérification : le soleil dessiné sur la boussole doit indiquer le vrai soleil. Sinon, calibrez la boussole.'**
+  String get sunCompassCheck;
+
+  /// No description provided for @kaabaTransit.
+  ///
+  /// In fr, this message translates to:
+  /// **'Le {date} à {time}, le soleil passera juste au-dessus de la Kaaba : faites-lui face et vous serez face à la Qibla.'**
+  String kaabaTransit(String date, String time);
+
+  /// No description provided for @qibla.
+  ///
+  /// In fr, this message translates to:
+  /// **'Qibla'**
+  String get qibla;
+
+  /// No description provided for @testNotification.
+  ///
+  /// In fr, this message translates to:
+  /// **'Tester la notification'**
+  String get testNotification;
+
+  /// No description provided for @testNotificationHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Envoie une notification dans quelques secondes pour vérifier le son et l\'affichage.'**
+  String get testNotificationHint;
+
+  /// No description provided for @testNotificationTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sakinah : notification de test'**
+  String get testNotificationTitle;
+
+  /// No description provided for @testNotificationBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Les notifications fonctionnent. Vous serez prévenu à l\'heure de chaque prière.'**
+  String get testNotificationBody;
+
+  /// No description provided for @testNotificationScheduled.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notification de test dans {seconds} secondes : vous pouvez verrouiller le téléphone.'**
+  String testNotificationScheduled(int seconds);
+
+  /// No description provided for @testNotificationSent.
+  ///
+  /// In fr, this message translates to:
+  /// **'Notification de test envoyée.'**
+  String get testNotificationSent;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

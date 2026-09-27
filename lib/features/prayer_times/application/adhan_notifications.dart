@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui' show Color;
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,6 +27,10 @@ class AdhanNotifications {
   Future<void>? _init;
 
   static const _channelId = 'adhan_v1';
+  static const _testId = 999000001;
+
+  /// Couleur d'accent des notifications Android (émeraude de l'app).
+  static const _accent = Color(0xFF0E6B55);
 
   /// Notifications gérées sur Android et iOS uniquement (pas en test ni sur
   /// ordinateur, où le plugin n'est pas disponible).
@@ -34,7 +39,9 @@ class AdhanNotifications {
   Future<void> _ensureInitialized() => _init ??= _plugin
       .initialize(
         settings: const InitializationSettings(
-          android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+          // Silhouette blanche (res/drawable-*/ic_stat_sakinah.png) : Android
+          // n'affiche que la transparence des icônes de la barre d'état.
+          android: AndroidInitializationSettings('ic_stat_sakinah'),
           // Permission demandée plus tard, avec une explication (bienvenue, réglages).
           iOS: DarwinInitializationSettings(
             requestAlertPermission: false,
@@ -137,6 +144,7 @@ class AdhanNotifications {
         importance: Importance.max,
         priority: Priority.high,
         category: AndroidNotificationCategory.reminder,
+        color: _accent,
       ),
       iOS: const DarwinNotificationDetails(presentAlert: true, presentSound: true),
     );
@@ -179,4 +187,47 @@ class AdhanNotifications {
     }
     return schedule.length + khatmaTimes.length;
   }
+
+  /// Notification de test, sur le même canal que l'adhan. Programmée
+  /// [testDelay] plus tard quand c'est possible à la seconde près (le temps
+  /// de verrouiller le téléphone), sinon affichée tout de suite. Renvoie le
+  /// délai utilisé, ou null sans autorisation.
+  Future<Duration?> sendTest(AppLocalizations l) async {
+    if (!_supported) return null;
+    await _ensureInitialized();
+    if (!(await hasPermission() ?? true) && !await requestPermission()) return null;
+    final details = NotificationDetails(
+      android: AndroidNotificationDetails(
+        _channelId,
+        l.adhanChannelName,
+        channelDescription: l.adhanChannelDescription,
+        importance: Importance.max,
+        priority: Priority.high,
+        category: AndroidNotificationCategory.reminder,
+        color: _accent,
+      ),
+      iOS: const DarwinNotificationDetails(presentAlert: true, presentSound: true),
+    );
+    final exact = Platform.isIOS || (await _android?.canScheduleExactNotifications() ?? false);
+    if (!exact) {
+      await _plugin.show(
+        id: _testId,
+        title: l.testNotificationTitle,
+        body: l.testNotificationBody,
+        notificationDetails: details,
+      );
+      return Duration.zero;
+    }
+    await _plugin.zonedSchedule(
+      id: _testId,
+      scheduledDate: tz.TZDateTime.now(tz.UTC).add(testDelay),
+      notificationDetails: details,
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      title: l.testNotificationTitle,
+      body: l.testNotificationBody,
+    );
+    return testDelay;
+  }
+
+  static const testDelay = Duration(seconds: 10);
 }

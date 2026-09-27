@@ -504,7 +504,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get compassUnavailable =>
-      'Boussole indisponible sur cet appareil. Utilisez l\'angle ci-dessus avec une boussole classique.';
+      'Boussole indisponible sur cet appareil. Utilisez le soleil (ci-dessous) ou l\'angle ci-dessus avec une boussole classique.';
 
   @override
   String get calibrateTip =>
@@ -905,4 +905,66 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get widgetNoLocation => 'Ouvrez Sakinah pour choisir votre ville.';
+
+  @override
+  String get findQibla => 'Trouver la Qibla';
+
+  @override
+  String get sunMethodTitle => 'Sans boussole : avec le soleil';
+
+  @override
+  String sunFaceRight(String deg) {
+    return 'Faites face au soleil, puis tournez de $deg° vers la droite.';
+  }
+
+  @override
+  String sunFaceLeft(String deg) {
+    return 'Faites face au soleil, puis tournez de $deg° vers la gauche.';
+  }
+
+  @override
+  String get sunFaceAhead => 'Faites face au soleil : la Qibla est droit devant vous.';
+
+  @override
+  String get sunTooHigh =>
+      'Le soleil est trop haut pour servir de repère. Réessayez un peu plus tard.';
+
+  @override
+  String sunBelowHorizon(String time) {
+    return 'Le soleil est couché. Cette méthode fonctionne à nouveau à partir de $time.';
+  }
+
+  @override
+  String get sunCompassCheck =>
+      'Vérification : le soleil dessiné sur la boussole doit indiquer le vrai soleil. Sinon, calibrez la boussole.';
+
+  @override
+  String kaabaTransit(String date, String time) {
+    return 'Le $date à $time, le soleil passera juste au-dessus de la Kaaba : faites-lui face et vous serez face à la Qibla.';
+  }
+
+  @override
+  String get qibla => 'Qibla';
+
+  @override
+  String get testNotification => 'Tester la notification';
+
+  @override
+  String get testNotificationHint =>
+      'Envoie une notification dans quelques secondes pour vérifier le son et l\'affichage.';
+
+  @override
+  String get testNotificationTitle => 'Sakinah : notification de test';
+
+  @override
+  String get testNotificationBody =>
+      'Les notifications fonctionnent. Vous serez prévenu à l\'heure de chaque prière.';
+
+  @override
+  String testNotificationScheduled(int seconds) {
+    return 'Notification de test dans $seconds secondes : vous pouvez verrouiller le téléphone.';
+  }
+
+  @override
+  String get testNotificationSent => 'Notification de test envoyée.';
 }

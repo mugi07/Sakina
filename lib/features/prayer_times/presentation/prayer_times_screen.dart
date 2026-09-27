@@ -36,6 +36,11 @@ class _PrayerTimesScreenState extends ConsumerState<PrayerTimesScreen> {
         title: Text(l.prayerTimesTitle),
         actions: [
           IconButton(
+            tooltip: l.qiblaCompassTitle,
+            icon: const Icon(Icons.explore_outlined),
+            onPressed: () => openQiblaCompass(context),
+          ),
+          IconButton(
             tooltip: l.monthlyTimetable,
             icon: const Icon(Icons.calendar_view_month),
             onPressed: () => context.go('/prayer/month'),

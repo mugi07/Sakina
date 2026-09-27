@@ -7,17 +7,25 @@ import 'package:flutter/services.dart';
 import 'package:flutter_compass/flutter_compass.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart' show NumberFormat;
+import 'package:intl/intl.dart' show DateFormat, NumberFormat;
+import 'package:timezone/timezone.dart' as tz;
 
 import '../../../core/geo/geo_math.dart';
+import '../../../core/location/saved_location.dart';
 import '../../../core/providers.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../prayer_times/presentation/prayer_labels.dart';
+import '../application/sun_guide.dart';
 import '../domain/qibla_compass.dart';
+import 'dial_glyphs.dart';
+import 'qibla_card.dart';
 
-/// Boussole Qibla en direct.
+/// Boussole Qibla en direct, et méthode du soleil quand la boussole est
+/// absente ou peu fiable.
 ///
 /// Android fournit un cap magnétique, corrigé ici par la déclinaison du
-/// modèle WMM-2025 ; iOS fournit directement le cap géographique.
+/// modèle WMM-2025 ; iOS fournit directement le cap géographique. Le soleil,
+/// dessiné sur la boussole, permet aussi de vérifier qu'elle est juste.
 class QiblaCompassScreen extends ConsumerStatefulWidget {
   const QiblaCompassScreen({super.key});
 
@@ -140,75 +148,189 @@ class _QiblaCompassScreenState extends ConsumerState<QiblaCompassScreen> {
 
     final degrees = NumberFormat('0', locale);
     final declination = magneticDeclination(location.latitude, location.longitude, DateTime.now());
+    final guide = ref.watch(sunGuideProvider);
+    final sunVisible = guide != null && guide.sun.elevation > 0;
 
     return Scaffold(
       appBar: AppBar(title: Text(l.qiblaCompassTitle)),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
-        children: [
-          Text(
-            l.qiblaBearing(NumberFormat('0.0', locale).format(bearing)),
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const SizedBox(height: 16),
-          AspectRatio(
-            aspectRatio: 1,
-            child: Directionality(
-              // Une boussole ne s'inverse jamais, même en arabe.
-              textDirection: TextDirection.ltr,
-              child: CustomPaint(
-                painter: _CompassPainter(
-                  heading: heading ?? 0,
-                  qiblaBearing: bearing,
-                  live: heading != null,
-                  aligned: aligned,
-                  ring: aligned ? scheme.primary : scheme.outlineVariant,
-                  text: scheme.onSurface,
-                  accent: scheme.tertiary,
-                  north: scheme.error,
+      body: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        // Tout l'écran se teinte quand le téléphone est face à la Qibla.
+        color: aligned ? scheme.primaryContainer : scheme.surface,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
+          children: [
+            Text(
+              l.qiblaBearing(NumberFormat('0.0', locale).format(bearing)),
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 16),
+            AspectRatio(
+              aspectRatio: 1,
+              child: Directionality(
+                // Une boussole ne s'inverse jamais, même en arabe.
+                textDirection: TextDirection.ltr,
+                child: CustomPaint(
+                  painter: _CompassPainter(
+                    heading: heading ?? 0,
+                    qiblaBearing: bearing,
+                    sunAzimuth: sunVisible ? guide.sun.azimuth : null,
+                    live: heading != null,
+                    aligned: aligned,
+                    ring: aligned ? scheme.primary : scheme.outlineVariant,
+                    text: scheme.onSurface,
+                    accent: scheme.tertiary,
+                    north: scheme.error,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-          if (_unavailable)
-            _Notice(icon: Icons.explore_off_outlined, text: l.compassUnavailable)
-          else if (_needsLocation)
-            _Notice(
-              icon: Icons.location_off_outlined,
-              text: l.compassNeedsLocation,
-              action: TextButton(onPressed: _requestLocation, child: Text(l.allow)),
-            )
-          else if (turn == null)
-            const Center(child: CircularProgressIndicator())
-          else
-            Text(
-              aligned
-                  ? l.qiblaAligned
-                  : (turn > 0
-                        ? l.turnRight(degrees.format(turn.abs()))
-                        : l.turnLeft(degrees.format(turn.abs()))),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: aligned ? scheme.primary : scheme.onSurface,
+            const SizedBox(height: 20),
+            if (_unavailable)
+              _Notice(icon: Icons.explore_off_outlined, text: l.compassUnavailable)
+            else if (_needsLocation)
+              _Notice(
+                icon: Icons.location_off_outlined,
+                text: l.compassNeedsLocation,
+                action: TextButton(onPressed: _requestLocation, child: Text(l.allow)),
+              )
+            else if (turn == null)
+              const Center(child: CircularProgressIndicator())
+            else
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (aligned) ...[
+                    Icon(Icons.check_circle, color: scheme.primary, size: 28),
+                    const SizedBox(width: 8),
+                  ],
+                  Flexible(
+                    child: Text(
+                      aligned
+                          ? l.qiblaAligned
+                          : (turn > 0
+                                ? l.turnRight(degrees.format(turn.abs()))
+                                : l.turnLeft(degrees.format(turn.abs()))),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: aligned ? scheme.primary : scheme.onSurface,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+            const SizedBox(height: 16),
+            if ((_accuracy ?? 0) > 25) _Notice(icon: Icons.sync_problem, text: l.calibrateTip),
+            _Notice(icon: Icons.info_outline, text: l.metalWarning),
+            if (heading != null && sunVisible)
+              _Notice(icon: Icons.wb_sunny_outlined, text: l.sunCompassCheck),
+            if (Platform.isAndroid)
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(
+                  l.declinationNote(NumberFormat('+0.0;-0.0', locale).format(declination)),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, color: scheme.onSurfaceVariant),
+                ),
+              ),
+            if (guide != null) ...[
+              const SizedBox(height: 16),
+              _SunMethodCard(guide: guide, qiblaBearing: bearing, location: location),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Trouver la Qibla sans boussole : faire face au soleil, puis tourner de
+/// l'angle indiqué (cadran : soleil en haut, Kaaba à l'angle à tourner).
+class _SunMethodCard extends StatelessWidget {
+  const _SunMethodCard({required this.guide, required this.qiblaBearing, required this.location});
+
+  final SunGuide guide;
+  final double qiblaBearing;
+  final SavedLocation location;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final scheme = Theme.of(context).colorScheme;
+    final zone = tz.getLocation(location.timezone);
+    final elevation = guide.sun.elevation;
+    final turn = normalize180(qiblaBearing - guide.sun.azimuth);
+    final degrees = NumberFormat('0', locale);
+    final usable = guide.nextSunrise == null && elevation <= sunGuideMaxElevation;
+
+    final String instruction;
+    if (guide.nextSunrise != null) {
+      instruction = l.sunBelowHorizon(
+        formatTime(tz.TZDateTime.from(guide.nextSunrise!, zone), locale),
+      );
+    } else if (elevation > sunGuideMaxElevation) {
+      instruction = l.sunTooHigh;
+    } else if (isFacingQibla(turn)) {
+      instruction = l.sunFaceAhead;
+    } else {
+      instruction = turn > 0
+          ? l.sunFaceRight(degrees.format(turn.abs()))
+          : l.sunFaceLeft(degrees.format(turn.abs()));
+    }
+
+    final transit = guide.kaabaTransit == null
+        ? null
+        : tz.TZDateTime.from(guide.kaabaTransit!, zone);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.wb_sunny_outlined, color: sunColor),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(l.sunMethodTitle, style: Theme.of(context).textTheme.titleMedium),
+                ),
+              ],
             ),
-          const SizedBox(height: 16),
-          if ((_accuracy ?? 0) > 25) _Notice(icon: Icons.sync_problem, text: l.calibrateTip),
-          _Notice(icon: Icons.info_outline, text: l.metalWarning),
-          if (Platform.isAndroid)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                l.declinationNote(NumberFormat('+0.0;-0.0', locale).format(declination)),
-                textAlign: TextAlign.center,
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                if (usable) ...[
+                  QiblaDial(angle: normalize360(turn), sunAtTop: true, size: 80),
+                  const SizedBox(width: 16),
+                ],
+                Expanded(
+                  child: Text(
+                    instruction,
+                    style: TextStyle(
+                      fontSize: usable ? 16 : 14,
+                      fontWeight: usable ? FontWeight.w600 : FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (transit != null) ...[
+              const SizedBox(height: 12),
+              Text(
+                l.kaabaTransit(
+                  DateFormat.yMMMMd(locale).format(transit),
+                  formatTime(transit, locale),
+                ),
                 style: TextStyle(fontSize: 12, color: scheme.onSurfaceVariant),
               ),
-            ),
-        ],
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -246,6 +368,7 @@ class _CompassPainter extends CustomPainter {
   _CompassPainter({
     required this.heading,
     required this.qiblaBearing,
+    required this.sunAzimuth,
     required this.live,
     required this.aligned,
     required this.ring,
@@ -256,6 +379,9 @@ class _CompassPainter extends CustomPainter {
 
   final double heading;
   final double qiblaBearing;
+
+  /// Direction du soleil s'il est levé (pour vérifier la boussole).
+  final double? sunAzimuth;
   final bool live;
   final bool aligned;
   final Color ring;
@@ -324,30 +450,24 @@ class _CompassPainter extends CustomPainter {
       painter.dispose();
     }
 
+    // Le soleil, plus près du centre que la Kaaba.
+    if (sunAzimuth case final sun?) {
+      final a = sun * math.pi / 180;
+      paintSun(canvas, Offset(math.sin(a), -math.cos(a)) * (r * 0.42), 7);
+    }
+
     // Aiguille vers la Qibla, terminée par la Kaaba.
     final q = qiblaBearing * math.pi / 180;
     final dir = Offset(math.sin(q), -math.cos(q));
     canvas.drawLine(
       Offset.zero,
-      dir * (r - 52),
+      dir * (r - 66),
       Paint()
         ..strokeWidth = 4
         ..strokeCap = StrokeCap.round
         ..color = live ? accent : accent.withValues(alpha: 0.5),
     );
-    canvas.save();
-    canvas.translate(dir.dx * (r - 52), dir.dy * (r - 52));
-    canvas.rotate(q);
-    final kaaba = Rect.fromCenter(center: Offset.zero, width: 26, height: 26);
-    canvas.drawRRect(
-      RRect.fromRectAndRadius(kaaba, const Radius.circular(3)),
-      Paint()..color = const Color(0xFF1B1B1B),
-    );
-    canvas.drawRect(
-      Rect.fromLTWH(kaaba.left, kaaba.top + 6, kaaba.width, 4),
-      Paint()..color = const Color(0xFFD4AF37),
-    );
-    canvas.restore();
+    paintKaaba(canvas, dir * (r - 66), 26, q);
 
     canvas.drawCircle(Offset.zero, 6, Paint()..color = accent);
     canvas.restore();
@@ -357,6 +477,7 @@ class _CompassPainter extends CustomPainter {
   bool shouldRepaint(_CompassPainter old) =>
       old.heading != heading ||
       old.qiblaBearing != qiblaBearing ||
+      old.sunAzimuth != sunAzimuth ||
       old.aligned != aligned ||
       old.live != live ||
       old.ring != ring;

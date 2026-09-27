@@ -14,7 +14,11 @@ Plan complet du produit : [docs/PLAN.md](docs/PLAN.md).
   première lecture).
 - **Prière** : horaires calculés sur le téléphone (méthode selon le pays), notifications à l'heure
   de chaque prière et rappel avant, tableau mensuel, date hégirienne.
-- **Qibla** : boussole en direct, corrigée de la déclinaison magnétique (WMM-2025).
+- **Qibla** : boussole en direct, corrigée de la déclinaison magnétique (WMM-2025), vibration et
+  écran vert une fois aligné ; sans boussole, méthode du soleil (« faites face au soleil, puis
+  tournez de X° »), soleil dessiné sur la boussole pour la vérifier, prochain passage du soleil au
+  zénith de la Kaaba. Accès : accueil, onglet Prière, onglet Plus et raccourci « Trouver la Qibla »
+  (appui long sur l'icône de l'app).
 - **Adhkar** : Hisn al-Muslim complet (132 chapitres), compteurs de répétitions, rappels matin et
   soir ; **Tasbih**.
 - **Hadiths** : an-Nawawi, Qudsi, Bukhari, Muslim, Muwatta Malik, en arabe, français et anglais,
@@ -25,7 +29,12 @@ Plan complet du produit : [docs/PLAN.md](docs/PLAN.md).
   événements : Ramadan, Aïd, 'Arafa, Achoura, jours blancs…).
 - **Widget Android** « Horaires de prière » : prochaine prière et horaires du jour, mis à jour à
   chaque heure de prière sans ouvrir l'app.
-- **Accueil** : prochaine prière, verset et hadith du jour, adhkar, khatma, reprise de lecture.
+- **Accueil** : ciel qui suit le moment de la journée, prochaine prière en grand avec compte à
+  rebours et horaires du jour, grille d'icônes vers toutes les rubriques (Coran, Horaires, Qibla,
+  Adhkar, Tasbih, Hadiths, 99 noms, Calendrier, Khatma), puis adhkar, reprise de lecture, verset et
+  hadith du jour.
+- **Notifications** : à l'heure de chaque prière, rappel avant, adhkar du matin et du soir, khatma ;
+  bouton « Tester la notification » dans les réglages.
 - Hors-ligne, sans compte, sans publicité, sans collecte de données. Seule l'audio de récitation
   est téléchargée à la première écoute d'un verset.
 
@@ -100,6 +109,13 @@ test/                    tests unitaires, de contenu et d'interface
 sans signature). La clé du certificat se trouve dans le groupe Codemagic `sakina_env`
 (`CERTIFICATE_PRIVATE_KEY`), jamais dans ce dépôt. Les fichiers `ios/Runner/*.lproj/InfoPlist.strings`
 (message d'autorisation de localisation en FR, AR, EN) doivent être ajoutés au projet dans Xcode.
+
+## Icône de l'app
+
+Arche de mihrab crème et croissant doré sur fond émeraude, dessinée par
+`tool/icon/make_icons.py` (Pillow), qui produit aussi l'icône blanche des notifications Android.
+Après une modification : `python tool/icon/make_icons.py`, puis `dart run flutter_launcher_icons`
+(annuler ensuite la modification que l'outil fait dans `ios/Runner.xcodeproj/project.pbxproj`).
 
 ## Widget d'écran d'accueil
 

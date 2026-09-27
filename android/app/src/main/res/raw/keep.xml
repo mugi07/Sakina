@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Icône utilisée par les notifications d'adhan : à conserver lors de la
-     réduction des ressources (R8) en version finale. -->
+<!-- Ressources appelées seulement par leur nom (icône des notifications
+     d'adhan, icône du raccourci « Trouver la Qibla ») : à conserver lors de
+     la réduction des ressources (R8) en version finale. -->
 <resources xmlns:tools="http://schemas.android.com/tools"
-    tools:keep="@mipmap/ic_launcher" />
+    tools:keep="@mipmap/ic_launcher,@drawable/ic_stat_sakinah,@drawable/ic_shortcut_qibla" />

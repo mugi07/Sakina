@@ -13,6 +13,7 @@ import '../features/prayer_times/application/adhan_notifications.dart';
 import '../features/prayer_times/application/prayer_providers.dart';
 import '../features/widgets/prayer_widget.dart';
 import '../l10n/app_localizations.dart';
+import 'app_shortcuts.dart';
 import 'router.dart';
 import 'theme/app_theme.dart';
 
@@ -26,6 +27,7 @@ class SakinaApp extends ConsumerStatefulWidget {
 class _SakinaAppState extends ConsumerState<SakinaApp> {
   late final GoRouter _router = buildRouter(ref);
   late final AppLifecycleListener _lifecycle;
+  late final _shortcuts = AppShortcuts(onQibla: _openQibla);
 
   @override
   void initState() {
@@ -38,6 +40,13 @@ class _SakinaAppState extends ConsumerState<SakinaApp> {
     // reprogramme au démarrage et à chaque retour dans l'app.
     _lifecycle = AppLifecycleListener(onResume: _rescheduleAdhan);
     WidgetsBinding.instance.addPostFrameCallback((_) => _rescheduleAdhan());
+  }
+
+  /// Raccourci « Trouver la Qibla » de l'icône de l'app (sauf pendant la
+  /// bienvenue, qui doit d'abord choisir le lieu).
+  void _openQibla() {
+    if (ref.read(settingsProvider).location == null) return;
+    if (_router.state.matchedLocation != '/qibla') _router.push('/qibla');
   }
 
   @override
@@ -53,6 +62,7 @@ class _SakinaAppState extends ConsumerState<SakinaApp> {
       settings.language,
       WidgetsBinding.instance.platformDispatcher.locale,
     );
+    await _shortcuts.update(lookupAppLocalizations(locale));
     try {
       // Fuseau des rappels « à heure fixe » (khatma) : celui du lieu choisi,
       // sinon celui du téléphone.

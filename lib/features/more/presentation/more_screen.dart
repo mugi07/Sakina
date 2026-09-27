@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../l10n/app_localizations.dart';
+import '../../qibla/presentation/qibla_card.dart';
 import '../../widgets/prayer_widget.dart';
 
 class MoreScreen extends StatelessWidget {
@@ -32,6 +33,12 @@ class MoreScreen extends StatelessWidget {
             title: Text(l.tasbih),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.go('/more/tasbih'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.explore_outlined),
+            title: Text(l.findQibla),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => openQiblaCompass(context),
           ),
           entry(Icons.star_outline, l.asmaUlHusna, '/more/names'),
           entry(Icons.calendar_month_outlined, l.hijriCalendar, '/more/calendar'),

@@ -86,13 +86,18 @@ void main() {
     await _settle(tester);
 
     expect(find.text('Accueil'), findsOneWidget);
-    expect(find.text('Où êtes-vous ?'), findsOneWidget);
+    expect(find.text('As-salamu alaykum'), findsOneWidget);
+    expect(find.widgetWithText(FilledButton, 'Choisir un lieu'), findsOneWidget);
     await _unmount(tester, db);
   });
 
   testWidgets('avec Casablanca : horaires, méthode du Maroc et Qibla', (tester) async {
     final db = await _pumpApp(tester, settingsJson: _casablanca);
     expect(find.text('Prochaine prière'), findsOneWidget);
+    // Grille d'icônes de l'accueil, Qibla comprise.
+    for (final label in ['Qibla', 'Tasbih', 'Hadiths', 'Khatma', 'Calendrier hégirien']) {
+      expect(find.text(label), findsOneWidget);
+    }
 
     await tester.tap(find.text('Prière'));
     await _settle(tester);
@@ -113,7 +118,8 @@ void main() {
 
   testWidgets('Coran : page 1 en arabe, puis la même page en français seul', (tester) async {
     final db = await _pumpApp(tester, settingsJson: '{"language":"fr","onboardingDone":true}');
-    await tester.tap(find.text('Coran'));
+    // Onglet « Coran » (le mot figure aussi dans la grille de l'accueil).
+    await tester.tap(find.descendant(of: find.byType(NavigationBar), matching: find.text('Coran')));
     await _settle(tester);
     expect(find.text('Al-Faatiha'), findsOneWidget);
     expect(find.text('Juz'), findsOneWidget);

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Icône du raccourci « Trouver la Qibla » (appui long sur l'icône de
+     l'app) : boussole émeraude ; le lanceur ajoute lui-même le disque clair. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <group
+        android:scaleX="1.6"
+        android:scaleY="1.6"
+        android:translateX="4.8"
+        android:translateY="4.8">
+        <path
+            android:fillColor="#0E6B55"
+            android:pathData="M12,10.9c-0.61,0 -1.1,0.49 -1.1,1.1s0.49,1.1 1.1,1.1c0.61,0 1.1,-0.49 1.1,-1.1s-0.49,-1.1 -1.1,-1.1zM12,2C6.48,2 2,6.48 2,12s4.48,10 10,10 10,-4.48 10,-10S17.52,2 12,2zM14.19,14.19L6,18l3.81,-8.19L18,6l-3.81,8.19z" />
+    </group>
+</vector>

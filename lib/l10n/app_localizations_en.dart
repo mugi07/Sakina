@@ -501,7 +501,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get compassUnavailable =>
-      'No compass on this device. Use the angle above with a regular compass.';
+      'No compass on this device. Use the sun (below) or the angle above with a regular compass.';
 
   @override
   String get calibrateTip =>
@@ -902,4 +902,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get widgetNoLocation => 'Open Sakinah to choose your city.';
+
+  @override
+  String get findQibla => 'Find the Qibla';
+
+  @override
+  String get sunMethodTitle => 'Without a compass: use the sun';
+
+  @override
+  String sunFaceRight(String deg) {
+    return 'Face the sun, then turn $deg° to the right.';
+  }
+
+  @override
+  String sunFaceLeft(String deg) {
+    return 'Face the sun, then turn $deg° to the left.';
+  }
+
+  @override
+  String get sunFaceAhead => 'Face the sun: the Qibla is straight ahead.';
+
+  @override
+  String get sunTooHigh => 'The sun is too high to be a reliable guide. Try again a little later.';
+
+  @override
+  String sunBelowHorizon(String time) {
+    return 'The sun has set. This method works again from $time.';
+  }
+
+  @override
+  String get sunCompassCheck =>
+      'Check: the sun drawn on the compass should point at the real sun. If not, calibrate the compass.';
+
+  @override
+  String kaabaTransit(String date, String time) {
+    return 'On $date at $time, the sun will pass directly above the Kaaba: face it and you will be facing the Qibla.';
+  }
+
+  @override
+  String get qibla => 'Qibla';
+
+  @override
+  String get testNotification => 'Test notification';
+
+  @override
+  String get testNotificationHint =>
+      'Sends a notification in a few seconds to check the sound and display.';
+
+  @override
+  String get testNotificationTitle => 'Sakinah: test notification';
+
+  @override
+  String get testNotificationBody =>
+      'Notifications are working. You will be notified at each prayer time.';
+
+  @override
+  String testNotificationScheduled(int seconds) {
+    return 'Test notification in $seconds seconds: you can lock your phone.';
+  }
+
+  @override
+  String get testNotificationSent => 'Test notification sent.';
 }

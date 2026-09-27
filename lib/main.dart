@@ -29,6 +29,8 @@ Future<void> main() async {
     androidNotificationChannelId: 'com.mugi07.sakinah.recitation',
     androidNotificationChannelName: lookupAppLocalizations(locale).recitationChannel,
     androidNotificationOngoing: true,
+    // Même silhouette blanche que les notifications d'adhan.
+    androidNotificationIcon: 'drawable/ic_stat_sakinah',
   );
 
   runApp(

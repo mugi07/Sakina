@@ -310,7 +310,7 @@
       }
     }
   },
-  "compassUnavailable": "Boussole indisponible sur cet appareil. Utilisez l'angle ci-dessus avec une boussole classique.",
+  "compassUnavailable": "Boussole indisponible sur cet appareil. Utilisez le soleil (ci-dessous) ou l'angle ci-dessus avec une boussole classique.",
   "calibrateTip": "Précision faible : faites des mouvements en forme de 8 avec le téléphone pour calibrer la boussole.",
   "metalWarning": "Tenez le téléphone à plat, loin des objets métalliques, des aimants et des appareils électriques.",
   "declinationNote": "Déclinaison magnétique corrigée : {deg}°",
@@ -571,5 +571,59 @@
   },
   "confirm": "Confirmer",
   "addWidget": "Ajouter le widget à l'écran d'accueil",
-  "widgetNoLocation": "Ouvrez Sakinah pour choisir votre ville."
+  "widgetNoLocation": "Ouvrez Sakinah pour choisir votre ville.",
+  "findQibla": "Trouver la Qibla",
+  "sunMethodTitle": "Sans boussole : avec le soleil",
+  "sunFaceRight": "Faites face au soleil, puis tournez de {deg}° vers la droite.",
+  "@sunFaceRight": {
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      }
+    }
+  },
+  "sunFaceLeft": "Faites face au soleil, puis tournez de {deg}° vers la gauche.",
+  "@sunFaceLeft": {
+    "placeholders": {
+      "deg": {
+        "type": "String"
+      }
+    }
+  },
+  "sunFaceAhead": "Faites face au soleil : la Qibla est droit devant vous.",
+  "sunTooHigh": "Le soleil est trop haut pour servir de repère. Réessayez un peu plus tard.",
+  "sunBelowHorizon": "Le soleil est couché. Cette méthode fonctionne à nouveau à partir de {time}.",
+  "@sunBelowHorizon": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "sunCompassCheck": "Vérification : le soleil dessiné sur la boussole doit indiquer le vrai soleil. Sinon, calibrez la boussole.",
+  "kaabaTransit": "Le {date} à {time}, le soleil passera juste au-dessus de la Kaaba : faites-lui face et vous serez face à la Qibla.",
+  "@kaabaTransit": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "qibla": "Qibla",
+  "testNotification": "Tester la notification",
+  "testNotificationHint": "Envoie une notification dans quelques secondes pour vérifier le son et l'affichage.",
+  "testNotificationTitle": "Sakinah : notification de test",
+  "testNotificationBody": "Les notifications fonctionnent. Vous serez prévenu à l'heure de chaque prière.",
+  "testNotificationScheduled": "Notification de test dans {seconds} secondes : vous pouvez verrouiller le téléphone.",
+  "@testNotificationScheduled": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "testNotificationSent": "Notification de test envoyée."
 }

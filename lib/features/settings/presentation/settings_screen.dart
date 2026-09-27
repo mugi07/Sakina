@@ -238,6 +238,22 @@ class _AdhanSettingsState extends ConsumerState<_AdhanSettings> {
     await _refreshPermission();
   }
 
+  Future<void> _sendTest() async {
+    final l = AppLocalizations.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    final delay = await ref.read(adhanNotificationsProvider).sendTest(l);
+    await _refreshPermission();
+    messenger.showSnackBar(
+      SnackBar(
+        content: Text(switch (delay) {
+          null => l.notificationsDenied,
+          Duration.zero => l.testNotificationSent,
+          final d => l.testNotificationScheduled(d.inSeconds),
+        }),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
@@ -318,6 +334,12 @@ class _AdhanSettingsState extends ConsumerState<_AdhanSettings> {
             controller.update((s) => s.copyWith(adhkarReminders: v));
             if (v) _requestPermission();
           },
+        ),
+        ListTile(
+          leading: const Icon(Icons.notifications_active_outlined),
+          title: Text(l.testNotification),
+          subtitle: Text(l.testNotificationHint),
+          onTap: _sendTest,
         ),
       ],
     );

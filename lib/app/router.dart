@@ -75,10 +75,7 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
             GoRoute(
               path: '/prayer',
               builder: (_, _) => const PrayerTimesScreen(),
-              routes: [
-                GoRoute(path: 'month', builder: (_, _) => const MonthlyTimetableScreen()),
-                GoRoute(path: 'qibla', builder: (_, _) => const QiblaCompassScreen()),
-              ],
+              routes: [GoRoute(path: 'month', builder: (_, _) => const MonthlyTimetableScreen())],
             ),
           ],
         ),
@@ -136,6 +133,13 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
           ],
         ),
       ],
+    ),
+    // Boussole Qibla en plein écran, ouverte depuis l'accueil, l'onglet
+    // Prière, l'onglet Plus ou le raccourci de l'icône de l'app.
+    GoRoute(
+      path: '/qibla',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (_, _) => const QiblaCompassScreen(),
     ),
     GoRoute(
       path: '/location',
