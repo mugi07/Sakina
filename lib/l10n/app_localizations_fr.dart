@@ -967,4 +967,17 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get testNotificationSent => 'Notification de test envoyée.';
+
+  @override
+  String get adhanSound => 'Son de l\'adhan';
+
+  @override
+  String get adhanSoundHint =>
+      '« Allahu Akbar, Allahu Akbar » à l\'heure de chaque prière (sinon, le son du téléphone).';
+
+  @override
+  String get remindersChannelName => 'Rappels';
+
+  @override
+  String get remindersChannelDescription => 'Rappels avant la prière, adhkar et khatma';
 }

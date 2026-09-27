@@ -5,10 +5,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:sakina/app/theme/app_theme.dart';
 import 'package:sakina/core/providers.dart';
+import 'package:sakina/core/time/time_zones.dart';
 import 'package:sakina/features/qibla/presentation/qibla_compass_screen.dart';
 import 'package:sakina/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest_all.dart' as tzdata;
 
 const _casablanca =
     '{"language":"fr","onboardingDone":true,"location":{"latitude":33.5883,'
@@ -57,7 +57,7 @@ Future<void> pumpCompass(WidgetTester tester, {required DateTime now, double? he
 
 void main() {
   setUpAll(() async {
-    tzdata.initializeTimeZones();
+    initTimeZones();
     await initializeDateFormatting('fr');
   });
 
@@ -82,8 +82,9 @@ void main() {
   testWidgets('la nuit : l\'heure à laquelle le soleil sera de nouveau utilisable', (tester) async {
     await pumpCompass(tester, now: DateTime.utc(2026, 9, 27, 0), heading: 0);
     await tester.scrollUntilVisible(find.textContaining('Le soleil est couché'), 200);
-    // Lever vers 07:22 à Casablanca, soleil à 1° quelques minutes après.
-    expect(find.textContaining(RegExp(r'à partir de 07:[23]\d')), findsOneWidget);
-    expect(find.textContaining('Le 28 mai 2027 à 10:17'), findsOneWidget);
+    // Lever vers 06:22 à Casablanca (GMT depuis le 20 septembre 2026), soleil
+    // à 1° quelques minutes après.
+    expect(find.textContaining(RegExp(r'à partir de 06:[23]\d')), findsOneWidget);
+    expect(find.textContaining('Le 28 mai 2027 à 09:17'), findsOneWidget);
   });
 }

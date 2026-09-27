@@ -3,15 +3,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:sakina/core/location/saved_location.dart';
 import 'package:sakina/core/settings/app_settings.dart';
+import 'package:sakina/core/time/time_zones.dart';
 import 'package:sakina/features/prayer_times/domain/prayer_calculator.dart';
 import 'package:sakina/features/widgets/prayer_widget.dart';
 import 'package:sakina/l10n/app_localizations.dart';
-import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 void main() {
   setUpAll(() async {
-    tzdata.initializeTimeZones();
+    initTimeZones();
     // Dans l'app, les formats de date sont chargés par MaterialApp.
     await initializeDateFormatting('fr');
   });

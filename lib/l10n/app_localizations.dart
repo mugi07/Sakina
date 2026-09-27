@@ -1569,6 +1569,30 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Notification de test envoyée.'**
   String get testNotificationSent;
+
+  /// No description provided for @adhanSound.
+  ///
+  /// In fr, this message translates to:
+  /// **'Son de l\'adhan'**
+  String get adhanSound;
+
+  /// No description provided for @adhanSoundHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'« Allahu Akbar, Allahu Akbar » à l\'heure de chaque prière (sinon, le son du téléphone).'**
+  String get adhanSoundHint;
+
+  /// No description provided for @remindersChannelName.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rappels'**
+  String get remindersChannelName;
+
+  /// No description provided for @remindersChannelDescription.
+  ///
+  /// In fr, this message translates to:
+  /// **'Rappels avant la prière, adhkar et khatma'**
+  String get remindersChannelDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

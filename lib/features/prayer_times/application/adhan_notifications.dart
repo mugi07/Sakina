@@ -26,7 +26,17 @@ class AdhanNotifications {
   final FlutterLocalNotificationsPlugin _plugin;
   Future<void>? _init;
 
+  /// Rappels, adhkar et khatma (son du téléphone). Était aussi le canal
+  /// des prières avant le son d'adhan.
   static const _channelId = 'adhan_v1';
+
+  /// Heure de la prière, avec le début de l'adhan. Android ne permet plus de
+  /// changer le son d'un canal une fois créé : nouveau son, nouveau canal.
+  static const _takbirChannelId = 'adhan_takbir_v1';
+
+  /// Son : res/raw/adhan_takbir.ogg (Android), Runner/adhan_takbir.wav (iOS),
+  /// produits par tool/adhan/make_adhan_sound.py.
+  static const _takbirSound = 'adhan_takbir';
   static const _testId = 999000001;
 
   /// Couleur d'accent des notifications Android (émeraude de l'app).
@@ -136,25 +146,15 @@ class AdhanNotifications {
     if (schedule.isEmpty && khatmaTimes.isEmpty) return 0;
 
     final exact = Platform.isAndroid && (await _android?.canScheduleExactNotifications() ?? false);
-    final details = NotificationDetails(
-      android: AndroidNotificationDetails(
-        _channelId,
-        l.adhanChannelName,
-        channelDescription: l.adhanChannelDescription,
-        importance: Importance.max,
-        priority: Priority.high,
-        category: AndroidNotificationCategory.reminder,
-        color: _accent,
-      ),
-      iOS: const DarwinNotificationDetails(presentAlert: true, presentSound: true),
-    );
+    final details = _details(l, takbir: false);
+    final prayerDetails = _details(l, takbir: settings.adhanSound);
 
     for (final n in schedule) {
       final name = l.salahName(n.salah);
       await _plugin.zonedSchedule(
         id: n.id,
         scheduledDate: n.fireAt,
-        notificationDetails: details,
+        notificationDetails: n.kind == AdhanKind.prayer ? prayerDetails : details,
         androidScheduleMode: exact
             ? AndroidScheduleMode.exactAllowWhileIdle
             : AndroidScheduleMode.inexactAllowWhileIdle,
@@ -192,22 +192,11 @@ class AdhanNotifications {
   /// [testDelay] plus tard quand c'est possible à la seconde près (le temps
   /// de verrouiller le téléphone), sinon affichée tout de suite. Renvoie le
   /// délai utilisé, ou null sans autorisation.
-  Future<Duration?> sendTest(AppLocalizations l) async {
+  Future<Duration?> sendTest(AppLocalizations l, {required bool takbir}) async {
     if (!_supported) return null;
     await _ensureInitialized();
     if (!(await hasPermission() ?? true) && !await requestPermission()) return null;
-    final details = NotificationDetails(
-      android: AndroidNotificationDetails(
-        _channelId,
-        l.adhanChannelName,
-        channelDescription: l.adhanChannelDescription,
-        importance: Importance.max,
-        priority: Priority.high,
-        category: AndroidNotificationCategory.reminder,
-        color: _accent,
-      ),
-      iOS: const DarwinNotificationDetails(presentAlert: true, presentSound: true),
-    );
+    final details = _details(l, takbir: takbir);
     final exact = Platform.isIOS || (await _android?.canScheduleExactNotifications() ?? false);
     if (!exact) {
       await _plugin.show(
@@ -230,4 +219,25 @@ class AdhanNotifications {
   }
 
   static const testDelay = Duration(seconds: 10);
+
+  /// Notification d'heure de prière avec le début de l'adhan ([takbir]), ou
+  /// rappel avec le son du téléphone. Volume des notifications : le mode
+  /// silencieux du téléphone est respecté.
+  NotificationDetails _details(AppLocalizations l, {required bool takbir}) => NotificationDetails(
+    android: AndroidNotificationDetails(
+      takbir ? _takbirChannelId : _channelId,
+      takbir ? l.adhanChannelName : l.remindersChannelName,
+      channelDescription: takbir ? l.adhanChannelDescription : l.remindersChannelDescription,
+      importance: Importance.max,
+      priority: Priority.high,
+      category: AndroidNotificationCategory.reminder,
+      color: _accent,
+      sound: takbir ? const RawResourceAndroidNotificationSound(_takbirSound) : null,
+    ),
+    iOS: DarwinNotificationDetails(
+      presentAlert: true,
+      presentSound: true,
+      sound: takbir ? '$_takbirSound.wav' : null,
+    ),
+  );
 }

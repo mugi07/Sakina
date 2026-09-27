@@ -10,10 +10,10 @@ import 'package:sakina/core/database/content_database.dart';
 import 'package:sakina/core/database/hadith_database.dart';
 import 'package:sakina/core/providers.dart';
 import 'package:sakina/core/settings/app_settings.dart';
+import 'package:sakina/core/time/time_zones.dart';
 import 'package:sakina/features/prayer_times/presentation/prayer_times_screen.dart';
 import 'package:sakina/features/quran/presentation/widgets/mushaf_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest_all.dart' as tzdata;
 
 /// Lance l'app complète avec la vraie base de contenu.
 Future<ContentDatabase> _pumpApp(WidgetTester tester, {String? settingsJson}) async {
@@ -67,7 +67,7 @@ const _casablanca =
 
 void main() {
   setUpAll(() {
-    tzdata.initializeTimeZones();
+    initTimeZones();
     driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   });
 

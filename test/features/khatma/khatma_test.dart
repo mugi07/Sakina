@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sakina/core/providers.dart';
+import 'package:sakina/core/time/time_zones.dart';
 import 'package:sakina/features/khatma/application/khatma_controller.dart';
 import 'package:sakina/features/khatma/domain/khatma_plan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 void main() {
@@ -90,7 +90,7 @@ void main() {
   });
 
   test("rappels : à l'heure choisie, jusqu'à la fin du plan, pas après la fin", () {
-    tzdata.initializeTimeZones();
+    initTimeZones();
     final zone = tz.getLocation('Africa/Casablanca');
     final plan = KhatmaPlan(startDate: start, days: 3, reminderMinutes: 20 * 60);
     // 26 septembre, 21 h à Casablanca : le rappel du jour est passé.

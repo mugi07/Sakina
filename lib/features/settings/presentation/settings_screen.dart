@@ -241,7 +241,10 @@ class _AdhanSettingsState extends ConsumerState<_AdhanSettings> {
   Future<void> _sendTest() async {
     final l = AppLocalizations.of(context);
     final messenger = ScaffoldMessenger.of(context);
-    final delay = await ref.read(adhanNotificationsProvider).sendTest(l);
+    final settings = ref.read(settingsProvider);
+    final delay = await ref
+        .read(adhanNotificationsProvider)
+        .sendTest(l, takbir: settings.adhanEnabled && settings.adhanSound);
     await _refreshPermission();
     messenger.showSnackBar(
       SnackBar(
@@ -292,6 +295,13 @@ class _AdhanSettingsState extends ConsumerState<_AdhanSettings> {
             ),
           ),
         if (settings.adhanEnabled) ...[
+          SwitchListTile(
+            secondary: const Icon(Icons.volume_up_outlined),
+            title: Text(l.adhanSound),
+            subtitle: Text(l.adhanSoundHint),
+            value: settings.adhanSound,
+            onChanged: (v) => controller.update((s) => s.copyWith(adhanSound: v)),
+          ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(72, 4, 20, 4),
             child: Text(l.adhanPrayersTitle, style: TextStyle(color: scheme.onSurfaceVariant)),

@@ -3,9 +3,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 import 'package:sakina/core/location/saved_location.dart';
 import 'package:sakina/core/settings/app_settings.dart';
+import 'package:sakina/core/time/time_zones.dart';
 import 'package:sakina/features/prayer_times/domain/method_defaults.dart';
 import 'package:sakina/features/prayer_times/domain/prayer_calculator.dart';
-import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 PrayerCalculator _calculator({
@@ -31,7 +31,7 @@ Map<Salah, String> _hm(DayPrayerTimes day) => {
 };
 
 void main() {
-  setUpAll(tzdata.initializeTimeZones);
+  setUpAll(initTimeZones);
 
   // Valeurs de référence de la suite de tests d'Adhan (batoulapps/adhan-js),
   // recoupées avec des calendriers publiés. Elles vérifient aussi que la

@@ -4,17 +4,17 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:timezone/data/latest_all.dart' as tzdata;
 
 import 'app/app.dart';
 import 'core/database/content_database.dart';
 import 'core/providers.dart';
 import 'core/settings/app_locale.dart';
+import 'core/time/time_zones.dart';
 import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  tzdata.initializeTimeZones();
+  initTimeZones();
   _registerFontLicenses();
 
   final prefs = await SharedPreferences.getInstance();

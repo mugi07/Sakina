@@ -39,6 +39,7 @@ class AppSettings {
     this.adhanReminderMinutes = 0,
     this.hadithLanguage = AppLanguage.system,
     this.adhkarReminders = true,
+    this.adhanSound = true,
   });
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
@@ -62,6 +63,7 @@ class AppSettings {
       adhanReminderMinutes: json['adhanReminderMinutes'] as int? ?? 0,
       hadithLanguage: byName(AppLanguage.values, json['hadithLanguage']) ?? AppLanguage.system,
       adhkarReminders: json['adhkarReminders'] as bool? ?? true,
+      adhanSound: json['adhanSound'] as bool? ?? true,
     );
   }
 
@@ -99,6 +101,10 @@ class AppSettings {
   /// Rappels des adhkar du matin (après le Fajr) et du soir (après le Asr).
   final bool adhkarReminders;
 
+  /// Notifications de prière avec le début de l'adhan (« Allahu Akbar,
+  /// Allahu Akbar ») au lieu du son du téléphone.
+  final bool adhanSound;
+
   static const _unset = Object();
 
   /// Pour les champs nullables, passer explicitement null remet la valeur
@@ -120,6 +126,7 @@ class AppSettings {
     int? adhanReminderMinutes,
     AppLanguage? hadithLanguage,
     bool? adhkarReminders,
+    bool? adhanSound,
   }) => AppSettings(
     language: language ?? this.language,
     themeMode: themeMode ?? this.themeMode,
@@ -141,6 +148,7 @@ class AppSettings {
     adhanReminderMinutes: adhanReminderMinutes ?? this.adhanReminderMinutes,
     hadithLanguage: hadithLanguage ?? this.hadithLanguage,
     adhkarReminders: adhkarReminders ?? this.adhkarReminders,
+    adhanSound: adhanSound ?? this.adhanSound,
   );
 
   Map<String, dynamic> toJson() => {
@@ -160,5 +168,6 @@ class AppSettings {
     'adhanReminderMinutes': adhanReminderMinutes,
     'hadithLanguage': hadithLanguage.name,
     'adhkarReminders': adhkarReminders,
+    'adhanSound': adhanSound,
   };
 }

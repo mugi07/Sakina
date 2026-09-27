@@ -625,5 +625,9 @@
       }
     }
   },
-  "testNotificationSent": "Notification de test envoyée."
+  "testNotificationSent": "Notification de test envoyée.",
+  "adhanSound": "Son de l'adhan",
+  "adhanSoundHint": "« Allahu Akbar, Allahu Akbar » à l'heure de chaque prière (sinon, le son du téléphone).",
+  "remindersChannelName": "Rappels",
+  "remindersChannelDescription": "Rappels avant la prière, adhkar et khatma"
 }

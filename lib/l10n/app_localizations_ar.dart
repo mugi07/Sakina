@@ -983,4 +983,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get testNotificationSent => 'تم إرسال الإشعار التجريبي.';
+
+  @override
+  String get adhanSound => 'صوت الأذان';
+
+  @override
+  String get adhanSoundHint => '«الله أكبر، الله أكبر» عند دخول وقت كل صلاة (وإلا فصوت الهاتف).';
+
+  @override
+  String get remindersChannelName => 'التذكيرات';
+
+  @override
+  String get remindersChannelDescription => 'التذكير قبل الصلاة، والأذكار، والختمة';
 }

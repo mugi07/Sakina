@@ -50,3 +50,6 @@ app.*.map.json
 # Téléchargements bruts du pipeline de contenu (≈ 215 Mo, reproductibles)
 /tool/content_pipeline/.cache/
 *.sqlite.tmp
+
+# Enregistrement complet de l'adhan (source de tool/adhan/make_adhan_sound.py) : non publié.
+assets/Adhan/

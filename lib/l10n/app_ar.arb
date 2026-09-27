@@ -245,5 +245,9 @@
   "testNotificationTitle": "سكينة: إشعار تجريبي",
   "testNotificationBody": "الإشعارات تعمل. سيصلك تنبيه عند دخول وقت كل صلاة.",
   "testNotificationScheduled": "إشعار تجريبي بعد {seconds} ثوانٍ: يمكنك قفل الهاتف.",
-  "testNotificationSent": "تم إرسال الإشعار التجريبي."
+  "testNotificationSent": "تم إرسال الإشعار التجريبي.",
+  "adhanSound": "صوت الأذان",
+  "adhanSoundHint": "«الله أكبر، الله أكبر» عند دخول وقت كل صلاة (وإلا فصوت الهاتف).",
+  "remindersChannelName": "التذكيرات",
+  "remindersChannelDescription": "التذكير قبل الصلاة، والأذكار، والختمة"
 }

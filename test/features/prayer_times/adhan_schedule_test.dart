@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sakina/core/location/saved_location.dart';
 import 'package:sakina/core/settings/app_settings.dart';
+import 'package:sakina/core/time/time_zones.dart';
 import 'package:sakina/features/prayer_times/domain/adhan_schedule.dart';
 import 'package:sakina/features/prayer_times/domain/prayer_calculator.dart';
-import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 void main() {
@@ -21,7 +21,7 @@ void main() {
   late tz.TZDateTime now;
 
   setUpAll(() {
-    tzdata.initializeTimeZones();
+    initTimeZones();
     now = tz.TZDateTime(tz.getLocation('Africa/Casablanca'), 2026, 9, 26, 14);
   });
 

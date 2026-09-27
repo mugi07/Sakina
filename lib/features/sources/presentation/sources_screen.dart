@@ -47,6 +47,14 @@ const _fonts = <_Source>[
   ),
 ];
 
+/// Son des notifications de prière (tool/adhan/make_adhan_sound.py).
+const _adhanSound = (
+  title: 'Adhan — « Allahu Akbar, Allahu Akbar »',
+  author: 'Anas Tazi (أنس التازي), adhan à la manière marocaine',
+  license: 'Extrait de 14 s',
+  url: '',
+);
+
 class SourcesScreen extends ConsumerWidget {
   const SourcesScreen({super.key});
 
@@ -58,8 +66,16 @@ class SourcesScreen extends ConsumerWidget {
 
     Widget sourceTile(_Source s) => ListTile(
       title: Text(s.title),
-      subtitle: Text('${s.author}\n${s.license}\n${s.url}'),
+      subtitle: Text([s.author, s.license, if (s.url.isNotEmpty) s.url].join('\n')),
       isThreeLine: true,
+    );
+
+    Widget section(String title) => Padding(
+      padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 0),
+      child: Text(
+        title,
+        style: TextStyle(color: scheme.primary, fontWeight: FontWeight.w700),
+      ),
     );
 
     return Scaffold(
@@ -80,6 +96,8 @@ class SourcesScreen extends ConsumerWidget {
               ),
             ),
             ..._fonts.map(sourceTile),
+            section(l.adhanSound),
+            sourceTile(_adhanSound),
             ListTile(
               leading: const Icon(Icons.description_outlined),
               title: Text(l.softwareLicenses),

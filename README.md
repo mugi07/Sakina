@@ -33,8 +33,9 @@ Plan complet du produit : [docs/PLAN.md](docs/PLAN.md).
   rebours et horaires du jour, grille d'icônes vers toutes les rubriques (Coran, Horaires, Qibla,
   Adhkar, Tasbih, Hadiths, 99 noms, Calendrier, Khatma), puis adhkar, reprise de lecture, verset et
   hadith du jour.
-- **Notifications** : à l'heure de chaque prière, rappel avant, adhkar du matin et du soir, khatma ;
-  bouton « Tester la notification » dans les réglages.
+- **Notifications** : à l'heure de chaque prière avec le début de l'adhan (« Allahu Akbar, Allahu
+  Akbar », désactivable), rappel avant, adhkar du matin et du soir, khatma ; bouton « Tester la
+  notification » dans les réglages.
 - Hors-ligne, sans compte, sans publicité, sans collecte de données. Seule l'audio de récitation
   est téléchargée à la première écoute d'un verset.
 
@@ -116,6 +117,20 @@ Arche de mihrab crème et croissant doré sur fond émeraude, dessinée par
 `tool/icon/make_icons.py` (Pillow), qui produit aussi l'icône blanche des notifications Android.
 Après une modification : `python tool/icon/make_icons.py`, puis `dart run flutter_launcher_icons`
 (annuler ensuite la modification que l'outil fait dans `ios/Runner.xcodeproj/project.pbxproj`).
+
+## Son de l'adhan
+
+Les 14 premières secondes de l'adhan à la manière marocaine (récitation d'Anas Tazi) :
+`android/app/src/main/res/raw/adhan_takbir.ogg` et `ios/Runner/adhan_takbir.wav` (déclaré dans le
+projet Xcode). Produits par `python tool/adhan/make_adhan_sound.py <fichier.mp3>` à partir de
+l'enregistrement complet, qui n'est pas versionné (`assets/Adhan/`). Sur Android, le son d'un canal de
+notification ne peut plus changer : un nouveau son demande un nouvel identifiant de canal.
+
+## Fuseaux horaires
+
+`lib/core/time/time_zones.dart` charge la base IANA du paquet `timezone` (2025c) et y ajoute le
+retour du Maroc à GMT le 20 septembre 2026 (tzdata 2026c). À retirer quand le paquet embarquera une
+base plus récente (la correction est alors ignorée d'elle-même).
 
 ## Widget d'écran d'accueil
 

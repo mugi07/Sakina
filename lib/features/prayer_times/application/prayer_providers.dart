@@ -43,6 +43,7 @@ final adhanInputsProvider = Provider<Object>((ref) {
         (s.adhanMuted.toList()..sort()).join(','),
         s.adhanReminderMinutes,
         s.adhkarReminders,
+        s.adhanSound,
         s.language,
         s.hijriAdjustment,
         khatma,

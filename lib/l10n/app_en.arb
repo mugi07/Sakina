@@ -245,5 +245,9 @@
   "testNotificationTitle": "Sakinah: test notification",
   "testNotificationBody": "Notifications are working. You will be notified at each prayer time.",
   "testNotificationScheduled": "Test notification in {seconds} seconds: you can lock your phone.",
-  "testNotificationSent": "Test notification sent."
+  "testNotificationSent": "Test notification sent.",
+  "adhanSound": "Adhan sound",
+  "adhanSoundHint": "“Allahu Akbar, Allahu Akbar” at each prayer time (otherwise, the phone’s sound).",
+  "remindersChannelName": "Reminders",
+  "remindersChannelDescription": "Reminders before prayer, adhkar and khatma"
 }
