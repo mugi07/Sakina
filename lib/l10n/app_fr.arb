@@ -164,8 +164,8 @@
       }
     }
   },
-  "sourcesIntro": "Le contenu de Sakina provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.",
-  "privacyNote": "Sakina fonctionne entièrement sur votre téléphone : aucune donnée n'est collectée ni envoyée.",
+  "sourcesIntro": "Le contenu de Sakinah provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.",
+  "privacyNote": "Sakinah fonctionne entièrement sur votre téléphone : aucune donnée n'est collectée ni envoyée.",
   "tanzilNoticeTitle": "Avis de copyright Tanzil",
   "fontsTitle": "Polices",
   "tabSurahs": "Sourates",
@@ -629,5 +629,8 @@
   "adhanSound": "Son de l'adhan",
   "adhanSoundHint": "« Allahu Akbar, Allahu Akbar » à l'heure de chaque prière (sinon, le son du téléphone).",
   "remindersChannelName": "Rappels",
-  "remindersChannelDescription": "Rappels avant la prière, adhkar et khatma"
+  "remindersChannelDescription": "Rappels avant la prière, adhkar et khatma",
+  "dedicationTitle": "Sadaqa jariya",
+  "dedicationBasmala": "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux.",
+  "dedicationBody": "Cette application est entièrement gratuite, sans publicité.\n\nElle est une sadaqa jariya (aumône continue) pour l'âme de ma tante Zahra Hafidi, de mon oncle Mohammed Hafidi et de mon grand-père Abdellah Hafidi, qu'Allah leur fasse miséricorde.\n\nQu'Allah l'accepte, leur pardonne et les accueille au Paradis.\n\nN'oubliez pas de faire une invocation (dou'a) pour eux."
 }

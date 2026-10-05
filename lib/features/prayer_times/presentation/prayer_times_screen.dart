@@ -67,7 +67,7 @@ class _PrayerTimesScreenState extends ConsumerState<PrayerTimesScreen> {
     final date = DateTime(today.year, today.month, today.day + _dayOffset);
     final day = calculator.forDay(date);
     final next = _dayOffset == 0 ? ref.watch(nextPrayerProvider) : null;
-    final hijri = HijriDate.fromGregorian(date, adjustmentDays: settings.hijriAdjustment);
+    final hijri = HijriDate.fromGregorian(date, adjustmentDays: settings.hijriOffset);
     final config = calculator.config;
     final scheme = Theme.of(context).colorScheme;
 

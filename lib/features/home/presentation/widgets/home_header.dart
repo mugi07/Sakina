@@ -46,7 +46,7 @@ class HomeHeader extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final calculator = ref.watch(prayerCalculatorProvider);
-    final hijriAdjustment = ref.watch(settingsProvider.select((s) => s.hijriAdjustment));
+    final hijriAdjustment = ref.watch(settingsProvider.select((s) => s.hijriOffset));
     final now = ref.watch(clockProvider).value ?? DateTime.now();
     final today = calculator?.localToday(now) ?? DateTime(now.year, now.month, now.day);
     final hijri = HijriDate.fromGregorian(today, adjustmentDays: hijriAdjustment);

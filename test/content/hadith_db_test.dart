@@ -82,4 +82,27 @@ void main() {
       expect(ftsQuery('  %  '), isNull);
     });
   });
+
+  test('textes propres : ni HTML, ni titre de chapitre ou script collé', () async {
+    final junk = RegExp(
+      r'<[a-zA-Z/][^>]*>|&[a-z]+;|MOUATTA|Chapitre (?:[IVXLC]+|premier)\b|navigator\.',
+    );
+    final rows = await db.customSelect('SELECT id, text_ar, text_fr, text_en FROM hadiths').get();
+    final dirty = [
+      for (final r in rows)
+        for (final col in ['text_ar', 'text_fr', 'text_en'])
+          if (junk.hasMatch(r.readNullable<String>(col) ?? '')) '${r.read<int>('id')}:$col',
+    ];
+    expect(dirty, isEmpty);
+  });
+
+  test('chaque hadith est rangé dans un chapitre nommé', () async {
+    final unnamed = await db
+        .customSelect(
+          "SELECT book, number FROM hadith_sections WHERE trim(name_en) = '' "
+          "OR (number = 0 AND book != 'muslim')",
+        )
+        .get();
+    expect(unnamed, isEmpty);
+  });
 }

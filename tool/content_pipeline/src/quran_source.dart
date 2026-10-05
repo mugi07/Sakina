@@ -136,7 +136,9 @@ Future<QuranBuildResult> buildQuran(SourceCache cache, Database db) async {
   insertTranslation.close();
 
   // --- Index de recherche ---------------------------------------------------
-  final insertSearch = db.prepare('INSERT INTO ayah_search (rowid, ar, fr, en) VALUES (?, ?, ?, ?)');
+  final insertSearch = db.prepare(
+    'INSERT INTO ayah_search (rowid, ar, fr, en) VALUES (?, ?, ?, ?)',
+  );
   for (var i = 0; i < 6236; i++) {
     insertSearch.execute([
       i + 1,

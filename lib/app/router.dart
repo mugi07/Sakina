@@ -6,6 +6,7 @@ import '../core/providers.dart';
 import '../features/adhkar/presentation/adhkar_screens.dart';
 import '../features/asma_husna/presentation/asma_husna_screen.dart';
 import '../features/calendar/presentation/hijri_calendar_screen.dart';
+import '../features/dedication/presentation/dedication.dart';
 import '../features/hadith/presentation/hadith_screens.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/khatma/presentation/khatma_screen.dart';
@@ -107,6 +108,7 @@ GoRouter buildRouter(WidgetRef ref) => GoRouter(
                 GoRoute(path: 'tasbih', builder: (_, _) => const TasbihScreen()),
                 GoRoute(path: 'names', builder: (_, _) => const AsmaHusnaScreen()),
                 GoRoute(path: 'calendar', builder: (_, _) => const HijriCalendarScreen()),
+                GoRoute(path: 'dedication', builder: (_, _) => const DedicationScreen()),
                 GoRoute(
                   path: 'hadith',
                   builder: (_, _) => const HadithBooksScreen(),
@@ -158,38 +160,46 @@ class _TabScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    return Scaffold(
-      body: shell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: shell.currentIndex,
-        onDestinationSelected: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.home_outlined),
-            selectedIcon: const Icon(Icons.home),
-            label: l.navHome,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.menu_book_outlined),
-            selectedIcon: const Icon(Icons.menu_book),
-            label: l.navQuran,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.access_time),
-            selectedIcon: const Icon(Icons.access_time_filled),
-            label: l.navPrayer,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.self_improvement_outlined),
-            selectedIcon: const Icon(Icons.self_improvement),
-            label: l.navAdhkar,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.grid_view_outlined),
-            selectedIcon: const Icon(Icons.grid_view),
-            label: l.navMore,
-          ),
-        ],
+    // Retour depuis la racine d'un autre onglet : revenir à l'Accueil au lieu
+    // de quitter l'app (on ne quitte que depuis l'Accueil).
+    return PopScope(
+      canPop: shell.currentIndex == 0,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) shell.goBranch(0);
+      },
+      child: Scaffold(
+        body: shell,
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: shell.currentIndex,
+          onDestinationSelected: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
+          destinations: [
+            NavigationDestination(
+              icon: const Icon(Icons.home_outlined),
+              selectedIcon: const Icon(Icons.home),
+              label: l.navHome,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.menu_book_outlined),
+              selectedIcon: const Icon(Icons.menu_book),
+              label: l.navQuran,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.access_time),
+              selectedIcon: const Icon(Icons.access_time_filled),
+              label: l.navPrayer,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.self_improvement_outlined),
+              selectedIcon: const Icon(Icons.self_improvement),
+              label: l.navAdhkar,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.grid_view_outlined),
+              selectedIcon: const Icon(Icons.grid_view),
+              label: l.navMore,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -78,6 +78,10 @@ void main() {
 
     await tester.tap(find.text('Continuer'));
     await _settle(tester);
+    // Dédicace (sadaqa jariya).
+    expect(find.textContaining('Zahra Hafidi'), findsOneWidget);
+    await tester.tap(find.text('Continuer'));
+    await _settle(tester);
     expect(find.text('Votre ville'), findsOneWidget);
     await tester.tap(find.text('Plus tard'));
     await _settle(tester);

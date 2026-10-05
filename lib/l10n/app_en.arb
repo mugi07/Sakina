@@ -81,8 +81,8 @@
   "anglesFajrIsha": "Fajr {fajr}° · Isha {isha}°",
   "anglesFajrIshaInterval": "Fajr {fajr}° · Isha {minutes} min after Maghrib",
   "calcMethodName": "{method, select, algerian{Algeria (Ministry of Religious Affairs)} dubai{Dubai} egyptian{Egyptian General Authority of Survey} france{France (UOIF)} gulfRegion{Gulf Region} indonesian{Indonesia (KEMENAG)} jafari{Ja'fari (Qum)} jordan{Jordan} karachi{University of Islamic Sciences, Karachi} kuwait{Kuwait} moonsightingCommittee{Moonsighting Committee} morocco{Morocco (Ministry of Habous)} muslimWorldLeague{Muslim World League} northAmerica{North America (ISNA)} portugal{Portugal (Islamic Community of Lisbon)} qatar{Qatar} russia{Russia} singapore{Singapore (MUIS)} tehran{Tehran} tunisia{Tunisia} turkiye{Türkiye (Diyanet)} ummAlQura{Umm al-Qura (Makkah)} other{Custom}}",
-  "sourcesIntro": "Sakina's content comes from recognized sources. The Quran text is reproduced without any modification.",
-  "privacyNote": "Sakina runs entirely on your phone: no data is collected or sent.",
+  "sourcesIntro": "Sakinah's content comes from recognized sources. The Quran text is reproduced without any modification.",
+  "privacyNote": "Sakinah runs entirely on your phone: no data is collected or sent.",
   "tanzilNoticeTitle": "Tanzil copyright notice",
   "fontsTitle": "Fonts",
   "tabSurahs": "Surahs",
@@ -249,5 +249,8 @@
   "adhanSound": "Adhan sound",
   "adhanSoundHint": "“Allahu Akbar, Allahu Akbar” at each prayer time (otherwise, the phone’s sound).",
   "remindersChannelName": "Reminders",
-  "remindersChannelDescription": "Reminders before prayer, adhkar and khatma"
+  "remindersChannelDescription": "Reminders before prayer, adhkar and khatma",
+  "dedicationTitle": "Sadaqa jariya",
+  "dedicationBasmala": "In the name of Allah, the Most Gracious, the Most Merciful.",
+  "dedicationBody": "This app is completely free, with no ads.\n\nIt is a sadaqa jariya (ongoing charity) for the souls of my aunt Zahra Hafidi, my uncle Mohammed Hafidi and my grandfather Abdellah Hafidi, may Allah have mercy on them.\n\nMay Allah accept it, forgive them and grant them Paradise.\n\nPlease remember them in your du'a."
 }

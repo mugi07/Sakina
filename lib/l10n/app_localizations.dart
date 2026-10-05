@@ -583,13 +583,13 @@ abstract class AppLocalizations {
   /// No description provided for @sourcesIntro.
   ///
   /// In fr, this message translates to:
-  /// **'Le contenu de Sakina provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.'**
+  /// **'Le contenu de Sakinah provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.'**
   String get sourcesIntro;
 
   /// No description provided for @privacyNote.
   ///
   /// In fr, this message translates to:
-  /// **'Sakina fonctionne entièrement sur votre téléphone : aucune donnée n\'est collectée ni envoyée.'**
+  /// **'Sakinah fonctionne entièrement sur votre téléphone : aucune donnée n\'est collectée ni envoyée.'**
   String get privacyNote;
 
   /// No description provided for @tanzilNoticeTitle.
@@ -1593,6 +1593,24 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Rappels avant la prière, adhkar et khatma'**
   String get remindersChannelDescription;
+
+  /// No description provided for @dedicationTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Sadaqa jariya'**
+  String get dedicationTitle;
+
+  /// No description provided for @dedicationBasmala.
+  ///
+  /// In fr, this message translates to:
+  /// **'Au nom d\'Allah, le Tout Miséricordieux, le Très Miséricordieux.'**
+  String get dedicationBasmala;
+
+  /// No description provided for @dedicationBody.
+  ///
+  /// In fr, this message translates to:
+  /// **'Cette application est entièrement gratuite, sans publicité.\n\nElle est une sadaqa jariya (aumône continue) pour l\'âme de ma tante Zahra Hafidi, de mon oncle Mohammed Hafidi et de mon grand-père Abdellah Hafidi, qu\'Allah leur fasse miséricorde.\n\nQu\'Allah l\'accepte, leur pardonne et les accueille au Paradis.\n\nN\'oubliez pas de faire une invocation (dou\'a) pour eux.'**
+  String get dedicationBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

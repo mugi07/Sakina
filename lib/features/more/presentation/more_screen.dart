@@ -42,6 +42,7 @@ class MoreScreen extends StatelessWidget {
           ),
           entry(Icons.star_outline, l.asmaUlHusna, '/more/names'),
           entry(Icons.calendar_month_outlined, l.hijriCalendar, '/more/calendar'),
+          entry(Icons.volunteer_activism_outlined, l.dedicationTitle, '/more/dedication'),
           FutureBuilder<bool>(
             future: canPinPrayerWidget(),
             builder: (context, snapshot) => snapshot.data ?? false

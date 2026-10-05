@@ -24,7 +24,7 @@ class _HijriCalendarScreenState extends ConsumerState<HijriCalendarScreen> {
     final l = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final lang = Localizations.localeOf(context).languageCode;
-    final adjustment = ref.watch(settingsProvider.select((s) => s.hijriAdjustment));
+    final adjustment = ref.watch(settingsProvider.select((s) => s.hijriOffset));
     final scheme = Theme.of(context).colorScheme;
 
     final now = DateTime.now();

@@ -88,7 +88,7 @@ class _SakinaAppState extends ConsumerState<SakinaApp> {
           location: settings.location,
           l: lookupAppLocalizations(locale),
           locale: locale.toLanguageTag(),
-          hijriAdjustment: settings.hijriAdjustment,
+          hijriAdjustment: settings.hijriOffset,
           now: DateTime.now(),
         ),
       );

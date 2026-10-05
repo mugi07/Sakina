@@ -5,13 +5,19 @@ import 'package:sakina/core/text/search_normalizer.dart';
 import 'package:sqlite3/sqlite3.dart';
 
 import 'downloads.dart';
+import 'hadith_cleaning.dart';
 
 const _base = 'https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions';
 
 /// Recueils embarqués, dans l'ordre d'affichage. Noms en arabe, français,
 /// anglais. (Abu Dawud, Nasa'i, Ibn Majah : prévus en V2, trop volumineux.)
 const hadithBooks = [
-  (id: 'nawawi', ar: 'الأربعون النووية', fr: 'Les 40 hadiths de an-Nawawi', en: 'Forty Hadith of an-Nawawi'),
+  (
+    id: 'nawawi',
+    ar: 'الأربعون النووية',
+    fr: 'Les 40 hadiths de an-Nawawi',
+    en: 'Forty Hadith of an-Nawawi',
+  ),
   (id: 'qudsi', ar: 'الأحاديث القدسية', fr: '40 hadiths qudsi', en: 'Forty Hadith Qudsi'),
   (id: 'bukhari', ar: 'صحيح البخاري', fr: 'Sahih al-Bukhari', en: 'Sahih al-Bukhari'),
   (id: 'muslim', ar: 'صحيح مسلم', fr: 'Sahih Muslim', en: 'Sahih Muslim'),
@@ -35,9 +41,39 @@ Future<_Edition> _edition(SourceCache cache, String name) async {
     for (final MapEntry(:key, :value) in (metadata['sections'] as Map<String, dynamic>).entries)
       int.parse(key): value as String,
   };
+  // Plages de numéros de chaque chapitre : certains hadiths ont une référence
+  // vide (chapitre 0) alors que leur numéro tombe dans un chapitre connu.
+  final ranges = [
+    for (final MapEntry(:key, :value)
+        in ((metadata['section_details'] ?? <String, dynamic>{}) as Map<String, dynamic>).entries)
+      if (int.parse(key) != 0)
+        (
+          section: int.parse(key),
+          first: (value as Map<String, dynamic>)['hadithnumber_first'] as num,
+          last: value['hadithnumber_last'] as num,
+        ),
+  ];
+  // Sinon (numéro entre deux plages), le chapitre qui précède.
+  int sectionOf(num number, int reference) {
+    if (reference != 0) return reference;
+    final zero =
+        (metadata['section_details'] as Map<String, dynamic>?)?['0'] as Map<String, dynamic>?;
+    if (zero != null &&
+        number >= (zero['hadithnumber_first'] as num) &&
+        number <= (zero['hadithnumber_last'] as num)) {
+      return 0; // Vrai chapitre 0 (introduction de Sahih Muslim).
+    }
+    var best = 0;
+    num bestFirst = -1;
+    for (final r in ranges) {
+      if (r.first <= number && r.first > bestFirst) (best, bestFirst) = (r.section, r.first);
+    }
+    return best;
+  }
+
   final hadiths = <num, _Hadith>{};
   for (final h in (json['hadiths'] as List<dynamic>).cast<Map<String, dynamic>>()) {
-    final text = (h['text'] as String).trim();
+    final text = cleanHadithText(h['text'] as String);
     if (text.isEmpty) continue;
     final grades = (h['grades'] as List<dynamic>)
         .cast<Map<String, dynamic>>()
@@ -46,7 +82,7 @@ Future<_Edition> _edition(SourceCache cache, String name) async {
     final number = h['hadithnumber'] as num;
     hadiths[number] = (
       number: number,
-      section: (h['reference'] as Map<String, dynamic>)['book'] as int,
+      section: sectionOf(number, (h['reference'] as Map<String, dynamic>)['book'] as int),
       text: text,
       grades: grades.isEmpty ? null : grades,
     );
@@ -76,15 +112,21 @@ Future<Map<String, int>> buildHadiths(SourceCache cache, Database db) async {
     final numbers = {...ar.hadiths.keys, ...fr.hadiths.keys, ...en.hadiths.keys}.toList()..sort();
     final perSection = <int, int>{};
     for (final number in numbers) {
-      final any = ar.hadiths[number] ?? fr.hadiths[number] ?? en.hadiths[number]!;
+      // Certaines éditions perdent le numéro de chapitre (0) : prendre celui
+      // d'une autre édition quand elle l'a (sinon « chapitre 0 » sans nom).
+      final section = [
+        en.hadiths[number]?.section,
+        ar.hadiths[number]?.section,
+        fr.hadiths[number]?.section,
+      ].firstWhere((s) => s != null && s != 0, orElse: () => 0)!;
       id++;
-      perSection[any.section] = (perSection[any.section] ?? 0) + 1;
+      perSection[section] = (perSection[section] ?? 0) + 1;
       final grades = en.hadiths[number]?.grades ?? ar.hadiths[number]?.grades;
       insertHadith.execute([
         id,
         book.id,
         number,
-        any.section,
+        section,
         ar.hadiths[number]?.text,
         fr.hadiths[number]?.text,
         en.hadiths[number]?.text,

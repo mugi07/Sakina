@@ -316,10 +316,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourcesIntro =>
-      'Sakina\'s content comes from recognized sources. The Quran text is reproduced without any modification.';
+      'Sakinah\'s content comes from recognized sources. The Quran text is reproduced without any modification.';
 
   @override
-  String get privacyNote => 'Sakina runs entirely on your phone: no data is collected or sent.';
+  String get privacyNote => 'Sakinah runs entirely on your phone: no data is collected or sent.';
 
   @override
   String get tanzilNoticeTitle => 'Tanzil copyright notice';
@@ -976,4 +976,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get remindersChannelDescription => 'Reminders before prayer, adhkar and khatma';
+
+  @override
+  String get dedicationTitle => 'Sadaqa jariya';
+
+  @override
+  String get dedicationBasmala => 'In the name of Allah, the Most Gracious, the Most Merciful.';
+
+  @override
+  String get dedicationBody =>
+      'This app is completely free, with no ads.\n\nIt is a sadaqa jariya (ongoing charity) for the souls of my aunt Zahra Hafidi, my uncle Mohammed Hafidi and my grandfather Abdellah Hafidi, may Allah have mercy on them.\n\nMay Allah accept it, forgive them and grant them Paradise.\n\nPlease remember them in your du\'a.';
 }

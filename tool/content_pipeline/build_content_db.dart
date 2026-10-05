@@ -139,7 +139,9 @@ Future<void> _buildDatabase({
       '${const JsonEncoder.withIndent('  ').convert({'content_version': version, 'schema_version': schemaVersion, 'sha256': sha})}\n',
     );
     final sizeMb = (out.lengthSync() / (1024 * 1024)).toStringAsFixed(1);
-    stdout.writeln('✓ ${p.basename(out.path)} : $sizeMb Mo · ${result.summary} · version $version\n');
+    stdout.writeln(
+      '✓ ${p.basename(out.path)} : $sizeMb Mo · ${result.summary} · version $version\n',
+    );
   } catch (e, st) {
     // Nettoyage au mieux, sans masquer l'erreur d'origine.
     try {

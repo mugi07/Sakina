@@ -98,12 +98,16 @@ class SettingsScreen extends ConsumerWidget {
                 : l.highLatitudeRuleName(r),
             onChanged: (v) => controller.update((s) => s.copyWith(highLatitudeRule: v)),
           ),
-          _ChoiceTile<int>(
+          _ChoiceTile<int?>(
             icon: Icons.nightlight_outlined,
             title: l.hijriAdjustment,
             value: settings.hijriAdjustment,
-            options: const [-2, -1, 0, 1, 2],
-            labelOf: hijriAdjustmentLabel,
+            options: const [null, -2, -1, 0, 1, 2],
+            labelOf: (v) => v == null
+                ? l.autoMethod(
+                    hijriAdjustmentLabel(defaultHijriAdjustment(settings.location?.countryCode)),
+                  )
+                : hijriAdjustmentLabel(v),
             onChanged: (v) => controller.update((s) => s.copyWith(hijriAdjustment: v)),
           ),
           _SectionTitle(l.sectionAdhan),

@@ -29,7 +29,7 @@ class AppSettings {
     this.calculationMethod,
     this.madhab,
     this.highLatitudeRule,
-    this.hijriAdjustment = 0,
+    this.hijriAdjustment,
     this.quranLanguage = QuranLanguage.arabic,
     this.arabicFontScale = 1.0,
     this.lastReadPage,
@@ -53,7 +53,9 @@ class AppSettings {
       calculationMethod: byName(CalculationMethod.values, json['calculationMethod']),
       madhab: byName(Madhab.values, json['madhab']),
       highLatitudeRule: byName(HighLatitudeRule.values, json['highLatitudeRule']),
-      hijriAdjustment: json['hijriAdjustment'] as int? ?? 0,
+      // Nouvelle clé : l'ancienne valait 0 par défaut, sans distinguer un
+      // choix de l'utilisateur de l'absence de choix.
+      hijriAdjustment: json['hijriOffset'] as int?,
       quranLanguage: byName(QuranLanguage.values, json['quranLanguage']) ?? QuranLanguage.arabic,
       arabicFontScale: (json['arabicFontScale'] as num?)?.toDouble() ?? 1.0,
       lastReadPage: json['lastReadPage'] as int?,
@@ -74,9 +76,12 @@ class AppSettings {
   final Madhab? madhab;
   final HighLatitudeRule? highLatitudeRule;
 
-  /// Décalage du calendrier hégirien en jours (−2 à +2), pour s'aligner
-  /// sur l'observation locale du croissant.
-  final int hijriAdjustment;
+  /// Décalage du calendrier hégirien choisi par l'utilisateur (−2 à +2
+  /// jours) ; null : automatique selon le pays (voir [hijriOffset]).
+  final int? hijriAdjustment;
+
+  /// Décalage effectif par rapport au calendrier Umm al-Qura.
+  int get hijriOffset => hijriAdjustment ?? defaultHijriAdjustment(location?.countryCode);
   final QuranLanguage quranLanguage;
   final double arabicFontScale;
 
@@ -116,7 +121,7 @@ class AppSettings {
     Object? calculationMethod = _unset,
     Object? madhab = _unset,
     Object? highLatitudeRule = _unset,
-    int? hijriAdjustment,
+    Object? hijriAdjustment = _unset,
     QuranLanguage? quranLanguage,
     double? arabicFontScale,
     Object? lastReadPage = _unset,
@@ -138,7 +143,7 @@ class AppSettings {
     highLatitudeRule: highLatitudeRule == _unset
         ? this.highLatitudeRule
         : highLatitudeRule as HighLatitudeRule?,
-    hijriAdjustment: hijriAdjustment ?? this.hijriAdjustment,
+    hijriAdjustment: hijriAdjustment == _unset ? this.hijriAdjustment : hijriAdjustment as int?,
     quranLanguage: quranLanguage ?? this.quranLanguage,
     arabicFontScale: arabicFontScale ?? this.arabicFontScale,
     lastReadPage: lastReadPage == _unset ? this.lastReadPage : lastReadPage as int?,
@@ -158,7 +163,7 @@ class AppSettings {
     'calculationMethod': calculationMethod?.name,
     'madhab': madhab?.name,
     'highLatitudeRule': highLatitudeRule?.name,
-    'hijriAdjustment': hijriAdjustment,
+    'hijriOffset': hijriAdjustment,
     'quranLanguage': quranLanguage.name,
     'arabicFontScale': arabicFontScale,
     'lastReadPage': lastReadPage,
@@ -171,3 +176,12 @@ class AppSettings {
     'adhanSound': adhanSound,
   };
 }
+
+/// Décalage hégirien par défaut selon le pays. Maroc : le ministère des
+/// Habous fixe le début des mois par l'observation du croissant, en général
+/// un jour après le calendrier Umm al-Qura (1er Moharram 1448 le 17 juin
+/// 2026, 1er Rabi' al-Akhir le 13 septembre 2026).
+int defaultHijriAdjustment(String? countryCode) => switch (countryCode) {
+  'MA' => -1,
+  _ => 0,
+};

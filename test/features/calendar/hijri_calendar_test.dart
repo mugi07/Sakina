@@ -1,10 +1,34 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sakina/core/calendar/hijri_date.dart';
+import 'package:sakina/core/location/saved_location.dart';
+import 'package:sakina/core/settings/app_settings.dart';
 import 'package:sakina/features/asma_husna/domain/asma_husna.dart';
 import 'package:sakina/features/calendar/domain/islamic_events.dart';
 
 void main() {
   group('calendrier hégirien (Umm al-Qura)', () {
+    test('Maroc : un jour après Umm al-Qura, comme les annonces des Habous', () {
+      const casablanca = SavedLocation(
+        latitude: 33.5883,
+        longitude: -7.6114,
+        timezone: 'Africa/Casablanca',
+        countryCode: 'MA',
+        name: 'Casablanca',
+      );
+      const settings = AppSettings(location: casablanca);
+      expect(settings.hijriOffset, -1);
+      HijriDate morocco(DateTime d) =>
+          HijriDate.fromGregorian(d, adjustmentDays: settings.hijriOffset);
+      // 1er Moharram 1448 : mercredi 17 juin 2026 ; 1er Rabi' al-Akhir :
+      // dimanche 13 septembre 2026 (ministère des Habous).
+      expect(morocco(DateTime(2026, 6, 17)), const HijriDate(1448, 1, 1));
+      expect(morocco(DateTime(2026, 9, 13)), const HijriDate(1448, 4, 1));
+      expect(morocco(DateTime(2026, 10, 5)), const HijriDate(1448, 4, 23));
+      // Choix manuel prioritaire ; ailleurs, pas de décalage par défaut.
+      expect(settings.copyWith(hijriAdjustment: 0).hijriOffset, 0);
+      expect(const AppSettings().hijriOffset, 0);
+    });
+
     test('conversion aller-retour sur 1447 et 1448, avec ou sans ajustement', () {
       for (final adjustment in [-1, 0, 1]) {
         for (final year in [1447, 1448]) {

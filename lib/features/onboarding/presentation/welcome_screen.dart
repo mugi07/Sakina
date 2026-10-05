@@ -6,9 +6,11 @@ import '../../../app/theme/app_theme.dart';
 import '../../../core/providers.dart';
 import '../../../core/settings/app_settings.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../dedication/presentation/dedication.dart';
 import '../../prayer_times/application/adhan_notifications.dart';
 
-/// Premier lancement, en trois étapes : langue, ville, notifications.
+/// Premier lancement, en quatre étapes : langue, dédicace (sadaqa jariya),
+/// ville, notifications.
 class WelcomeScreen extends ConsumerStatefulWidget {
   const WelcomeScreen({super.key});
 
@@ -53,7 +55,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  for (var i = 0; i < 3; i++)
+                  for (var i = 0; i < 4; i++)
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -107,6 +109,13 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                           ),
                       ],
                     ),
+                    actions: [FilledButton(onPressed: _next, child: Text(l.continueLabel))],
+                  ),
+                  _Step(
+                    icon: Icons.volunteer_activism_outlined,
+                    title: l.dedicationTitle,
+                    subtitle: '',
+                    body: const DedicationText(),
                     actions: [FilledButton(onPressed: _next, child: Text(l.continueLabel))],
                   ),
                   _Step(
@@ -209,12 +218,14 @@ class _Step extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: titleStyle ?? Theme.of(context).textTheme.headlineSmall,
                   ),
-                  const SizedBox(height: 12),
-                  Text(
-                    subtitle,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 15),
-                  ),
+                  if (subtitle.isNotEmpty) ...[
+                    const SizedBox(height: 12),
+                    Text(
+                      subtitle,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 15),
+                    ),
+                  ],
                   const SizedBox(height: 32),
                   body,
                 ],

@@ -995,4 +995,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get remindersChannelDescription => 'التذكير قبل الصلاة، والأذكار، والختمة';
+
+  @override
+  String get dedicationTitle => 'صدقة جارية';
+
+  @override
+  String get dedicationBasmala => 'بسم الله الرحمن الرحيم';
+
+  @override
+  String get dedicationBody =>
+      'هذا التطبيق مجاني بالكامل، بدون إعلانات.\n\nوهو صدقة جارية على روح عمتي زهرة حفيظي، وعمي محمد حفيظي، وجدي عبد الله حفيظي، رحمهم الله.\n\nنسأل الله أن يتقبّله، وأن يرحمهم ويغفر لهم ويجعل الجنة مثواهم.\n\nلا تنسوهم من صالح دعائكم.';
 }

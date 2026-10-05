@@ -25,7 +25,7 @@ class _MonthlyTimetableScreenState extends ConsumerState<MonthlyTimetableScreen>
     final l = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final calculator = ref.watch(prayerCalculatorProvider);
-    final hijriAdjustment = ref.watch(settingsProvider.select((s) => s.hijriAdjustment));
+    final hijriAdjustment = ref.watch(settingsProvider.select((s) => s.hijriOffset));
     final scheme = Theme.of(context).colorScheme;
 
     if (calculator == null) {

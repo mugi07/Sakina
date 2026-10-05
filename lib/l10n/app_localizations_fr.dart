@@ -317,11 +317,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sourcesIntro =>
-      'Le contenu de Sakina provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.';
+      'Le contenu de Sakinah provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.';
 
   @override
   String get privacyNote =>
-      'Sakina fonctionne entièrement sur votre téléphone : aucune donnée n\'est collectée ni envoyée.';
+      'Sakinah fonctionne entièrement sur votre téléphone : aucune donnée n\'est collectée ni envoyée.';
 
   @override
   String get tanzilNoticeTitle => 'Avis de copyright Tanzil';
@@ -980,4 +980,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get remindersChannelDescription => 'Rappels avant la prière, adhkar et khatma';
+
+  @override
+  String get dedicationTitle => 'Sadaqa jariya';
+
+  @override
+  String get dedicationBasmala =>
+      'Au nom d\'Allah, le Tout Miséricordieux, le Très Miséricordieux.';
+
+  @override
+  String get dedicationBody =>
+      'Cette application est entièrement gratuite, sans publicité.\n\nElle est une sadaqa jariya (aumône continue) pour l\'âme de ma tante Zahra Hafidi, de mon oncle Mohammed Hafidi et de mon grand-père Abdellah Hafidi, qu\'Allah leur fasse miséricorde.\n\nQu\'Allah l\'accepte, leur pardonne et les accueille au Paradis.\n\nN\'oubliez pas de faire une invocation (dou\'a) pour eux.';
 }
