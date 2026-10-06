@@ -4,6 +4,10 @@
 //
 // Produit tool/store_screenshots/out/<appareil>/<langue>/NN_<écran>.png aux
 // tailles demandées par App Store Connect (iPhone 6,9" et iPad 13").
+// Outil lancé avec flutter test, hors du dossier test/ : l'analyseur ne le
+// reconnaît pas comme un test.
+// ignore_for_file: invalid_use_of_visible_for_testing_member
+import 'dart:async';
 import 'dart:io';
 
 import 'package:drift/drift.dart' show driftRuntimeOptions;
@@ -111,7 +115,7 @@ void main() {
           }
           final router = GoRouter.of(tester.element(find.byType(Scaffold).first));
           if (location == '/qibla') {
-            router.push(location);
+            unawaited(router.push<void>(location));
           } else {
             router.go(location);
           }
