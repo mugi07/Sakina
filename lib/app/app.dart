@@ -114,6 +114,25 @@ class _SakinaAppState extends ConsumerState<SakinaApp> {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       localeResolutionCallback: (device, _) => resolveAppLocale(AppLanguage.system, device),
       routerConfig: _router,
+      // Tablette : l'app reste une colonne lisible, centrée (lignes de texte
+      // et boussole à taille humaine), le reste de l'écran à la couleur du fond.
+      builder: (context, child) {
+        const maxWidth = 760.0;
+        final media = MediaQuery.of(context);
+        if (media.size.width <= maxWidth) return child!;
+        return ColoredBox(
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          child: Center(
+            child: SizedBox(
+              width: maxWidth,
+              child: MediaQuery(
+                data: media.copyWith(size: Size(maxWidth, media.size.height)),
+                child: ClipRect(child: child),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
