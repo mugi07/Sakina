@@ -10,7 +10,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Sakinah';
+  String get appTitle => 'Zahrae Noor  —  زهراء نور';
 
   @override
   String get navHome => 'Home';
@@ -316,10 +316,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourcesIntro =>
-      'Sakinah\'s content comes from recognized sources. The Quran text is reproduced without any modification.';
+      'Zahrae Noor  —  زهراء نور\'s content comes from recognized sources. The Quran text is reproduced without any modification.';
 
   @override
-  String get privacyNote => 'Sakinah runs entirely on your phone: no data is collected or sent.';
+  String get privacyNote =>
+      'Zahrae Noor  —  زهراء نور runs entirely on your phone: no data is collected or sent.';
 
   @override
   String get tanzilNoticeTitle => 'Tanzil copyright notice';
@@ -901,7 +902,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addWidget => 'Add widget to home screen';
 
   @override
-  String get widgetNoLocation => 'Open Sakinah to choose your city.';
+  String get widgetNoLocation => 'Open Zahrae Noor  —  زهراء نور to choose your city.';
 
   @override
   String get findQibla => 'Find the Qibla';
@@ -950,7 +951,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Sends a notification in a few seconds to check the sound and display.';
 
   @override
-  String get testNotificationTitle => 'Sakinah: test notification';
+  String get testNotificationTitle => 'Zahrae Noor  —  زهراء نور: test notification';
 
   @override
   String get testNotificationBody =>

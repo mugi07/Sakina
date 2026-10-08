@@ -1,6 +1,6 @@
 {
   "@@locale": "fr",
-  "appTitle": "Sakinah",
+  "appTitle": "Zahrae Noor  —  زهراء نور",
   "navHome": "Accueil",
   "navQuran": "Coran",
   "navPrayer": "Prière",
@@ -164,8 +164,8 @@
       }
     }
   },
-  "sourcesIntro": "Le contenu de Sakinah provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.",
-  "privacyNote": "Sakinah fonctionne entièrement sur votre téléphone : aucune donnée n'est collectée ni envoyée.",
+  "sourcesIntro": "Le contenu de Zahrae Noor  —  زهراء نور provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.",
+  "privacyNote": "Zahrae Noor  —  زهراء نور fonctionne entièrement sur votre téléphone : aucune donnée n'est collectée ni envoyée.",
   "tanzilNoticeTitle": "Avis de copyright Tanzil",
   "fontsTitle": "Polices",
   "tabSurahs": "Sourates",
@@ -571,7 +571,7 @@
   },
   "confirm": "Confirmer",
   "addWidget": "Ajouter le widget à l'écran d'accueil",
-  "widgetNoLocation": "Ouvrez Sakinah pour choisir votre ville.",
+  "widgetNoLocation": "Ouvrez Zahrae Noor  —  زهراء نور pour choisir votre ville.",
   "findQibla": "Trouver la Qibla",
   "sunMethodTitle": "Sans boussole : avec le soleil",
   "sunFaceRight": "Faites face au soleil, puis tournez de {deg}° vers la droite.",
@@ -615,7 +615,7 @@
   "qibla": "Qibla",
   "testNotification": "Tester la notification",
   "testNotificationHint": "Envoie une notification dans quelques secondes pour vérifier le son et l'affichage.",
-  "testNotificationTitle": "Sakinah : notification de test",
+  "testNotificationTitle": "Zahrae Noor  —  زهراء نور : notification de test",
   "testNotificationBody": "Les notifications fonctionnent. Vous serez prévenu à l'heure de chaque prière.",
   "testNotificationScheduled": "Notification de test dans {seconds} secondes : vous pouvez verrouiller le téléphone.",
   "@testNotificationScheduled": {

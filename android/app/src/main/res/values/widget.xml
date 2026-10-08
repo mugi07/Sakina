@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="widget_prayer_description">Next prayer and today\'s prayer times</string>
-    <string name="widget_loading">Sakinah</string>
+    <string name="widget_loading">Zahrae Noor  —  زهراء نور</string>
 
     <style name="WidgetPrayerColumn">
         <item name="android:layout_width">0dp</item>

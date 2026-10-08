@@ -154,7 +154,7 @@ class RecitationController extends Notifier<RecitationState> {
       id: '${reciter.folder}/${ayahAudioFile(item.surah, item.number)}',
       title: titleOf(item.surah, item.number),
       artist: reciter.nameLatin,
-      album: 'Sakinah',
+      album: 'Zahrae Noor  —  زهراء نور',
     );
     if (cache.existsSync() && cache.lengthSync() > 0) {
       return AudioSource.file(cache.path, tag: tag);

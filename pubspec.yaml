@@ -1,8 +1,8 @@
 name: sakina
-description: "Sakina - Coran, horaires de prière, Qibla, adhkar et hadiths"
+description: "Zahrae Noor  —  زهراء نور - Coran, horaires de prière, Qibla, adhkar et hadiths"
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.13.0
@@ -81,4 +81,4 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   adaptive_icon_background: "tool/icon/app_icon_background.png"
   adaptive_icon_foreground: "tool/icon/app_icon_foreground.png"
-  adaptive_icon_monochrome: "tool/icon/app_icon_monochrome.png"
+  adaptive_icon_foreground_inset: 22

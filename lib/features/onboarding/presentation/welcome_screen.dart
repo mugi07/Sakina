@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../app/theme/app_theme.dart';
 import '../../../core/providers.dart';
 import '../../../core/settings/app_settings.dart';
 import '../../../l10n/app_localizations.dart';
@@ -76,10 +75,10 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                 children: [
                   _Step(
                     icon: null,
-                    title: 'سكينة',
+                    title: l.appTitle,
                     titleStyle: TextStyle(
-                      fontFamily: quranFontFamily,
-                      fontSize: 56,
+                      fontFamily: Theme.of(context).textTheme.headlineMedium?.fontFamily,
+                      fontSize: 32,
                       color: scheme.primary,
                     ),
                     subtitle: l.welcomeTagline,

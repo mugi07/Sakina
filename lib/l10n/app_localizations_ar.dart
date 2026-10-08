@@ -10,7 +10,7 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appTitle => 'سكينة';
+  String get appTitle => 'Zahrae Noor  —  زهراء نور';
 
   @override
   String get navHome => 'الرئيسية';
@@ -321,10 +321,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sourcesIntro =>
-      'محتوى سكينة مأخوذ من مصادر موثوقة. نص القرآن الكريم منقول دون أي تعديل.';
+      'محتوى Zahrae Noor  —  زهراء نور مأخوذ من مصادر موثوقة. نص القرآن الكريم منقول دون أي تعديل.';
 
   @override
-  String get privacyNote => 'يعمل تطبيق سكينة بالكامل على هاتفك: لا يتم جمع أي بيانات ولا إرسالها.';
+  String get privacyNote =>
+      'يعمل تطبيق Zahrae Noor  —  زهراء نور بالكامل على هاتفك: لا يتم جمع أي بيانات ولا إرسالها.';
 
   @override
   String get tanzilNoticeTitle => 'إشعار حقوق مشروع تنزيل';
@@ -923,7 +924,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addWidget => 'إضافة الأداة إلى الشاشة الرئيسية';
 
   @override
-  String get widgetNoLocation => 'افتح سكينة لاختيار مدينتك.';
+  String get widgetNoLocation => 'افتح Zahrae Noor  —  زهراء نور لاختيار مدينتك.';
 
   @override
   String get findQibla => 'تحديد القبلة';
@@ -971,7 +972,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get testNotificationHint => 'يُرسل إشعارًا بعد بضع ثوانٍ للتحقق من الصوت والعرض.';
 
   @override
-  String get testNotificationTitle => 'سكينة: إشعار تجريبي';
+  String get testNotificationTitle => 'Zahrae Noor  —  زهراء نور: إشعار تجريبي';
 
   @override
   String get testNotificationBody => 'الإشعارات تعمل. سيصلك تنبيه عند دخول وقت كل صلاة.';

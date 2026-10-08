@@ -97,7 +97,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In fr, this message translates to:
-  /// **'Sakinah'**
+  /// **'Zahrae Noor  —  زهراء نور'**
   String get appTitle;
 
   /// No description provided for @navHome.
@@ -583,13 +583,13 @@ abstract class AppLocalizations {
   /// No description provided for @sourcesIntro.
   ///
   /// In fr, this message translates to:
-  /// **'Le contenu de Sakinah provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.'**
+  /// **'Le contenu de Zahrae Noor  —  زهراء نور provient de sources reconnues. Le texte du Coran est reproduit sans aucune modification.'**
   String get sourcesIntro;
 
   /// No description provided for @privacyNote.
   ///
   /// In fr, this message translates to:
-  /// **'Sakinah fonctionne entièrement sur votre téléphone : aucune donnée n\'est collectée ni envoyée.'**
+  /// **'Zahrae Noor  —  زهراء نور fonctionne entièrement sur votre téléphone : aucune donnée n\'est collectée ni envoyée.'**
   String get privacyNote;
 
   /// No description provided for @tanzilNoticeTitle.
@@ -1471,7 +1471,7 @@ abstract class AppLocalizations {
   /// No description provided for @widgetNoLocation.
   ///
   /// In fr, this message translates to:
-  /// **'Ouvrez Sakinah pour choisir votre ville.'**
+  /// **'Ouvrez Zahrae Noor  —  زهراء نور pour choisir votre ville.'**
   String get widgetNoLocation;
 
   /// No description provided for @findQibla.
@@ -1549,7 +1549,7 @@ abstract class AppLocalizations {
   /// No description provided for @testNotificationTitle.
   ///
   /// In fr, this message translates to:
-  /// **'Sakinah : notification de test'**
+  /// **'Zahrae Noor  —  زهراء نور : notification de test'**
   String get testNotificationTitle;
 
   /// No description provided for @testNotificationBody.

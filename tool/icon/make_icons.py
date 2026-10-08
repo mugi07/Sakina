@@ -1,4 +1,4 @@
-"""Icône de Sakinah : arche de mihrab crème, croissant doré, fond émeraude.
+"""Prépare les ressources de Zahrae Noor depuis app_icon.png (image approuvée).
 
 Usage (depuis la racine du projet) :
     python tool/icon/make_icons.py
@@ -132,12 +132,11 @@ def monochrome(size, scale):
 
 
 if __name__ == '__main__':
-    compose(1024).convert('RGB').save(os.path.join(OUT, 'app_icon.png'))
-    # Icône adaptative Android : flutter_launcher_icons ajoute déjà une marge
-    # de 16 %, qui place le dessin dans la zone sûre (66/108 du calque).
-    compose(1024, background=False).save(os.path.join(OUT, 'app_icon_foreground.png'))
-    monochrome(1024, 1.0).save(os.path.join(OUT, 'app_icon_monochrome.png'))
-    gradient(1024 // 8, EMERALD_TOP, EMERALD_BOTTOM).resize((1024, 1024), Image.BICUBIC).save(
+    # L'image approuvée est la source ; ne jamais la remplacer par l'ancien dessin.
+    source = Image.open(os.path.join(HERE, 'app_icon.png')).convert('RGB')
+    source.resize((1024, 1024), Image.Resampling.LANCZOS).save(
+        os.path.join(OUT, 'app_icon_foreground.png'))
+    Image.new('RGB', (1024, 1024), (0, 57, 35)).save(
         os.path.join(OUT, 'app_icon_background.png'))
     # Icône de notification (barre d'état) : 24 dp, silhouette blanche.
     for folder, px in (('mdpi', 24), ('hdpi', 36), ('xhdpi', 48), ('xxhdpi', 72), ('xxxhdpi', 96)):

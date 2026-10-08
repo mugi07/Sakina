@@ -97,7 +97,7 @@ class PrayerTimesWidgetProvider : HomeWidgetProvider() {
   private fun showMessage(views: RemoteViews, message: String) {
     views.setViewVisibility(R.id.widget_content, View.GONE)
     views.setViewVisibility(R.id.widget_message, View.VISIBLE)
-    views.setTextViewText(R.id.widget_message, message.ifEmpty { "Sakinah" })
+    views.setTextViewText(R.id.widget_message, message.ifEmpty { "Zahrae Noor  —  زهراء نور" })
   }
 
   private fun bold(text: String, bold: Boolean): CharSequence {
